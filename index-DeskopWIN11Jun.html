@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Carbonify Demo Views</title>
+    <style>
+      :root {
+        /* BaseProdWebsite brand palette */
+        --cb-brand-50-color: 214deg 100% 97%;
+        --cb-brand-100-color: 214deg 95% 93%;
+        --cb-brand-200-color: 213deg 97% 87%;
+        --cb-brand-300-color: 212deg 96% 78%;
+        --cb-brand-400-color: 213deg 94% 68%;
+        --cb-brand-500-color: 217deg 91% 60%;
+        --cb-brand-700-color: 224deg 76% 48%;
+        --cb-brand-800-color: 226deg 71% 40%;
+        --cb-brand-900-color: 225deg 64% 33%;
+        --cb-brand-950-color: 226deg 57% 21%;
+
+        /* Mapped Carbonify variables */
+        --brand: hsl(var(--cb-brand-500-color));
+        --brand-dark: hsl(var(--cb-brand-700-color));
+        --bg: #f8f9fa;
+        --surface: #ffffff;
+        --border: #e9ecef;
+        --text: #212529;
+        --muted: #6c757d;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+      }
+      header {
+        background: var(--brand);
+        color: #fff;
+        padding: 1rem 1.5rem;
+      }
+      .bonus-toggle {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+        font-size: 0.875rem;
+      }
+      .mobile-toggle {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+        font-size: 0.875rem;
+      }
+      .toggle-switch {
+        position: relative;
+        width: 44px;
+        height: 24px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 12px;
+        cursor: pointer;
+        transition: background 0.2s ease;
+      }
+      .toggle-switch.active {
+        background: rgba(255, 255, 255, 0.8);
+      }
+      .toggle-switch::after {
+        content: '';
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 20px;
+        height: 20px;
+        background: #fff;
+        border-radius: 50%;
+        transition: transform 0.2s ease;
+      }
+      .toggle-switch.active::after {
+        transform: translateX(20px);
+      }
+      .container {
+        max-width: 1200px;
+        margin: 1rem auto;
+        padding: 0 1rem;
+      }
+      .tabs {
+        display: flex;
+        gap: 0.5rem;
+        background: #e9ecef;
+        border-radius: 12px;
+        padding: 0.25rem;
+      }
+      .tab-btn {
+        border: 0;
+        background: transparent;
+        color: var(--muted);
+        padding: 0.625rem 1rem;
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .tab-btn.active {
+        background: var(--surface);
+        color: var(--brand);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      }
+      .view {
+        margin-top: 1rem;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        overflow: hidden;
+        display: none;
+      }
+      .view.active {
+        display: block;
+      }
+      iframe {
+        width: 100%;
+        height: 80vh;
+        border: 0;
+        display: block;
+      }
+
+      /* Hero Section Styles */
+      .hero-section {
+        background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
+        background-image: url('Hero-desktop-wide.webp');
+        background-size: cover;
+        background-position: center;
+        background-blend-mode: overlay;
+        position: relative;
+        overflow: hidden;
+        min-height: 60vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(44, 117, 255, 0.9) 0%, rgba(32, 84, 184, 0.8) 100%);
+        z-index: 1;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        color: #ffffff;
+        max-width: 800px;
+        padding: 2rem;
+        margin: 0 auto;
+      }
+
+      .hero-logo {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        opacity: 0;
+        animation: fadeInUp 0.8s ease-out 0.2s forwards;
+      }
+
+      .hero-title {
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        line-height: 1.2;
+        opacity: 0;
+        animation: fadeInUp 0.8s ease-out 0.4s forwards;
+      }
+
+      .hero-subtitle {
+        font-size: 1.25rem;
+        opacity: 0.9;
+        margin-bottom: 2rem;
+        opacity: 0;
+        animation: fadeInUp 0.8s ease-out 0.6s forwards;
+      }
+
+      .hero-stats {
+        display: flex;
+        justify-content: center;
+        gap: 3rem;
+        margin-bottom: 2rem;
+        opacity: 0;
+        animation: fadeInUp 0.8s ease-out 0.8s forwards;
+      }
+
+      .stat-item {
+        text-align: center;
+      }
+
+      .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        display: block;
+        margin-bottom: 0.25rem;
+      }
+
+      .stat-label {
+        font-size: 0.875rem;
+        opacity: 0.8;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .hero-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: #ffffff;
+        color: var(--brand);
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        opacity: 0;
+        animation: fadeInUp 0.8s ease-out 1s forwards;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-cta::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        transform: rotate(45deg) translateX(-100%);
+        transition: transform 0.6s ease;
+      }
+
+      .hero-cta:hover::after {
+        transform: rotate(45deg) translateX(100%);
+      }
+
+      .hero-cta:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+        background: var(--brand);
+        color: #ffffff;
+      }
+
+      .floating-cards {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .floating-card {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 16px;
+        padding: 1rem;
+        color: #ffffff;
+        font-size: 0.875rem;
+        font-weight: 500;
+        animation: float 6s ease-in-out infinite;
+        pointer-events: auto;
+      }
+
+      .floating-card:nth-child(1) {
+        top: 15%;
+        left: 5%;
+        animation-delay: 0s;
+      }
+
+      .floating-card:nth-child(2) {
+        top: 25%;
+        right: 8%;
+        animation-delay: 2s;
+      }
+
+      .floating-card:nth-child(3) {
+        bottom: 25%;
+        left: 8%;
+        animation-delay: 4s;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(0deg);
+        }
+        33% {
+          transform: translateY(-20px) rotate(2deg);
+        }
+        66% {
+          transform: translateY(-10px) rotate(-1deg);
+        }
+      }
+
+      /* Interactive Elements */
+      .interactive-element {
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .interactive-element:hover {
+        transform: scale(1.05);
+      }
+
+      /* Mobile Responsive */
+      @media (max-width: 768px) {
+        .hero-title {
+          font-size: 2.5rem;
+        }
+
+        .hero-stats {
+          flex-direction: column;
+          gap: 1.5rem;
+        }
+
+        .stat-number {
+          font-size: 2rem;
+        }
+
+        .floating-cards {
+          display: none;
+        }
+      }
+
+      /* Tablet adjustments */
+      @media (max-width: 1024px) {
+        .floating-card:nth-child(1) {
+          top: 10%;
+          left: 2%;
+        }
+
+        .floating-card:nth-child(2) {
+          top: 20%;
+          right: 5%;
+        }
+
+        .floating-card:nth-child(3) {
+          bottom: 20%;
+          left: 5%;
+        }
+      }
+
+      
+
+      /* Global Info Box Styles - Applied to all iframes */
+      .info-box {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: white;
+        border: 2px solid var(--brand);
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        z-index: 999999 !important;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        min-width: 280px;
+        max-width: 320px;
+        pointer-events: none;
+      }
+
+             /* Default right positioning */
+       .info-box {
+         right: calc(100% + 20px);
+         max-width: 320px;
+         min-width: 280px;
+         z-index: 999999 !important;
+       }
+
+       /* Left positioning for cards on the right side */
+       .info-box.info-box-left {
+         right: auto;
+         left: calc(100% + 20px);
+         z-index: 999999 !important;
+       }
+
+      .total-sum-display:hover .info-box,
+      .price-display:hover .info-box {
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+        z-index: 999999 !important;
+      }
+
+      /* Default right arrow */
+      .info-box::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        right: -8px;
+        transform: translateY(-50%);
+        width: 0;
+        height: 0;
+        border-top: 8px solid transparent;
+        border-bottom: 8px solid transparent;
+        border-left: 8px solid var(--brand);
+      }
+
+      .info-box::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        right: -6px;
+        transform: translateY(-50%);
+        width: 0;
+        height: 0;
+        border-top: 6px solid transparent;
+        border-bottom: 6px solid transparent;
+        border-left: 6px solid white;
+      }
+
+      /* Left arrow for left positioning */
+      .info-box.info-box-left::before {
+        right: auto;
+        left: -8px;
+        border-left: none;
+        border-right: 8px solid var(--brand);
+      }
+
+      .info-box.info-box-left::after {
+        right: auto;
+        left: -6px;
+        border-left: none;
+        border-right: 6px solid white;
+      }
+
+      .info-box-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--brand);
+        margin-bottom: 0.75rem;
+        text-align: center;
+      }
+
+      .info-box-details {
+        font-size: 0.9rem;
+        color: #6b7280;
+        margin-bottom: 1rem;
+        text-align: center;
+        font-weight: 600;
+      }
+
+      .info-box-process {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .info-box-process li {
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #f3f4f6;
+        font-size: 0.85rem;
+        color: #374151;
+        position: relative;
+        padding-left: 1.5rem;
+      }
+
+      .info-box-process li:last-child {
+        border-bottom: none;
+      }
+
+      .info-box-process li::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        color: var(--brand);
+        font-weight: bold;
+      }
+
+             /* Ensure price display boxes have relative positioning for info-box positioning */
+       .total-sum-display,
+       .price-display {
+         position: relative !important;
+       }
+
+      /* Mobile adjustments for info-box */
+      @media (max-width: 768px) {
+        .info-box {
+          top: 100% !important;
+          right: auto !important;
+          left: 50% !important;
+          transform: translateX(-50%) !important;
+          margin-top: 10px !important;
+          z-index: 999999 !important;
+        }
+
+        .total-sum-display:hover .info-box,
+        .price-display:hover .info-box {
+          transform: translateX(-50%) translateY(8px) !important;
+          opacity: 1 !important;
+          visibility: visible !important;
+        }
+
+        .info-box::before {
+          top: -8px;
+          right: auto;
+          left: 50%;
+          transform: translateX(-50%);
+          border-top: none;
+          border-bottom: 8px solid var(--brand);
+          border-left: 8px solid transparent;
+          border-right: 8px solid transparent;
+        }
+
+        .info-box::after {
+          top: -6px;
+          right: auto;
+          left: 50%;
+          transform: translateX(-50%);
+          border-top: none;
+          border-bottom: 6px solid white;
+          border-left: 6px solid transparent;
+          border-right: 6px solid transparent;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <h1 style="margin: 0; font-size: 1.25rem">carbonify – View Showcase</h1>
+        <div style="opacity: 0.9">Ein Basis-Layout mit allen Views</div>
+        <div class="bonus-toggle">
+          <span>Verivox Bonus anzeigen</span>
+          <div
+            class="toggle-switch"
+            id="bonusToggle"
+            title="Verivox Bonus ein-/ausschalten"
+          ></div>
+        </div>
+        <div class="mobile-toggle">
+          <span>Mobile Ansicht</span>
+          <div
+            class="toggle-switch"
+            id="mobileToggle"
+            title="Mobile Ansicht ein-/ausschalten"
+          ></div>
+        </div>
+      </div>
+    </header>
+
+
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+      <div class="floating-cards">
+        <div class="floating-card interactive-element">
+          <div>🚗</div>
+          <div>THG-Prämie</div>
+        </div>
+        <div class="floating-card interactive-element">
+          <div>💰</div>
+          <div id="maxPriceDisplay">Bis zu €215</div>
+        </div>
+        <div class="floating-card interactive-element">
+          <div>⚡</div>
+          <div>Express verfügbar</div>
+        </div>
+      </div>
+
+      <div class="hero-content">
+        <div class="hero-logo"></div>
+        <h1 class="hero-title">THG-Prämie sichern</h1>
+        <p class="hero-subtitle">Maximieren Sie Ihre Auszahlung mit Deutschlands führendem THG-Prämien-Service</p>
+
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-number" data-countup="true" data-start-val="0" data-end-val="250000" data-suffix="+" data-prefix="" data-duration="2.5" data-scroll-spy="true" data-scroll-spy-delay="0">0+</span>
+            <span class="stat-label">Zufriedene Kunden</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" id="maxPriceStat" data-countup="true" data-start-val="0" data-end-val="215" data-prefix="€" data-duration="2.0" data-scroll-spy="true" data-scroll-spy-delay="300">€0</span>
+            <span class="stat-label">Max. Prämie</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" data-countup="true" data-start-val="0" data-end-val="24" data-prefix="" data-suffix="h" data-duration="1.5" data-scroll-spy="true" data-scroll-spy-delay="600">0h</span>
+            <span class="stat-label">Express Service</span>
+          </div>
+        </div>
+
+        <a
+          href="#views"
+          class="hero-cta interactive-element"
+        >
+          <span>Wähle deine THG-Prämie</span>
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </a>
+      </div>
+    </div>
+    <main
+      class="container"
+      id="views"
+    >
+      <div
+        class="tabs"
+        role="tablist"
+      >
+        <button
+          class="tab-btn active"
+          data-target="#comparison"
+          role="tab"
+        >
+          Vergleich
+        </button>
+        <button
+          class="tab-btn"
+          data-target="#toggle"
+          role="tab"
+        >
+          Toggle-Ansicht
+        </button>
+        <button
+          class="tab-btn"
+          data-target="#planfinder"
+          role="tab"
+        >
+          Plan Finder
+        </button>
+        <button
+          class="tab-btn"
+          data-target="#figma"
+          role="tab"
+        >
+          Regler-Ansicht
+        </button>
+        <button
+          class="tab-btn"
+          data-target="#figma-copy"
+          role="tab"
+        >
+          Figma Copy
+        </button>
+                    <button
+              class="tab-btn"
+              data-target="#comparison-cards"
+              role="tab"
+            >
+              Vergleich (Cards)
+            </button>
+            <button
+              class="tab-btn"
+              data-target="#toggle-cards"
+              role="tab"
+            >
+              Toggle (Cards)
+            </button>
+            <button
+              class="tab-btn"
+              data-target="#planfinder-cards"
+              role="tab"
+            >
+              Plan Finder (Cards)
+            </button>
+
+      </div>
+
+      <section
+        id="comparison"
+        class="view active"
+        role="tabpanel"
+      >
+        <iframe
+          src="ComparisonView/comparisonview.html"
+          title="Vergleich Tabelle"
+        ></iframe>
+      </section>
+      <section
+        id="toggle"
+        class="view"
+        role="tabpanel"
+      >
+        <iframe
+          src="ToggleView/toggleview.html"
+          title="Slider"
+        ></iframe>
+      </section>
+      <section
+        id="planfinder"
+        class="view"
+        role="tabpanel"
+      >
+        <iframe
+          src="PlanFinder/carbonify-plan-finder.html"
+          title="Plan Finder"
+        ></iframe>
+      </section>
+      <section
+        id="figma"
+        class="view"
+        role="tabpanel"
+      >
+        <iframe
+          src="BaseDesignFigma/Figma-Productoption.html"
+          title="Regler-Ansicht"
+        ></iframe>
+      </section>
+      <section
+        id="figma-copy"
+        class="view"
+        role="tabpanel"
+      >
+        <iframe
+          src="FigmaCopy/figma-copy.html"
+          title="Figma Copy"
+        ></iframe>
+      </section>
+                <section
+            id="comparison-cards"
+            class="view"
+            role="tabpanel"
+          >
+            <iframe
+              src="ComparisonView/comparisonview-cards.html"
+              title="Vergleich Tabelle (Cards)"
+            ></iframe>
+          </section>
+          <section
+            id="toggle-cards"
+            class="view"
+            role="tabpanel"
+          >
+            <iframe
+              src="ToggleView/toggleview-cards.html"
+              title="Toggle (Cards)"
+            ></iframe>
+          </section>
+          <section
+            id="planfinder-cards"
+            class="view"
+            role="tabpanel"
+          >
+            <iframe
+              src="PlanFinder/carbonify-plan-finder-cards.html"
+              title="Plan Finder (Cards)"
+            ></iframe>
+          </section>
+
+    </main>
+
+    <script src="sample-data.js"></script>
+    <script src="countup.js"></script>
+    <script>
+      // Hero interactions
+      document.addEventListener('DOMContentLoaded', function () {
+        setupHeroInteractions();
+        // CountUp animations are auto-initialized via data attributes
+        console.log('Index.html: DOMContentLoaded, checking for countup elements...');
+        const countupElements = document.querySelectorAll('[data-countup]');
+        console.log('Index.html: Found', countupElements.length, 'countup elements');
+        countupElements.forEach((el, index) => {
+          console.log('Index.html: Element', index, ':', el.textContent, 'data:', el.dataset);
+        });
+      });
+
+      function setupHeroInteractions() {
+        // Add click handlers to floating cards
+        document.querySelectorAll('.floating-card').forEach((card) => {
+          card.addEventListener('click', function () {
+            this.style.transform = 'scale(1.1) rotate(5deg)';
+            setTimeout(() => {
+              this.style.transform = '';
+            }, 300);
+          });
+        });
+
+        // Smooth scroll to views section
+        document.querySelector('.hero-cta').addEventListener('click', function (e) {
+          e.preventDefault();
+          document.getElementById('views').scrollIntoView({
+            behavior: 'smooth',
+          });
+        });
+      }
+
+
+
+      // Tab switching functionality
+      document.querySelectorAll('.tab-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.tab-btn').forEach((b) => b.classList.remove('active'));
+          btn.classList.add('active');
+          const target = btn.getAttribute('data-target');
+          document.querySelectorAll('.view').forEach((v) => v.classList.remove('active'));
+          document.querySelector(target).classList.add('active');
+        });
+      });
+
+      // Bonus toggle functionality
+      const bonusToggle = document.getElementById('bonusToggle');
+      let bonusEnabled = false; // Default to disabled
+
+      bonusToggle.addEventListener('click', () => {
+        bonusEnabled = !bonusEnabled;
+        bonusToggle.classList.toggle('active', bonusEnabled);
+
+        // Send message to all iframes
+        const iframes = document.querySelectorAll('iframe');
+        iframes.forEach((iframe) => {
+          try {
+            iframe.contentWindow.postMessage(
+              {
+                type: 'toggleBonus',
+                enabled: bonusEnabled,
+              },
+              '*',
+            );
+          } catch (e) {
+            // Iframe might not be loaded yet
+            console.log('Could not send message to iframe:', e);
+          }
+        });
+      });
+
+      // Mobile toggle functionality
+      const mobileToggle = document.getElementById('mobileToggle');
+      let mobileEnabled = false; // Default to disabled
+
+      mobileToggle.addEventListener('click', () => {
+        mobileEnabled = !mobileEnabled;
+        mobileToggle.classList.toggle('active', mobileEnabled);
+
+        // Send message to all iframes
+        const iframes = document.querySelectorAll('iframe');
+        iframes.forEach((iframe) => {
+          try {
+            iframe.contentWindow.postMessage(
+              {
+                type: 'toggleMobile',
+                enabled: mobileEnabled,
+              },
+              '*',
+            );
+          } catch (e) {
+            // Iframe might not be loaded yet
+            console.log('Could not send message to iframe:', e);
+          }
+        });
+      });
+
+      // Listen for messages from iframes
+      window.addEventListener('message', (event) => {
+        if (event.data.type === 'requestBonusState') {
+          // Send current bonus state to requesting iframe
+          event.source.postMessage(
+            {
+              type: 'bonusState',
+              enabled: bonusEnabled,
+            },
+            '*',
+          );
+        } else if (event.data.type === 'requestMobileState') {
+          // Send current mobile state to requesting iframe
+          event.source.postMessage(
+            {
+              type: 'mobileState',
+              enabled: mobileEnabled,
+            },
+            '*',
+          );
+        }
+      });
+
+      // Inject global styles into all iframes for info-box functionality
+      function injectGlobalStyles() {
+        const iframes = document.querySelectorAll('iframe');
+        console.log('Injecting global styles into', iframes.length, 'iframes');
+        
+        iframes.forEach((iframe, index) => {
+          try {
+            if (iframe.contentDocument && iframe.contentDocument.head) {
+              // Check if styles already exist
+              if (!iframe.contentDocument.querySelector('#global-info-box-styles')) {
+                console.log('Injecting styles into iframe', index);
+                const style = iframe.contentDocument.createElement('style');
+                style.id = 'global-info-box-styles';
+                style.textContent = `
+                  .info-box {
+                    position: absolute !important;
+                    top: 50% !important;
+                    transform: translateY(-50%) !important;
+                    background: white !important;
+                    border: 2px solid hsl(217deg 91% 60%) !important;
+                    border-radius: 12px !important;
+                    padding: 1.5rem !important;
+                    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15) !important;
+                    z-index: 999999 !important;
+                    opacity: 0 !important;
+                    visibility: hidden !important;
+                    transition: all 0.3s ease !important;
+                    min-width: 280px !important;
+                    max-width: 320px !important;
+                    pointer-events: none !important;
+                  }
+
+                                                                           /* Default right positioning */
+                    .info-box {
+                      right: calc(100% + 20px) !important;
+                      max-width: 320px !important;
+                      min-width: 280px !important;
+                      z-index: 999999 !important;
+                    }
+
+                    /* Left positioning for cards on the right side */
+                    .info-box.info-box-left {
+                      right: auto !important;
+                      left: calc(100% + 20px) !important;
+                      z-index: 999999 !important;
+                    }
+
+                  .total-sum-display:hover .info-box,
+                  .price-display:hover .info-box {
+                    opacity: 1 !important;
+                    visibility: visible !important;
+                    pointer-events: auto !important;
+                    z-index: 999999 !important;
+                  }
+
+                  /* Default right arrow */
+                  .info-box::before {
+                    content: '' !important;
+                    position: absolute !important;
+                    top: 50% !important;
+                    right: -8px !important;
+                    transform: translateY(-50%) !important;
+                    width: 0 !important;
+                    height: 0 !important;
+                    border-top: 8px solid transparent !important;
+                    border-bottom: 8px solid transparent !important;
+                    border-left: 8px solid hsl(217deg 91% 60%) !important;
+                  }
+
+                  .info-box::after {
+                    content: '' !important;
+                    position: absolute !important;
+                    top: 50% !important;
+                    right: -6px !important;
+                    transform: translateY(-50%) !important;
+                    width: 0 !important;
+                    height: 0 !important;
+                    border-top: 6px solid transparent !important;
+                    border-bottom: 6px solid transparent !important;
+                    border-left: 6px solid white !important;
+                  }
+
+                  /* Left arrow for left positioning */
+                  .info-box.info-box-left::before {
+                    right: auto !important;
+                    left: -8px !important;
+                    border-left: none !important;
+                    border-right: 8px solid hsl(217deg 91% 60%) !important;
+                  }
+
+                  .info-box.info-box-left::after {
+                    right: auto !important;
+                    left: -6px !important;
+                    border-left: none !important;
+                    border-right: 6px solid white !important;
+                  }
+
+                  .info-box-title {
+                    font-size: 1.1rem !important;
+                    font-weight: 700 !important;
+                    color: hsl(217deg 91% 60%) !important;
+                    margin-bottom: 0.75rem !important;
+                    text-align: center !important;
+                  }
+
+                  .info-box-details {
+                    font-size: 0.9rem !important;
+                    color: #6b7280 !important;
+                    margin-bottom: 1rem !important;
+                    text-align: center !important;
+                    font-weight: 600 !important;
+                  }
+
+                  .info-box-process {
+                    list-style: none !important;
+                    padding: 0 !important;
+                    margin: 0 !important;
+                  }
+
+                  .info-box-process li {
+                    padding: 0.5rem 0 !important;
+                    border-bottom: 1px solid #f3f4f6 !important;
+                    font-size: 0.85rem !important;
+                    color: #374151 !important;
+                    position: relative !important;
+                    padding-left: 1.5rem !important;
+                  }
+
+                  .info-box-process li:last-child {
+                    border-bottom: none !important;
+                  }
+
+                  .info-box-process li::before {
+                    content: '' !important;
+                    position: absolute !important;
+                    left: 0 !important;
+                    color: hsl(217deg 91% 60%) !important;
+                    font-weight: bold !important;
+                  }
+
+                  .total-sum-display,
+                  .price-display {
+                    position: relative !important;
+                  }
+
+                  @media (max-width: 768px) {
+                    .info-box {
+                      top: 100% !important;
+                      right: auto !important;
+                      left: 50% !important;
+                      transform: translateX(-50%) !important;
+                      margin-top: 10px !important;
+                      z-index: 999999 !important;
+                    }
+
+                    .total-sum-display:hover .info-box,
+                    .price-display:hover .info-box {
+                      transform: translateX(-50%) translateY(8px) !important;
+                      opacity: 1 !important;
+                      visibility: visible !important;
+                    }
+
+                    .info-box::before {
+                      top: -8px !important;
+                      right: auto !important;
+                      left: 50% !important;
+                      transform: translateX(-50%) !important;
+                      border-top: none !important;
+                      border-bottom: 8px solid hsl(217deg 91% 60%) !important;
+                      border-left: 8px solid transparent !important;
+                      border-right: 8px solid transparent !important;
+                    }
+
+                    .info-box::after {
+                      top: -6px !important;
+                      right: auto !important;
+                      left: 50% !important;
+                      transform: translateX(-50%) !important;
+                      border-top: none !important;
+                      border-bottom: 6px solid white !important;
+                      border-left: 6px solid transparent !important;
+                      border-right: 6px solid transparent !important;
+                    }
+                  }
+                `;
+                iframe.contentDocument.head.appendChild(style);
+                
+                // Inject countup.js script if not already present
+                if (!iframe.contentDocument.querySelector('#countup-script')) {
+                  const scriptTag = document.createElement('script');
+                  scriptTag.id = 'countup-script';
+                  scriptTag.src = 'countup.js';
+                  scriptTag.onload = function() {
+                    console.log('CountUp script loaded in iframe');
+                  };
+                  iframe.contentDocument.head.appendChild(scriptTag);
+                }
+                
+                // Add dynamic positioning logic
+                setupDynamicInfoBoxPositioning(iframe.contentDocument);
+              }
+            }
+          } catch (e) {
+            // Iframe might not be accessible due to CORS
+            console.log('Could not inject styles into iframe:', e);
+          }
+        });
+      }
+
+      // Function to create a new info-box element
+      function createInfoBox() {
+        const infoBox = document.createElement('div');
+        infoBox.className = 'info-box';
+        infoBox.innerHTML = `
+          <div class="info-box-title">Lade...</div>
+          <div class="info-box-details">Berechne Prämie...</div>
+          <ul class="info-box-process">
+            <li>Wird geladen...</li>
+          </ul>
+        `;
+        return infoBox;
+      }
+
+      // Function to setup dynamic positioning for info boxes
+      function setupDynamicInfoBoxPositioning(doc) {
+        const priceBoxes = doc.querySelectorAll('.total-sum-display, .price-display');
+        console.log('Found price boxes for info-box positioning:', priceBoxes.length);
+        
+        priceBoxes.forEach(priceBox => {
+          let infoBox = priceBox.querySelector('.info-box');
+          if (!infoBox) {
+            console.log('Creating info-box for price box:', priceBox);
+            infoBox = createInfoBox();
+            priceBox.appendChild(infoBox);
+          }
+          
+          console.log('Setting up info-box positioning for:', priceBox, infoBox);
+          
+          // Function to determine positioning
+          function updateInfoBoxPosition() {
+            const priceBoxRect = priceBox.getBoundingClientRect();
+            const viewportWidth = window.innerWidth;
+            const infoBoxWidth = 320; // max-width of info box
+            
+            // Simple logic: if price box is in left half of viewport, show info-box on right
+            // if price box is in right half of viewport, show info-box on left
+            const priceBoxCenter = priceBoxRect.left + priceBoxRect.width / 2;
+            const viewportCenter = viewportWidth / 2;
+            
+            if (priceBoxCenter < viewportCenter) {
+              // Price box is on left side, show info-box on right
+              infoBox.classList.remove('info-box-left');
+              console.log('Price box on LEFT side, positioning info-box on RIGHT');
+            } else {
+              // Price box is on right side, show info-box on left
+              infoBox.classList.add('info-box-left');
+              console.log('Price box on RIGHT side, positioning info-box on LEFT');
+            }
+          }
+          
+          // Function to update info-box content based on plan and year selection
+          function updateInfoBoxContent() {
+            // Try to determine the plan from the price box context
+            let planName = 'klassik'; // default
+            let selectedYear = 'both'; // default
+            
+            // Look for plan indicators in the price box or its parent
+            const planCard = priceBox.closest('.plan-card, .card, .mobile-card');
+            if (planCard) {
+              const planNameElement = planCard.querySelector('.plan-name, h3');
+              if (planNameElement) {
+                const planText = planNameElement.textContent.toLowerCase();
+                if (planText.includes('express')) {
+                  planName = 'express';
+                } else if (planText.includes('klassik')) {
+                  planName = 'klassik';
+                }
+              }
+            }
+            
+            // Try to determine selected year from toggle options or other indicators
+            const yearToggle = doc.querySelector('.toggle-options .toggle-option.active');
+            if (yearToggle) {
+              const yearText = yearToggle.textContent.trim();
+              if (yearText === '2025') {
+                selectedYear = '2025';
+              } else if (yearText === '2026') {
+                selectedYear = '2026';
+              } else if (yearText.includes('2025') && yearText.includes('2026')) {
+                selectedYear = 'both';
+              }
+            }
+            
+            // Get vehicle class
+            const vehicleSelect = doc.querySelector('#vehicleClassSelect, .vehicle-dropdown');
+            const vehicleClass = vehicleSelect ? vehicleSelect.value : 'M1';
+            
+            // Generate content based on plan and year
+            let content = '';
+            
+            if (selectedYear === 'both') {
+              const price2025 = window.CARBONIFY_SAMPLE_DATA.getPrice(planName, '2025', vehicleClass);
+              const price2026 = window.CARBONIFY_SAMPLE_DATA.getPrice(planName, '2026', vehicleClass);
+              const totalSum = window.CARBONIFY_SAMPLE_DATA.getTotalSum(planName, vehicleClass);
+              
+              content = `
+                <div class="info-box-title">${planName.charAt(0).toUpperCase() + planName.slice(1)} Plan - Beide Jahre</div>
+                <div class="info-box-details">Gesamtprämie: €${totalSum}</div>
+                <ul class="info-box-process">
+                  <li>2025: €${price2025}</li>
+                  <li>2026: €${price2026}</li>
+                  <li>Verivox Bonus: +€30</li>
+                  <li>${planName === 'express' ? 'Auszahlung: 24h-2 Wochen' : 'Auszahlung: 4-16 Wochen'}</li>
+                </ul>
+              `;
+            } else {
+              const price = window.CARBONIFY_SAMPLE_DATA.getPrice(planName, selectedYear, vehicleClass);
+              
+              content = `
+                <div class="info-box-title">${planName.charAt(0).toUpperCase() + planName.slice(1)} Plan - ${selectedYear}</div>
+                <div class="info-box-details">Prämie: €${price}</div>
+                <ul class="info-box-process">
+                  <li>Jahr: ${selectedYear}</li>
+                  <li>Prämie: €${price}</li>
+                  <li>${planName === 'express' ? 'Auszahlung: 24h-2 Wochen' : 'Auszahlung: 4-16 Wochen'}</li>
+                </ul>
+              `;
+            }
+            
+            infoBox.innerHTML = content;
+          }
+          
+          // Update position on hover
+          priceBox.addEventListener('mouseenter', () => {
+            updateInfoBoxPosition();
+            updateInfoBoxContent();
+          });
+          
+          // Also update on window resize
+          window.addEventListener('resize', updateInfoBoxPosition);
+          
+          // Add click event for testing
+          priceBox.addEventListener('click', () => {
+            console.log('Price box clicked, info-box state:', {
+              opacity: infoBox.style.opacity,
+              visibility: infoBox.style.visibility,
+              zIndex: infoBox.style.zIndex,
+              classes: infoBox.className
+            });
+          });
+        });
+      }
+
+      // Inject styles when iframes load
+      document.addEventListener('DOMContentLoaded', () => {
+        // Initial injection
+        setTimeout(injectGlobalStyles, 1000);
+        
+        // Setup dynamic positioning for main document
+        setupDynamicInfoBoxPositioning(document);
+        
+        // Watch for iframe changes
+        const observer = new MutationObserver(() => {
+          setTimeout(injectGlobalStyles, 500);
+        });
+        
+        observer.observe(document.body, {
+          childList: true,
+          subtree: true
+        });
+
+        // Also inject styles when iframes load
+        const iframes = document.querySelectorAll('iframe');
+        iframes.forEach(iframe => {
+          iframe.addEventListener('load', () => {
+            setTimeout(() => {
+              injectGlobalStyles();
+              setupDynamicInfoBoxPositioning(iframe.contentDocument);
+            }, 500);
+          });
+        });
+        
+        // Add test function to window for debugging
+        window.testInfoBox = function() {
+          const infoBoxes = document.querySelectorAll('.info-box');
+          console.log('Found info-boxes:', infoBoxes.length);
+          infoBoxes.forEach((box, index) => {
+            console.log(`Info-box ${index}:`, {
+              element: box,
+              opacity: box.style.opacity,
+              visibility: box.style.visibility,
+              zIndex: box.style.zIndex,
+              classes: box.className,
+              computedStyle: window.getComputedStyle(box)
+            });
+          });
+        };
+
+        // Add function to manually show all info-boxes for testing
+        window.showAllInfoBoxes = function() {
+          const infoBoxes = document.querySelectorAll('.info-box');
+          infoBoxes.forEach(box => {
+            box.style.opacity = '1';
+            box.style.visibility = 'visible';
+            box.style.pointerEvents = 'auto';
+          });
+          console.log('All info-boxes should now be visible');
+        };
+
+        // Add function to manually hide all info-boxes
+        window.hideAllInfoBoxes = function() {
+          const infoBoxes = document.querySelectorAll('.info-box');
+          infoBoxes.forEach(box => {
+            box.style.opacity = '0';
+            box.style.visibility = 'hidden';
+            box.style.pointerEvents = 'none';
+          });
+          console.log('All info-boxes should now be hidden');
+        };
+
+        // Add function to force info-box positioning update
+        window.forceInfoBoxUpdate = function() {
+          console.log('Forcing info-box positioning update...');
+          injectGlobalStyles();
+          setupDynamicInfoBoxPositioning(document);
+          
+          // Also update all iframes
+          const iframes = document.querySelectorAll('iframe');
+          iframes.forEach(iframe => {
+            try {
+              if (iframe.contentDocument && iframe.contentDocument.body) {
+                setupDynamicInfoBoxPositioning(iframe.contentDocument);
+              }
+            } catch (e) {
+              console.log('Could not update iframe:', e);
+            }
+          });
+        };
+      });
+
+      // Also inject when tab changes with better timing
+      document.querySelectorAll('.tab-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          // Inject styles immediately and then again after iframe loads
+          injectGlobalStyles();
+          
+          // Wait for iframe to load, then inject styles again
+          setTimeout(() => {
+            injectGlobalStyles();
+            // Also setup positioning for the newly visible iframe
+            const iframes = document.querySelectorAll('iframe');
+            iframes.forEach(iframe => {
+              try {
+                if (iframe.contentDocument && iframe.contentDocument.body) {
+                  setupDynamicInfoBoxPositioning(iframe.contentDocument);
+                }
+              } catch (e) {
+                console.log('Could not setup positioning for iframe:', e);
+              }
+            });
+          }, 1000);
+        });
+      });
+
+      // Dynamic pricing update for hero section
+      function updateMaxPriceDisplay() {
+        if (window.CARBONIFY_SAMPLE_DATA) {
+          try {
+            // Get all available years and plans to find the highest price for M1 vehicle
+            const years = ['2025', '2026', 'both'];
+            const plans = ['klassik', 'express'];
+            let maxPrice = 0;
+            let maxPriceYear = '';
+            let maxPricePlan = '';
+
+            years.forEach(year => {
+              plans.forEach(plan => {
+                let price;
+                if (year === 'both') {
+                  price = window.CARBONIFY_SAMPLE_DATA.getTotalSum(plan, 'M1');
+                } else {
+                  price = window.CARBONIFY_SAMPLE_DATA.getPrice(plan, year, 'M1');
+                }
+                
+                if (price > maxPrice) {
+                  maxPrice = price;
+                  maxPriceYear = year;
+                  maxPricePlan = plan;
+                }
+              });
+            });
+
+            // Update the floating card display
+            const maxPriceElement = document.getElementById('maxPriceDisplay');
+            if (maxPriceElement) {
+              maxPriceElement.textContent = `Bis zu €${maxPrice}`;
+            }
+
+            // Update the hero stat and trigger CountUp animation
+            const maxPriceStat = document.getElementById('maxPriceStat');
+            if (maxPriceStat) {
+              // Update the data attribute for CountUp
+              maxPriceStat.dataset.endVal = maxPrice;
+              
+              // If CountUp is already initialized, update it
+              if (maxPriceStat.countupInstance) {
+                maxPriceStat.countupInstance.update(maxPrice);
+              } else {
+                // If CountUp hasn't been initialized yet, update the text directly
+                maxPriceStat.textContent = `€${maxPrice}`;
+              }
+            }
+
+            console.log(`Updated max price display: €${maxPrice} (${maxPricePlan} ${maxPriceYear})`);
+          } catch (error) {
+            console.error('Error updating max price display:', error);
+          }
+        } else {
+          console.log('Sample data not available yet, will retry...');
+          // Retry after a short delay
+          setTimeout(updateMaxPriceDisplay, 1000);
+        }
+      }
+
+      // Update max price when page loads
+      document.addEventListener('DOMContentLoaded', updateMaxPriceDisplay);
+      
+      // Also update when sample data becomes available
+      if (window.CARBONIFY_SAMPLE_DATA) {
+        updateMaxPriceDisplay();
+      } else {
+        // Wait for sample data to load
+        const checkSampleData = setInterval(() => {
+          if (window.CARBONIFY_SAMPLE_DATA) {
+            clearInterval(checkSampleData);
+            updateMaxPriceDisplay();
+          }
+        }, 100);
+      }
+
+      
+    </script>
+  </body>
+</html>
+
+x

@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>THG-Prämie Produktoptionen - Carbonify</title>
+    <link rel="stylesheet" href="../shared-styles.css">
+    <script src="../sample-data.js"></script>
+    <script src="../shared-utils.js"></script>
+  </head>
+  <body>
+    <div class="main-container">
+      <!-- Header -->
+      <div class="header">
+        <h1 class="header-title">THG-Prämie Produktoptionen</h1>
+        <p class="header-subtitle">Wählen Sie Ihren perfekten Plan</p>
+      </div>
+
+      <!-- Compact Controls Section -->
+      <div class="toggle-section">
+        <div class="compact-controls">
+          <!-- Vehicle Class Dropdown -->
+          <div class="control-group">
+            <label class="control-label">Fahrzeugklasse</label>
+            <select id="vehicleClassSelect" class="vehicle-dropdown">
+              <!-- Will be populated by shared utils -->
+            </select>
+          </div>
+
+          <!-- Year Switcher/Slider -->
+          <div class="control-group">
+            <label class="control-label">Zeitraum</label>
+            <div class="year-switcher">
+              <div class="switcher-track">
+                <div class="switcher-slider" id="switcherSlider"></div>
+                <div class="switcher-option" data-year="2025">2025</div>
+                <div class="switcher-option" data-year="both">Beide</div>
+                <div class="switcher-option" data-year="2026">2026</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Plan Content -->
+      <div class="plan-content">
+        <!-- Plan Cards Grid -->
+        <div class="card-grid">
+          <!-- Klassik Card -->
+          <div class="plan-card" data-plan="klassik">
+            <div class="plan-header">
+              <h3 class="plan-title">Klassik</h3>
+              <p class="plan-description">Etwas Wartezeit, höchste THG-Prämie</p>
+            </div>
+
+            <!-- Dynamic Price Display -->
+            <div class="total-sum-display glare-hover">
+              <div class="total-sum-amount" id="klassikPrice">€0</div>
+              <div class="total-sum-period" id="klassikPeriod">Wähle deine Optionen</div>
+              <div class="total-sum-bonus" id="klassikBonus">+ 30€ Verivox-Bonus</div>
+            </div>
+
+            <!-- Features List -->
+            <ul class="feature-list" id="klassikFeatures">
+              <!-- Will be populated dynamically -->
+            </ul>
+
+            <!-- CTA Button -->
+            <button class="cta-button" onclick="selectPlan('klassik')">
+              <span>Klassik jetzt beantragen</span>
+            </button>
+          </div>
+
+          <!-- Express Card -->
+          <div class="plan-card" data-plan="express">
+            <div class="plan-header">
+              <h3 class="plan-title">Express</h3>
+              <p class="plan-description">Die richtige Wahl für alle die es schnell wollen</p>
+            </div>
+
+            <!-- Dynamic Price Display -->
+            <div class="total-sum-display glare-hover">
+              <div class="total-sum-amount" id="expressPrice">€0</div>
+              <div class="total-sum-period" id="expressPeriod">Wähle deine Optionen</div>
+              <div class="total-sum-bonus" id="expressBonus">+ 30€ Verivox-Bonus</div>
+            </div>
+
+            <!-- Features List -->
+            <ul class="feature-list" id="expressFeatures">
+              <!-- Will be populated dynamically -->
+            </ul>
+
+            <!-- CTA Button -->
+            <button class="cta-button" onclick="selectPlan('express')">
+              <span>Express jetzt beantragen</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA Section -->
+    
+    </div>
+
+    <script>
+      // Initialize the page
+      document.addEventListener('DOMContentLoaded', function() {
+        let currentVehicle = 'M1';
+        let currentYear = 'both';
+
+        // Initialize vehicle dropdown
+        createVehicleDropdown('vehicleClassSelect', currentVehicle);
+
+        // Initialize year switcher
+        initializeYearSwitcher();
+
+        // Setup event listeners
+        setupEventListeners();
+
+        // Setup animations and effects
+        setupHoverEffects();
+        setupScrollAnimations();
+        setupFocusManagement();
+
+        // Initial display update
+        updateDisplay();
+
+        // Initial font size adjustment after a short delay to ensure DOM is ready
+        setTimeout(() => {
+          const priceElements = [
+            document.getElementById('klassikPrice'),
+            document.getElementById('expressPrice')
+          ];
+          const periodElements = [
+            document.getElementById('klassikPeriod'),
+            document.getElementById('expressPeriod')
+          ];
+
+          priceElements.forEach((priceElement, index) => {
+            if (priceElement && periodElements[index]) {
+              adjustFontSizeForContent(priceElement, periodElements[index]);
+            }
+          });
+        }, 100);
+
+        // Function to setup event listeners
+        function setupEventListeners() {
+          // Vehicle dropdown change
+          document.getElementById('vehicleClassSelect').addEventListener('change', function() {
+            currentVehicle = this.value;
+            updateDisplay();
+          });
+
+          // Year switcher clicks
+          document.querySelectorAll('.switcher-option').forEach(option => {
+            option.addEventListener('click', function() {
+              currentYear = this.dataset.year;
+              updateSwitcherPosition();
+              updateDisplay();
+            });
+          });
+        }
+
+        // Function to initialize year switcher
+        function initializeYearSwitcher() {
+          updateSwitcherPosition();
+        }
+
+        // Function to update switcher position
+        function updateSwitcherPosition() {
+          const slider = document.getElementById('switcherSlider');
+          const options = document.querySelectorAll('.switcher-option');
+          
+          // Remove active class from all options
+          options.forEach(opt => opt.classList.remove('active'));
+          
+          // Find the active option and add active class
+          const activeOption = document.querySelector(`[data-year="${currentYear}"]`);
+          if (activeOption) {
+            activeOption.classList.add('active');
+            
+            // Calculate slider position
+            const optionIndex = Array.from(options).indexOf(activeOption);
+            const sliderWidth = 100 / options.length;
+            const sliderLeft = optionIndex * sliderWidth;
+            
+            // Update slider position
+            slider.style.left = `${sliderLeft}%`;
+            slider.style.width = `${sliderWidth}%`;
+          }
+        }
+
+        // Function to update display
+        function updateDisplay() {
+          if (!window.CARBONIFY_SAMPLE_DATA) {
+            console.error('Sample data not available');
+            return;
+          }
+
+          // Update prices
+          updatePlanPrices('klassik', currentVehicle, currentYear);
+          updatePlanPrices('express', currentVehicle, currentYear);
+
+          // Update features
+          updatePlanFeatures('klassik', currentYear);
+          updatePlanFeatures('express', currentYear);
+
+          // Update CTA buttons
+          updateCTAText('klassik', 'Klassik jetzt beantragen');
+          updateCTAText('express', 'Express jetzt beantragen');
+        }
+
+        // Function to update plan prices
+        function updatePlanPrices(planName, vehicleClass, year) {
+          const priceElement = document.getElementById(`${planName}Price`);
+          const periodElement = document.getElementById(`${planName}Period`);
+          
+          if (!priceElement || !periodElement) return;
+
+          let price, periodText;
+          
+          if (year === 'both') {
+            price = window.CARBONIFY_SAMPLE_DATA.getTotalSum(planName, vehicleClass);
+            periodText = 'Gesamtsumme 2025 & 2026';
+          } else {
+            price = window.CARBONIFY_SAMPLE_DATA.getPrice(planName, year, vehicleClass);
+            periodText = year === '2025' ? 'für 2025' : 'für 2026';
+          }
+
+          // Animate price update
+          animatePriceUpdate(priceElement, `€${price}`, priceElement.textContent);
+          periodElement.textContent = periodText;
+
+          // Dynamically adjust font size to ensure full visibility
+          adjustFontSizeForContent(priceElement, periodElement);
+        }
+
+        // Function to dynamically adjust font sizes for optimal visibility
+        function adjustFontSizeForContent(priceElement, periodElement) {
+          if (!priceElement || !periodElement) return;
+
+          // Get the container dimensions
+          const container = priceElement.closest('.total-sum-display');
+          if (!container) return;
+
+          const containerWidth = container.offsetWidth;
+          const containerHeight = container.offsetHeight;
+
+          // Function to calculate optimal font size for price
+          function calculateOptimalFontSize(element, containerWidth, containerHeight) {
+            const text = element.textContent;
+            const textLength = text.length;
+            
+            // Base font sizes for different text lengths
+            let baseFontSize;
+            if (textLength <= 4) { // €70, €90, €145
+              baseFontSize = Math.min(containerWidth * 0.15, containerHeight * 0.4);
+            } else if (textLength <= 6) { // €2,500, €3,200
+              baseFontSize = Math.min(containerWidth * 0.12, containerHeight * 0.35);
+            } else if (textLength <= 8) { // €6,560, €10,000
+              baseFontSize = Math.min(containerWidth * 0.1, containerHeight * 0.3);
+            } else { // Very long numbers
+              baseFontSize = Math.min(containerWidth * 0.08, containerHeight * 0.25);
+            }
+
+            // Ensure minimum and maximum bounds
+            const minFontSize = 1.5; // rem
+            const maxFontSize = 4; // rem
+            
+            return Math.max(minFontSize, Math.min(maxFontSize, baseFontSize));
+          }
+
+          // Function to calculate optimal font size for period text
+          function calculateOptimalPeriodFontSize(element, containerWidth) {
+            const text = element.textContent;
+            const textLength = text.length;
+            
+            // Base font size based on text length
+            let baseFontSize;
+            if (textLength <= 15) {
+              baseFontSize = containerWidth * 0.04;
+            } else if (textLength <= 25) {
+              baseFontSize = containerWidth * 0.035;
+            } else {
+              baseFontSize = containerWidth * 0.03;
+            }
+
+            // Ensure minimum and maximum bounds
+            const minFontSize = 0.7; // rem
+            const maxFontSize = 1.1; // rem
+            
+            return Math.max(minFontSize, Math.min(maxFontSize, baseFontSize));
+          }
+
+          // Apply optimal font sizes
+          const optimalPriceFontSize = calculateOptimalFontSize(priceElement, containerWidth, containerHeight);
+          const optimalPeriodFontSize = calculateOptimalPeriodFontSize(periodElement, containerWidth);
+
+          // Apply the calculated font sizes
+          priceElement.style.fontSize = `${optimalPriceFontSize}rem`;
+          periodElement.style.fontSize = `${optimalPeriodFontSize}rem`;
+
+          // Add responsive adjustments for very small viewports
+          if (containerWidth < 300) {
+            // For very narrow containers, use more aggressive scaling
+            const narrowScale = Math.min(1, containerWidth / 300);
+            priceElement.style.fontSize = `${optimalPriceFontSize * narrowScale}rem`;
+            periodElement.style.fontSize = `${optimalPeriodFontSize * narrowScale}rem`;
+          }
+        }
+
+        // Function to handle window resize for font adjustments
+        function handleResize() {
+          const priceElements = [
+            document.getElementById('klassikPrice'),
+            document.getElementById('expressPrice')
+          ];
+          const periodElements = [
+            document.getElementById('klassikPeriod'),
+            document.getElementById('expressPeriod')
+          ];
+
+          priceElements.forEach((priceElement, index) => {
+            if (priceElement && periodElements[index]) {
+              adjustFontSizeForContent(priceElement, periodElements[index]);
+            }
+          });
+        }
+
+        // Add resize listener
+        window.addEventListener('resize', debounce(handleResize, 250));
+
+        // Debounce function for performance
+        function debounce(func, wait) {
+          let timeout;
+          return function executedFunction(...args) {
+            const later = () => {
+              clearTimeout(timeout);
+              func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+          };
+        }
+
+        // Function to update plan features
+        function updatePlanFeatures(planName, year) {
+          const featureList = document.getElementById(`${planName}Features`);
+          if (!featureList) return;
+
+          const planData = window.CARBONIFY_SAMPLE_DATA.plans[planName];
+          if (planData) {
+            updateFeatures(featureList, planData.features);
+          }
+        }
+
+        // Function to update CTA text
+        function updateCTAText(planName, text) {
+          const button = document.querySelector(`[data-plan="${planName}"] .cta-button span`);
+          if (button) {
+            button.textContent = text;
+          }
+        }
+
+        // Function to select plan
+        window.selectPlan = function(planName) {
+          const yearText = currentYear === 'both' ? 'beide Jahre' : currentYear;
+          const vehicleText = document.getElementById('vehicleClassSelect').selectedOptions[0].text;
+          
+          // Show success message
+          showSuccess(`${planName} Plan für ${yearText} ausgewählt!`, document.querySelector('.plan-content'));
+          
+          // Simulate plan selection
+          setTimeout(() => {
+            alert(`Sie haben ${planName} für ${yearText} bei carbonify ausgewählt!\n\nFahrzeug: ${vehicleText}\n\nWeiterleitung zur THG-Anmeldung...`);
+          }, 1000);
+        };
+      });
+    </script>
+
+    <style>
+      /* Compact Controls Styling */
+      .compact-controls {
+        display: flex;
+        align-items: flex-end;
+        gap: 2rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .control-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        min-width: 200px;
+      }
+
+      .control-label {
+        font-weight: 600;
+        color: var(--carbonify-gray-800);
+        font-size: 0.95rem;
+        text-align: center;
+      }
+
+      /* Year Switcher Styling */
+      .year-switcher {
+        background: var(--carbonify-gray-100);
+        border-radius: 25px;
+        padding: 4px;
+        position: relative;
+        min-width: 200px;
+      }
+
+      .switcher-track {
+        position: relative;
+        display: flex;
+        background: var(--carbonify-gray-100);
+        border-radius: 21px;
+        overflow: hidden;
+      }
+
+      .switcher-slider {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        background: var(--carbonify-primary);
+        border-radius: 21px;
+        transition: all var(--transition-bounce);
+        z-index: 1;
+      }
+
+      .switcher-option {
+        flex: 1;
+        padding: 0.75rem 1rem;
+        text-align: center;
+        font-weight: 500;
+        color: var(--carbonify-gray-600);
+        cursor: pointer;
+        transition: all var(--transition-normal);
+        position: relative;
+        z-index: 2;
+        user-select: none;
+      }
+
+      .switcher-option:hover {
+        color: var(--carbonify-gray-800);
+      }
+
+      .switcher-option.active {
+        color: var(--carbonify-white);
+        font-weight: 600;
+      }
+
+      /* Enhanced Plan Cards */
+      .plan-card {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .plan-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--carbonify-primary), var(--carbonify-primary-dark));
+        transform: scaleX(0);
+        transition: transform var(--transition-normal);
+      }
+
+      .plan-card:hover::before {
+        transform: scaleX(1);
+      }
+
+      .plan-header {
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .plan-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--carbonify-gray-800);
+        margin-bottom: 0.5rem;
+      }
+
+      .plan-description {
+        color: var(--carbonify-gray-600);
+        font-size: 0.95rem;
+        line-height: 1.5;
+      }
+
+      /* Dynamic Price Display Styling */
+      .total-sum-display {
+        position: relative;
+        overflow: hidden;
+        min-height: 120px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        box-sizing: border-box;
+      }
+
+      .total-sum-amount {
+        font-weight: 700;
+        line-height: 1;
+        margin-bottom: 0.5rem;
+        position: relative;
+        z-index: 1;
+        color: var(--carbonify-white);
+        text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        /* Dynamic font sizing will be applied via JavaScript */
+        font-size: clamp(2rem, 8vw, 4rem);
+        word-break: break-word;
+        hyphens: auto;
+        text-align: center;
+        padding: 0 0.5rem;
+        box-sizing: border-box;
+        /* Ensure text is always readable */
+        min-height: 1.2em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* Fallback for very long numbers */
+        max-width: 100%;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+      }
+
+      .total-sum-period {
+        color: rgba(255, 255, 255, 0.95);
+        font-weight: 600;
+        /* Dynamic font sizing for period text */
+        font-size: clamp(0.875rem, 3vw, 1.1rem);
+        margin-bottom: 1rem;
+        text-align: center;
+        padding: 0 0.5rem;
+        box-sizing: border-box;
+        line-height: 1.3;
+        /* Ensure text is always readable */
+        min-height: 1.3em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* Handle long text gracefully */
+        max-width: 100%;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+      }
+
+      .total-sum-bonus {
+        background: rgba(255, 255, 255, 0.25);
+        color: var(--carbonify-white);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        /* Dynamic font sizing for bonus text */
+        font-size: clamp(0.75rem, 2.5vw, 0.95rem);
+        padding: clamp(0.5rem, 2vw, 0.75rem) clamp(1rem, 3vw, 1.5rem);
+        border-radius: 25px;
+        font-weight: 600;
+        display: inline-block;
+        transition: all var(--transition-bounce);
+        box-shadow: var(--shadow-md);
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+        white-space: nowrap;
+        /* Ensure bonus text is always visible */
+        max-width: 100%;
+        box-sizing: border-box;
+      }
+
+      /* Enhanced responsive design for price display */
+      @media (max-width: 1200px) {
+        .total-sum-amount {
+          font-size: clamp(1.75rem, 6vw, 3.5rem);
+        }
+        
+        .total-sum-period {
+          font-size: clamp(0.8rem, 2.5vw, 1rem);
+        }
+        
+        .total-sum-bonus {
+          font-size: clamp(0.7rem, 2vw, 0.9rem);
+          padding: clamp(0.4rem, 1.5vw, 0.6rem) clamp(0.8rem, 2.5vw, 1.2rem);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .total-sum-amount {
+          font-size: clamp(1.5rem, 5vw, 3rem);
+        }
+        
+        .total-sum-period {
+          font-size: clamp(0.75rem, 2vw, 0.95rem);
+        }
+        
+        .total-sum-bonus {
+          font-size: clamp(0.65rem, 1.8vw, 0.85rem);
+          padding: clamp(0.35rem, 1.2vw, 0.55rem) clamp(0.7rem, 2vw, 1rem);
+        }
+      }
+
+      @media (max-width: 480px) {
+        .total-sum-amount {
+          font-size: clamp(1.25rem, 4vw, 2.5rem);
+        }
+        
+        .total-sum-period {
+          font-size: clamp(0.7rem, 1.8vw, 0.9rem);
+        }
+        
+        .total-sum-bonus {
+          font-size: clamp(0.6rem, 1.5vw, 0.8rem);
+          padding: clamp(0.3rem, 1vw, 0.5rem) clamp(0.6rem, 1.8vw, 0.9rem);
+        }
+      }
+
+      /* Extreme viewport handling */
+      @media (max-width: 320px) {
+        .total-sum-display {
+          min-height: 100px;
+          padding: 0.75rem;
+        }
+        
+        .total-sum-amount {
+          font-size: clamp(1rem, 3.5vw, 2rem);
+          min-height: 1em;
+        }
+        
+        .total-sum-period {
+          font-size: clamp(0.6rem, 1.5vw, 0.8rem);
+          min-height: 1.2em;
+        }
+        
+        .total-sum-bonus {
+          font-size: clamp(0.55rem, 1.3vw, 0.75rem);
+          padding: clamp(0.25rem, 0.8vw, 0.4rem) clamp(0.5rem, 1.5vw, 0.8rem);
+        }
+      }
+
+      /* Landscape orientation adjustments */
+      @media (max-height: 500px) and (orientation: landscape) {
+        .total-sum-display {
+          min-height: 80px;
+          padding: 0.5rem;
+        }
+        
+        .total-sum-amount {
+          font-size: clamp(1.5rem, 4vw, 2.5rem);
+          margin-bottom: 0.25rem;
+        }
+        
+        .total-sum-period {
+          font-size: clamp(0.7rem, 2vw, 0.9rem);
+          margin-bottom: 0.5rem;
+        }
+        
+        .total-sum-bonus {
+          font-size: clamp(0.6rem, 1.8vw, 0.8rem);
+          padding: clamp(0.3rem, 1vw, 0.5rem) clamp(0.6rem, 1.8vw, 0.9rem);
+        }
+      }
+
+      /* High DPI displays */
+      @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+        .total-sum-amount {
+          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+      }
+
+      /* Mobile Responsiveness */
+      @media (max-width: 768px) {
+        .compact-controls {
+          flex-direction: column;
+          align-items: center;
+          gap: 1.5rem;
+        }
+
+        .control-group {
+          min-width: 100%;
+          max-width: 300px;
+        }
+
+        .year-switcher {
+          min-width: 100%;
+          max-width: 300px;
+        }
+
+        .card-grid {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .compact-controls {
+          gap: 1rem;
+        }
+
+        .control-group {
+          max-width: 100%;
+        }
+
+        .year-switcher {
+          max-width: 100%;
+        }
+
+        .switcher-option {
+          padding: 0.5rem 0.75rem;
+          font-size: 0.9rem;
+        }
+      }
+    </style>
+
+    <script>
+      // Initialize variables
+      let currentYear = 'both';
+      let currentVehicleClass = 'M1';
+      let bonusEnabled = false;
+
+      // Initialize when DOM is loaded
+      document.addEventListener('DOMContentLoaded', function() {
+        // Setup vehicle dropdown
+        createVehicleDropdown('vehicleClassSelect', currentVehicleClass);
+        
+        // Setup year switcher
+        setupYearSwitcher();
+        
+        // Update initial display
+        updatePrices();
+        
+        // Request initial bonus state from parent
+        requestBonusState();
+      });
+
+      // Setup year switcher functionality
+      function setupYearSwitcher() {
+        const switcherOptions = document.querySelectorAll('.switcher-option');
+        const switcherSlider = document.getElementById('switcherSlider');
+        
+        switcherOptions.forEach((option, index) => {
+          option.addEventListener('click', function() {
+            const year = this.dataset.year;
+            if (year !== currentYear) {
+              currentYear = year;
+              updateActiveYearOption();
+              updatePrices();
+            }
+          });
+        });
+        
+        // Set initial active year
+        updateActiveYearOption();
+      }
+
+      // Update active year option styling
+      function updateActiveYearOption() {
+        const switcherOptions = document.querySelectorAll('.switcher-option');
+        const switcherSlider = document.getElementById('switcherSlider');
+        
+        switcherOptions.forEach((option, index) => {
+          option.classList.remove('active');
+          if (option.dataset.year === currentYear) {
+            option.classList.add('active');
+            // Move slider to active position
+            const optionWidth = option.offsetWidth;
+            const optionLeft = option.offsetLeft;
+            switcherSlider.style.width = optionWidth + 'px';
+            switcherSlider.style.left = optionLeft + 'px';
+          }
+        });
+      }
+
+      // Update prices based on current selections
+      function updatePrices() {
+        if (!window.CARBONIFY_SAMPLE_DATA) {
+          setTimeout(updatePrices, 100);
+          return;
+        }
+
+        let klassikPrice, expressPrice, periodText;
+        
+        if (currentYear === 'both') {
+          klassikPrice = window.CARBONIFY_SAMPLE_DATA.getTotalSum('klassik', currentVehicleClass);
+          expressPrice = window.CARBONIFY_SAMPLE_DATA.getTotalSum('express', currentVehicleClass);
+          periodText = 'Gesamtsumme 2025 & 2026';
+        } else {
+          klassikPrice = window.CARBONIFY_SAMPLE_DATA.getPrice('klassik', currentYear, currentVehicleClass);
+          expressPrice = window.CARBONIFY_SAMPLE_DATA.getPrice('express', currentYear, currentVehicleClass);
+          periodText = `Jahr ${currentYear}`;
+        }
+
+        // Update Klassik card
+        document.getElementById('klassikPrice').textContent = `€${klassikPrice}`;
+        document.getElementById('klassikPeriod').textContent = periodText;
+
+        // Update Express card
+        document.getElementById('expressPrice').textContent = `€${expressPrice}`;
+        document.getElementById('expressPeriod').textContent = periodText;
+
+        // Update features
+        updateFeatures();
+      }
+
+      // Update features based on current selections
+      function updateFeatures() {
+        if (!window.CARBONIFY_SAMPLE_DATA) return;
+
+        const klassikFeatures = window.CARBONIFY_SAMPLE_DATA.plans.klassik.features;
+        const expressFeatures = window.CARBONIFY_SAMPLE_DATA.plans.express.features;
+
+        // Update Klassik features
+        const klassikFeaturesList = document.getElementById('klassikFeatures');
+        klassikFeaturesList.innerHTML = klassikFeatures.map(feature => 
+          `<li class="feature-item"><div class="feature-icon">✓</div><span>${feature}</span></li>`
+        ).join('');
+
+        // Update Express features
+        const expressFeaturesList = document.getElementById('expressFeatures');
+        expressFeaturesList.innerHTML = expressFeatures.map(feature => 
+          `<li class="feature-item"><div class="feature-icon">✓</div><span>${feature}</span></li>`
+        ).join('');
+      }
+
+      // Vehicle class change handler
+      document.getElementById('vehicleClassSelect').addEventListener('change', function() {
+        currentVehicleClass = this.value;
+        updatePrices();
+      });
+
+      // Bonus toggle functionality
+      function toggleBonus(enabled) {
+        bonusEnabled = enabled;
+        
+        // Show/hide bonus elements
+        const bonusElements = document.querySelectorAll('.total-sum-bonus');
+        bonusElements.forEach(element => {
+          if (enabled) {
+            element.style.display = 'inline-block';
+          } else {
+            element.style.display = 'none';
+          }
+        });
+      }
+
+      // Request bonus state from parent
+      function requestBonusState() {
+        if (window.parent && window.parent !== window) {
+          window.parent.postMessage({
+            type: 'requestBonusState'
+          }, '*');
+        }
+      }
+
+      // Listen for messages from parent window
+      window.addEventListener('message', (event) => {
+        if (event.data.type === 'toggleBonus') {
+          toggleBonus(event.data.enabled);
+        } else if (event.data.type === 'requestBonusState') {
+          // Send current bonus state to parent
+          if (window.parent && window.parent !== window) {
+            window.parent.postMessage({
+              type: 'bonusState',
+              enabled: bonusEnabled
+            }, '*');
+          }
+        }
+      });
+
+      // Plan selection function
+      function selectPlan(planName) {
+        const yearText = currentYear === 'both' ? 'beide Jahre' : currentYear;
+        alert(`Sie haben ${planName} für ${yearText} bei carbonify ausgewählt!\n\nWeiterleitung zur THG-Anmeldung...`);
+        
+        // Here you would typically:
+        // 1. Track conversion event
+        // 2. Store selection data
+        // 3. Redirect to application form
+        // 4. Pre-fill form with selected options
+      }
+    </script>
+  </body>
+</html>

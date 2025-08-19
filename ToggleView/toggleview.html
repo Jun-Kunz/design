@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>THG-Prämie Plan-Auswahl - Carbonify</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../shared-styles.css">
+    <!-- Remove external dependencies and make self-contained -->
+    <!-- CountUp is loaded in the parent index.html -->
+  </head>
+  <body>
+    <div class="main-container">
+      <!-- Header -->
+      <div class="header" id="plan-selector">
+        <h1 class="header-title">THG-Prämie</h1>
+        <p class="header-subtitle">Wählen Sie Ihren perfekten Plan</p>
+      </div>
+
+      <!-- Toggle Controls -->
+      <div class="toggle-section">
+        <div class="toggle-group">
+          <label class="toggle-label">Plan-Typ</label>
+          <div class="toggle-options">
+            <button
+              class="toggle-option active"
+              data-plan="klassik"
+            >
+              Klassik
+            </button>
+            <button
+              class="toggle-option"
+              data-plan="express"
+            >
+              Express
+            </button>
+          </div>
+        </div>
+
+        <div class="toggle-group">
+          <label class="toggle-label">Zeitraum</label>
+          <div class="toggle-options">
+            <button
+              class="toggle-option"
+              data-year="2025"
+            >
+              2025
+            </button>
+            <button
+              class="toggle-option active"
+              data-year="both"
+            >
+              Beide
+            </button>
+            <button
+              class="toggle-option"
+              data-year="2026"
+            >
+              2026
+            </button>
+          </div>
+        </div>
+
+        <div class="toggle-group">
+          <label class="toggle-label">Fahrzeugklasse</label>
+          <div class="vehicle-dropdown-container">
+            <select id="vehicleClassSelect" class="vehicle-dropdown">
+              <!-- Vehicle options will be populated by shared utils -->
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Plan Content -->
+      <div
+        class="plan-content"
+        id="planContent"
+      >
+        <!-- Plan Card Container -->
+        <div class="plan-card glare-hover">
+          <div class="plan-header">
+            <h2
+              class="plan-name"
+              id="planName"
+            >
+              Klassik
+            </h2>
+            <p
+              class="plan-description"
+              id="planDescription"
+            >
+              Etwas Wartezeit, höchste THG-Prämie
+            </p>
+          </div>
+
+          <!-- Dynamic Price Display with Box Styling -->
+          <div class="total-sum-display glare-hover">
+            <div class="total-sum-amount" id="priceAmount">€0</div>
+            <div class="total-sum-period" id="pricePeriod">Gesamtsumme 2025 & 2026</div>
+            <div class="total-sum-bonus" id="toggleViewBonus" style="display: none;">+ 30€ Verivox-Bonus</div>
+          </div>
+
+
+          <div class="features-section">
+            <h3 class="features-title">Ihre Vorteile</h3>
+            <ul
+              class="feature-list"
+              id="featureList"
+            >
+              <!-- Features will be populated by JavaScript -->
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA Section -->
+      <div class="cta-section">
+        <button
+          class="cta-button"
+          onclick="applyForPlan()"
+        >
+          <span id="ctaText">Klassik jetzt beantragen</span>
+          <svg
+            class="w-5 h-5"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+        <script>
+      // Self-contained sample data
+      const SAMPLE_DATA = {
+        plans: {
+          klassik: {
+            name: 'Klassik',
+            description: 'Etwas Wartezeit, höchste THG-Prämie',
+            features: [
+              'Bis zu 130€ pro Jahr',
+              'UBA-geprüft und zertifiziert',
+              'Volle THG-Quote-Ausschöpfung',
+              'Kostenlose Registrierung'
+            ],
+            bonus: 30
+          },
+          express: {
+            name: 'Express',
+            description: 'Die richtige Wahl für alle die es schnell wollen',
+            features: [
+              'Bis zu 110€ pro Jahr',
+              'Sofortige Auszahlung',
+              'Keine Wartezeit',
+              'Garantierte Zahlung'
+            ],
+            bonus: 30
+          }
+        },
+        prices: {
+          klassik: {
+            '2025': { M1: 105, M3: 280, N1: 130, N2: 160, N3: 190 },
+            '2026': { M1: 110, M3: 295, N1: 135, N2: 170, N3: 200 }
+          },
+          express: {
+            '2025': { M1: 95, M3: 250, N1: 120, N2: 145, N3: 170 },
+            '2026': { M1: 100, M3: 265, N1: 125, N2: 155, N3: 180 }
+          }
+        }
+      };
+
+      // Vehicle options
+      const VEHICLE_OPTIONS = [
+        { value: 'M1', label: 'PKW (Klasse M1)' },
+        { value: 'M3', label: 'Busse (Klasse M3)' },
+        { value: 'N1', label: 'Leichtes Nutzfahrzeug (Klasse N1)' },
+        { value: 'N2', label: 'Schweres Nutzfahrzeug (Klasse N2)' },
+        { value: 'N3', label: 'Schweres Nutzfahrzeug (Klasse N3)' }
+      ];
+
+      let currentPlan = 'klassik';
+      let currentYear = 'both';
+      let currentVehicleClass = 'M1';
+      let bonusEnabled = false;
+
+      // Get price for specific plan, year, and vehicle class
+      function getPrice(plan, year, vehicleClass) {
+        return SAMPLE_DATA.prices[plan][year][vehicleClass] || 0;
+      }
+
+      // Get total sum for both years
+      function getTotalSum(plan, vehicleClass) {
+        const price2025 = getPrice(plan, '2025', vehicleClass);
+        const price2026 = getPrice(plan, '2026', vehicleClass);
+        return price2025 + price2026;
+      }
+
+      // Create vehicle dropdown
+      function createVehicleDropdown() {
+        const vehicleSelect = document.getElementById('vehicleClassSelect');
+        if (!vehicleSelect) return;
+        
+        vehicleSelect.innerHTML = '';
+        VEHICLE_OPTIONS.forEach(option => {
+          const optionElement = document.createElement('option');
+          optionElement.value = option.value;
+          optionElement.textContent = option.label;
+          optionElement.selected = option.value === currentVehicleClass;
+          vehicleSelect.appendChild(optionElement);
+        });
+        
+        console.log('Vehicle dropdown created with', VEHICLE_OPTIONS.length, 'options');
+      }
+
+      // Setup toggle button functionality
+      function setupToggleButtons(selector, onClickCallback) {
+        const buttons = document.querySelectorAll(selector);
+        buttons.forEach(button => {
+          button.addEventListener('click', function() {
+            // Remove active class from all buttons in this group
+            const group = this.closest('.toggle-options');
+            group.querySelectorAll('.toggle-option').forEach(btn => {
+              btn.classList.remove('active');
+            });
+            
+            // Add active class to clicked button
+            this.classList.add('active');
+            
+            // Call callback
+            if (onClickCallback) {
+              onClickCallback(this);
+            }
+          });
+        });
+      }
+
+      // Update plan display
+      function updatePlanDisplay() {
+        const plan = SAMPLE_DATA.plans[currentPlan];
+        
+        // Update plan info
+        document.getElementById('planName').textContent = plan.name;
+        document.getElementById('planDescription').textContent = plan.description;
+
+        // Calculate price
+        let price, periodText;
+        if (currentYear === 'both') {
+          price = getTotalSum(currentPlan, currentVehicleClass);
+          periodText = 'Gesamtsumme 2025 & 2026';
+        } else {
+          price = getPrice(currentPlan, currentYear, currentVehicleClass);
+          periodText = `Jahr ${currentYear}`;
+        }
+
+        // Update price display
+        document.getElementById('priceAmount').textContent = `€${price}`;
+        document.getElementById('pricePeriod').textContent = periodText;
+
+        // Update CTA button
+        document.getElementById('ctaText').textContent = `${plan.name} jetzt beantragen`;
+
+        // Update features
+        const featuresList = document.getElementById('featureList');
+        featuresList.innerHTML = '';
+        plan.features.forEach(feature => {
+          const li = document.createElement('li');
+          li.className = 'feature-item';
+          li.innerHTML = `
+            <div class="feature-icon">
+              <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <span>${feature}</span>
+          `;
+          featuresList.appendChild(li);
+        });
+
+        console.log('Updated display:', {
+          plan: currentPlan,
+          year: currentYear,
+          vehicleClass: currentVehicleClass,
+          price: price
+        });
+      }
+
+      // Setup event listeners
+      function setupEventListeners() {
+        // Plan toggles
+        setupToggleButtons('[data-plan]', function(button) {
+          const plan = button.dataset.plan;
+          if (plan !== currentPlan) {
+            currentPlan = plan;
+            updatePlanDisplay();
+          }
+        });
+
+        // Year toggles
+        setupToggleButtons('[data-year]', function(button) {
+          const year = button.dataset.year;
+          if (year !== currentYear) {
+            currentYear = year;
+            updatePlanDisplay();
+          }
+        });
+
+        // Vehicle class selector
+        document.getElementById('vehicleClassSelect').addEventListener('change', function() {
+          const vehicleClass = this.value;
+          if (vehicleClass !== currentVehicleClass) {
+            currentVehicleClass = vehicleClass;
+            updatePlanDisplay();
+          }
+        });
+      }
+
+      // Apply for plan
+      function applyForPlan() {
+        const plan = SAMPLE_DATA.plans[currentPlan];
+        const yearText = currentYear === 'both' ? 'beide Jahre' : currentYear;
+        alert(`Sie beantragen ${plan.name} für ${yearText} bei carbonify!\n\nWeiterleitung zur Anmeldung...`);
+      }
+
+      // Bonus toggle functionality
+      function toggleBonus(enabled) {
+        bonusEnabled = enabled;
+        const bonusElement = document.getElementById('toggleViewBonus');
+        if (bonusElement) {
+          bonusElement.style.display = enabled ? 'inline-block' : 'none';
+        }
+      }
+
+      // Initialize everything
+      document.addEventListener('DOMContentLoaded', function () {
+        console.log('Initializing self-contained toggle view...');
+        
+        // Create vehicle dropdown
+        createVehicleDropdown();
+        
+        // Setup event listeners
+        setupEventListeners();
+        
+        // Initial display update
+        updatePlanDisplay();
+        
+        console.log('Toggle view initialized successfully!');
+      });
+
+      // Listen for messages from parent window
+      window.addEventListener('message', (event) => {
+        if (event.data.type === 'toggleBonus') {
+          toggleBonus(event.data.enabled);
+        }
+      });
+    </script>
+  </body>
+</html>

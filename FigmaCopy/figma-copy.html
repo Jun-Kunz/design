@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Figma Copy - Service Plan Selection</title>
+    <style>
+        :root {
+            --brand: hsl(217deg 91% 60%);
+            --brand-dark: hsl(224deg 76% 48%);
+            --bg: #f8f9fa;
+            --surface: #ffffff;
+            --border: #e9ecef;
+            --text: #212529;
+            --muted: #6c757d;
+            --light-blue: #e3f2fd;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            padding: 2rem;
+        }
+
+        .form-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #f5f5f5;
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            border: 2px solid var(--brand);
+            background: var(--surface);
+            color: var(--brand);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .tab-btn.active {
+            background: var(--brand);
+            color: var(--surface);
+        }
+
+        .tab-btn:hover:not(.active) {
+            background: var(--light-blue);
+        }
+
+        .plans-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .plan-card {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .plan-title {
+            color: var(--brand);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .plan-description {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.4;
+        }
+
+        .premium-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .premium-label {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .premium-amount {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text);
+            display: inline-block;
+            margin-right: 0.5rem;
+        }
+
+        .premium-timing {
+            color: var(--muted);
+            font-size: 0.9rem;
+            display: inline-block;
+            vertical-align: bottom;
+            margin-bottom: 0.5rem;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .features-list li {
+            padding: 0.5rem 0;
+            color: var(--text);
+            font-size: 0.9rem;
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .features-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--brand);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .cta-button {
+            background: var(--brand);
+            color: var(--surface);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .cta-button:hover {
+            background: var(--brand-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            .form-container {
+                padding: 1.5rem;
+            }
+
+            .plans-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .tab-btn {
+                width: 100%;
+                max-width: 200px;
+            }
+        }
+
+        /* Tablet adjustments */
+        @media (max-width: 1024px) {
+            .plans-container {
+                gap: 1.5rem;
+            }
+
+            .plan-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <!-- Tab Navigation -->
+        <div class="tabs">
+            <button class="tab-btn active" data-year="2025">2025</button>
+            <button class="tab-btn" data-year="2026">2026</button>
+            <button class="tab-btn" data-year="both">2025 & 2026</button>
+        </div>
+
+        <!-- Plans Container -->
+        <div class="plans-container">
+            <!-- Klassik Plan Card -->
+            <div class="plan-card" data-plan="klassik">
+                <h3 class="plan-title">Klassik 2025</h3>
+                <p class="plan-description">Unser Favorit: Etwas Wartezeit, höhere THG-Prämie.</p>
+                
+                <div class="premium-section">
+                    <span class="premium-label">Prämie</span>
+                    <span class="premium-amount">€ 90</span>
+                    <span class="premium-timing">in 4-6 Monaten</span>
+                </div>
+
+                <ul class="features-list">
+                    <li>Auszahlung nach offizieller UBA-Zertifizierung</li>
+                    <li>Marktgerechte Prämienhöhe</li>
+                    <li>Bewährter Ablauf mit voller Transparenz</li>
+                </ul>
+
+                <button class="cta-button">Prämie sichern</button>
+            </div>
+
+            <!-- Express Plan Card -->
+            <div class="plan-card" data-plan="express">
+                <h3 class="plan-title">Express 2025</h3>
+                <p class="plan-description">Die richtige Wahl für alle die es schnell wollen.</p>
+                
+                <div class="premium-section">
+                    <span class="premium-label">Prämie</span>
+                    <span class="premium-amount">€ 70</span>
+                    <span class="premium-timing">innerhalb 1 Woche</span>
+                </div>
+
+                <ul class="features-list">
+                    <li>Schnellste Auszahlung</li>
+                    <li>Sofortige Bearbeitung nach Fahrzeugscheineingang</li>
+                    <li>Einfacher und transparenter Ablauf ohne Wartezeit</li>
+                </ul>
+
+                <button class="cta-button">Prämie sichern</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functionality
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all tabs
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                btn.classList.add('active');
+                
+                // Get the selected year
+                const selectedYear = btn.getAttribute('data-year');
+                
+                // Update plan titles and content based on selected year
+                updatePlanContent(selectedYear);
+            });
+        });
+
+        function updatePlanContent(year) {
+            const klassikCard = document.querySelector('[data-plan="klassik"]');
+            const expressCard = document.querySelector('[data-plan="express"]');
+            
+            if (year === '2025') {
+                klassikCard.querySelector('.plan-title').textContent = 'Klassik 2025';
+                expressCard.querySelector('.plan-title').textContent = 'Express 2025';
+                
+                klassikCard.querySelector('.premium-amount').textContent = '€ 90';
+                expressCard.querySelector('.premium-amount').textContent = '€ 70';
+                
+                klassikCard.querySelector('.premium-timing').textContent = 'in 4-6 Monaten';
+                expressCard.querySelector('.premium-timing').textContent = 'innerhalb 1 Woche';
+            } else if (year === '2026') {
+                klassikCard.querySelector('.plan-title').textContent = 'Klassik 2026';
+                expressCard.querySelector('.plan-title').textContent = 'Express 2026';
+                
+                klassikCard.querySelector('.premium-amount').textContent = '€ 95';
+                expressCard.querySelector('.premium-amount').textContent = '€ 75';
+                
+                klassikCard.querySelector('.premium-timing').textContent = 'in 4-6 Monaten';
+                expressCard.querySelector('.premium-timing').textContent = 'innerhalb 1 Woche';
+            } else if (year === 'both') {
+                klassikCard.querySelector('.plan-title').textContent = 'Klassik 2025 & 2026';
+                expressCard.querySelector('.plan-title').textContent = 'Express 2025 & 2026';
+                
+                klassikCard.querySelector('.premium-amount').textContent = '€ 185';
+                expressCard.querySelector('.premium-amount').textContent = '€ 145';
+                
+                klassikCard.querySelector('.premium-timing').textContent = 'in 4-6 Monaten';
+                expressCard.querySelector('.premium-timing').textContent = 'innerhalb 1 Woche';
+            }
+        }
+
+        // CTA button functionality
+        document.querySelectorAll('.cta-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const planCard = this.closest('.plan-card');
+                const planType = planCard.getAttribute('data-plan');
+                const activeTab = document.querySelector('.tab-btn.active');
+                const selectedYear = activeTab.getAttribute('data-year');
+                
+                alert(`Sie haben den ${planType} Plan für ${selectedYear} ausgewählt. Weiterleitung zur Buchung...`);
+            });
+        });
+    </script>
+</body>
+</html>

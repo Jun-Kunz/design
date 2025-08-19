@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>THG-Prämie Plan-Finder - Carbonify</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../shared-styles.css">
+    <script src="../shared-utils.js"></script>
+    <script src="../sample-data.js"></script>
+    <!-- CountUp is loaded in the parent index.html -->
+    <style>
+      /* Plan Finder specific styles */
+      .priority-toggle {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin: 2rem 0;
+      }
+
+      .toggle-icon {
+        width: 48px;
+        height: 48px;
+        margin: 0 auto 1rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--carbonify-gray-100);
+        transition: all 0.3s ease;
+        color: var(--carbonify-gray-600);
+      }
+
+      .toggle-option.selected .toggle-icon {
+        background: rgba(255, 255, 255, 0.2);
+        color: var(--carbonify-white);
+      }
+
+      .year-chip {
+        background: var(--carbonify-white);
+        border: 2px solid var(--carbonify-gray-200);
+        border-radius: 50px;
+        padding: 0.75rem 1.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 600;
+        color: var(--carbonify-gray-700);
+      }
+
+      .year-chip:hover {
+        border-color: var(--carbonify-primary);
+        background: var(--carbonify-gray-50);
+        color: var(--carbonify-primary);
+      }
+
+      .year-chip.selected {
+        background: var(--carbonify-primary);
+        color: var(--carbonify-white);
+        border-color: var(--carbonify-primary);
+      }
+
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+      }
+
+      .plan-card {
+        background: var(--carbonify-white);
+        border: 2px solid var(--carbonify-gray-200);
+        border-radius: 16px;
+        padding: 1.5rem;
+        padding-bottom: 2.5rem;
+        transition: all 0.3s ease;
+        position: relative;
+        cursor: pointer;
+      }
+
+      .plan-card:hover {
+        border-color: var(--carbonify-primary);
+        transform: translateY(-4px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+      }
+
+      .plan-card.recommended {
+        border-color: var(--carbonify-primary);
+        background: var(--carbonify-white);
+        box-shadow: 0 8px 25px rgba(44, 117, 255, 0.1);
+      }
+
+      .plan-card.selected {
+        border-color: var(--carbonify-primary);
+        background: var(--carbonify-white);
+        box-shadow: 0 8px 25px rgba(44, 117, 255, 0.2);
+      }
+
+      .recommended-badge {
+        position: absolute;
+        top: -10px;
+        right: 1rem;
+        background: var(--carbonify-primary);
+        color: var(--carbonify-white);
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .price-display {
+        text-align: center;
+        margin: 1rem 0;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .price-amount {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--carbonify-gray-800);
+        line-height: 1;
+      }
+
+      .price-period {
+        color: var(--carbonify-gray-500);
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+      }
+
+      .bonus-text {
+        color: var(--carbonify-primary);
+        font-weight: 600;
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
+      }
+
+      .progress-bar {
+        height: 4px;
+        background: var(--carbonify-gray-200);
+        border-radius: 2px;
+        overflow: hidden;
+        margin-bottom: 2rem;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: var(--carbonify-primary);
+        transition: width 0.5s ease;
+      }
+
+      .step-indicator {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .step-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .step-dot.active {
+        background: var(--carbonify-white);
+        transform: scale(1.2);
+      }
+
+      .unsure-option {
+        text-align: center;
+        margin: 1rem 0;
+      }
+
+      .unsure-button {
+        background: var(--carbonify-white);
+        border: 2px dashed var(--carbonify-gray-300);
+        color: var(--carbonify-gray-500);
+        padding: 1rem 2rem;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 500;
+      }
+
+      .unsure-button:hover {
+        border-color: var(--carbonify-primary);
+        color: var(--carbonify-primary);
+        background: var(--carbonify-gray-50);
+      }
+
+      .carbonify-bonus {
+        background: var(--carbonify-primary);
+        color: var(--carbonify-white);
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 1.1rem;
+        box-shadow: 0 8px 25px rgba(44, 117, 255, 0.3);
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .fade-in {
+        animation: fadeIn 0.5s ease-in;
+      }
+
+      .slide-in {
+        animation: slideIn 0.5s ease-out;
+      }
+
+      @media (max-width: 768px) {
+        .priority-toggle {
+          grid-template-columns: 1fr;
+          gap: 1rem;
+        }
+
+        .year-selector {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .card-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .step-container {
+          margin: 1rem;
+        }
+
+        .step-content {
+          padding: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Step 1: Priority Selection -->
+    <div
+      id="step1"
+      class="step-container fade-in"
+    >
+      <div class="step-header">
+        <div class="carbonify-logo">carbonify</div>
+        <div class="step-indicator">
+          <div class="step-dot active"></div>
+          <div class="step-dot"></div>
+          <div class="step-dot"></div>
+        </div>
+        <h1 class="header-title">Was ist Ihnen wichtiger?</h1>
+        <p class="header-subtitle">Wir finden den perfekten THG-Plan für Sie</p>
+      </div>
+
+      <div class="step-content">
+        <div class="progress-bar">
+          <div
+            class="progress-fill"
+            style="width: 33%"
+          ></div>
+        </div>
+
+        <div class="priority-toggle">
+          <div
+            class="toggle-option"
+            data-priority="speed"
+          >
+            <div class="toggle-icon">
+              <svg
+                class="w-6 h-6"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.293l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold mb-2">Schnelle Auszahlung</h3>
+            <p class="text-sm opacity-75">Express-Prämie: Auszahlung innerhalb einer Woche</p>
+          </div>
+
+          <div
+            class="toggle-option"
+            data-priority="amount"
+          >
+            <div class="toggle-icon">
+              <svg
+                class="w-6 h-6"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"
+                />
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold mb-2">Maximale Prämie</h3>
+            <p class="text-sm opacity-75">Klassik-Prämie: Höhere Auszahlung nach UBA-Zertifizierung</p>
+          </div>
+        </div>
+
+        <div class="unsure-option">
+          <button
+            class="unsure-button"
+            onclick="showBothOptions()"
+          >
+            <svg
+              class="w-5 h-5 inline mr-2"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            Ich weiß es noch nicht - zeige mir beide Optionen
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2: Year Selection -->
+    <div
+      id="step2"
+      class="step-container hidden"
+    >
+      <div class="step-header">
+        <div class="carbonify-logo">carbonify</div>
+        <div class="step-indicator">
+          <div class="step-dot active"></div>
+          <div class="step-dot active"></div>
+          <div class="step-dot"></div>
+        </div>
+        <h1 class="header-title">Für welche Jahre?</h1>
+        <p class="header-subtitle">Wählen Sie Ihren gewünschten Zeitraum</p>
+      </div>
+
+      <div class="step-content">
+        <div class="progress-bar">
+          <div
+            class="progress-fill"
+            style="width: 66%"
+          ></div>
+        </div>
+
+        <div class="year-selector" id="yearSelector">
+          <!-- Year options will be populated by shared utils -->
+        </div>
+
+        <div class="vehicle-selector mt-6">
+          <h3 class="text-lg font-semibold mb-3 text-center" style="color: var(--carbonify-gray-800)">Fahrzeugklasse</h3>
+          <div class="vehicle-dropdown-container">
+            <select id="vehicleClassSelect" class="vehicle-dropdown">
+              <!-- Vehicle options will be populated by shared utils -->
+            </select>
+          </div>
+        </div>
+
+        <div class="text-center mt-6">
+          <button
+            class="cta-button"
+            onclick="showRecommendations()"
+          >
+            THG-Empfehlungen anzeigen
+            <svg
+              class="w-5 h-5 inline ml-2"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3: Recommendations -->
+    <div
+      id="step3"
+      class="step-container hidden"
+    >
+      <div class="step-header">
+        <div class="carbonify-logo">carbonify</div>
+        <div class="step-indicator">
+          <div class="step-dot active"></div>
+          <div class="step-dot active"></div>
+          <div class="step-dot active"></div>
+        </div>
+        <h1 class="header-title">Ihre THG-Empfehlungen</h1>
+        <p
+          class="header-subtitle"
+          id="recommendation-subtitle"
+        >
+          Basierend auf Ihren Präferenzen
+        </p>
+      </div>
+
+      <div class="step-content">
+        <div class="progress-bar">
+          <div
+            class="progress-fill"
+            style="width: 100%"
+          ></div>
+        </div>
+
+        <div
+          class="card-grid"
+          id="recommendations-grid"
+        >
+          <!-- Cards will be dynamically inserted here -->
+        </div>
+
+        <div class="text-center mt-6">
+          <button
+            class="cta-button secondary"
+            onclick="goBack()"
+          >
+            <svg
+              class="w-5 h-5 inline mr-2"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            Auswahl ändern
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let userPreferences = {
+        priority: null,
+        year: 'both',
+        vehicleClass: 'M1',
+        showBoth: false,
+      };
+
+      let selectedCard = null;
+
+      // Plans from centralized sample data
+      const plans = {
+        klassik: {
+          name: window.CARBONIFY_SAMPLE_DATA.plans.klassik.name,
+          bonus: window.CARBONIFY_SAMPLE_DATA.plans.klassik.bonus,
+          speed: 'slow',
+          amount: 'high',
+          features: window.CARBONIFY_SAMPLE_DATA.plans.klassik.features,
+          description: window.CARBONIFY_SAMPLE_DATA.plans.klassik.description,
+        },
+        express: {
+          name: window.CARBONIFY_SAMPLE_DATA.plans.express.name,
+          bonus: window.CARBONIFY_SAMPLE_DATA.plans.express.bonus,
+          speed: 'fast',
+          amount: 'medium',
+          features: window.CARBONIFY_SAMPLE_DATA.plans.express.features,
+          description: window.CARBONIFY_SAMPLE_DATA.plans.express.description,
+        },
+      };
+
+      // Initialize
+      document.addEventListener('DOMContentLoaded', function () {
+        // Setup shared utilities
+        setupMessageHandling();
+        initializeBonusState();
+        initializeMobileState();
+        
+        // Setup year selector and vehicle dropdown
+        createYearSelector('yearSelector', userPreferences.year);
+        createVehicleDropdown('vehicleClassSelect', userPreferences.vehicleClass);
+        
+        setupEventListeners();
+      });
+
+      function setupEventListeners() {
+        // Priority selection
+        setupToggleOptions('.toggle-option', function(option) {
+          userPreferences.priority = option.dataset.priority;
+          
+          setTimeout(() => {
+            nextStep();
+          }, 500);
+        });
+
+        // Year selection
+        document.addEventListener('click', function(e) {
+          if (e.target.classList.contains('year-chip')) {
+            document.querySelectorAll('.year-chip').forEach((c) => c.classList.remove('selected'));
+            e.target.classList.add('selected');
+            userPreferences.year = e.target.dataset.year;
+          }
+        });
+
+        // Vehicle class selection
+        document.getElementById('vehicleClassSelect').addEventListener('change', function() {
+          userPreferences.vehicleClass = this.value;
+        });
+      }
+
+      function showBothOptions() {
+        userPreferences.showBoth = true;
+        userPreferences.priority = 'both';
+        nextStep();
+      }
+
+      function nextStep() {
+        const currentStep = document.querySelector('.step-container:not(.hidden)');
+        const nextStep = currentStep.nextElementSibling;
+
+        if (nextStep) {
+          currentStep.classList.add('hidden');
+          nextStep.classList.remove('hidden');
+          nextStep.classList.add('slide-in');
+        }
+      }
+
+      function goBack() {
+        document.getElementById('step3').classList.add('hidden');
+        document.getElementById('step1').classList.remove('hidden');
+
+        // Reset selections
+        document.querySelectorAll('.toggle-option').forEach((opt) => opt.classList.remove('selected'));
+        userPreferences = { priority: null, year: 'both', showBoth: false };
+      }
+
+      function showRecommendations() {
+        generateRecommendations();
+        nextStep();
+      }
+
+      function generateRecommendations() {
+        const grid = document.getElementById('recommendations-grid');
+        const subtitle = document.getElementById('recommendation-subtitle');
+
+        let recommendedPlan = null;
+        let sortedPlans = [];
+
+        if (userPreferences.showBoth) {
+          subtitle.textContent = 'Beide Optionen für Sie';
+          sortedPlans = [plans.klassik, plans.express];
+          recommendedPlan = plans.klassik; // Default recommendation
+        } else if (userPreferences.priority === 'speed') {
+          subtitle.textContent = 'Optimiert für schnelle Auszahlung';
+          sortedPlans = [plans.express, plans.klassik];
+          recommendedPlan = plans.express;
+        } else if (userPreferences.priority === 'amount') {
+          subtitle.textContent = 'Optimiert für maximale Prämie';
+          sortedPlans = [plans.klassik, plans.express];
+          recommendedPlan = plans.klassik;
+        }
+
+        grid.innerHTML = '';
+
+        sortedPlans.forEach((plan, index) => {
+          const isRecommended = plan === recommendedPlan;
+          const card = createPlanCard(plan, isRecommended, index === 0);
+          grid.appendChild(card);
+        });
+      }
+
+      function createPlanCard(plan, isRecommended, isPreSelected) {
+        const card = document.createElement('div');
+        card.className = `plan-card ${isRecommended ? 'recommended' : ''} ${isPreSelected ? 'selected' : ''}`;
+
+        let price, yearText;
+        
+        if (userPreferences.year === 'both') {
+          price = window.CARBONIFY_SAMPLE_DATA.getTotalSum(plan.name.toLowerCase(), userPreferences.vehicleClass);
+          yearText = 'Gesamtsumme 2025 & 2026';
+        } else {
+          price = window.CARBONIFY_SAMPLE_DATA.getPrice(plan.name.toLowerCase(), userPreferences.year, userPreferences.vehicleClass);
+          yearText = userPreferences.year === '2025' ? 'für 2025' : 'für 2026';
+        }
+
+        card.innerHTML = `
+          ${isRecommended ? '<div class="recommended-badge">Empfohlen</div>' : ''}
+          
+          <div class="text-center">
+            <h3 class="text-xl font-bold mb-2" style="color: var(--carbonify-gray-800)">${plan.name}</h3>
+            <p class="text-sm mb-4" style="color: var(--carbonify-gray-600)">${plan.description}</p>
+          </div>
+          
+          <div class="total-sum-display glare-hover">
+            <div class="total-sum-amount" data-countup="true" data-start-val="0" data-end-val="${price}" data-prefix="€" data-duration="2.0">€0</div>
+            <div class="total-sum-period">${yearText}</div>
+            <div class="total-sum-bonus">+ ${plan.bonus}€ Verivox-Bonus</div>
+          </div>
+          
+          <ul class="feature-list">
+            ${plan.features
+              .map(
+                (feature) => `
+                <li class="feature-item">
+                  <div class="feature-icon">
+                    <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                  </div>
+                  <span>${feature}</span>
+                </li>
+              `,
+              )
+              .join('')}
+          </ul>
+          
+          <button class="cta-button" onclick="selectPlan('${plan.name}')">
+            ${isPreSelected ? 'Ausgewählt' : 'Jetzt beantragen'}
+            <svg class="w-5 h-5 inline ml-2" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+            </svg>
+          </button>
+        `;
+
+        card.addEventListener('click', function (e) {
+          if (!e.target.classList.contains('cta-button')) {
+            selectCard(this);
+          }
+        });
+
+        if (isPreSelected) {
+          selectedCard = card;
+        }
+
+        // Initialize countup for the dynamically created price element
+        const priceElement = card.querySelector('.total-sum-amount[data-countup]');
+        if (priceElement && window.initCountUpForElement) {
+          window.initCountUpForElement(priceElement);
+        }
+
+        return card;
+      }
+
+      function selectCard(card) {
+        document.querySelectorAll('.plan-card').forEach((c) => {
+          c.classList.remove('selected');
+          const button = c.querySelector('.cta-button');
+          button.innerHTML = `Jetzt beantragen <svg class="w-5 h-5 inline ml-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>`;
+        });
+
+        card.classList.add('selected');
+        const button = card.querySelector('.cta-button');
+        button.innerHTML = `Ausgewählt <svg class="w-5 h-5 inline ml-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>`;
+
+        selectedCard = card;
+      }
+
+      function selectPlan(planName) {
+        // Simulate plan selection with Carbonify branding
+        alert(`Sie haben ${planName} bei carbonify ausgewählt! Weiterleitung zur THG-Anmeldung...`);
+
+        // Here you would typically:
+        // 1. Send analytics event to carbonify
+        // 2. Store selection in localStorage/session
+        // 3. Redirect to carbonify signup form
+        // 4. Pre-fill form with selected plan
+      }
+    </script>
+  </body>
+</html>

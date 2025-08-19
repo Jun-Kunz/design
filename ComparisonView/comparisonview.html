@@ -1,0 +1,1680 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>THG-Prämie Vergleich - Carbonify</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                50: 'hsl(214deg 100% 97%)',
+                100: 'hsl(214deg 95% 93%)',
+                200: 'hsl(213deg 97% 87%)',
+                300: 'hsl(212deg 96% 78%)',
+                400: 'hsl(213deg 94% 68%)',
+                500: 'hsl(217deg 91% 60%)',
+                700: 'hsl(224deg 76% 48%)',
+                800: 'hsl(226deg 71% 40%)',
+                900: 'hsl(225deg 64% 33%)',
+                950: 'hsl(226deg 57% 21%)',
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+      :root {
+        /* BaseProdWebsite brand palette */
+        --cb-brand-50-color: 214deg 100% 97%;
+        --cb-brand-100-color: 214deg 95% 93%;
+        --cb-brand-200-color: 213deg 97% 87%;
+        --cb-brand-300-color: 212deg 96% 78%;
+        --cb-brand-400-color: 213deg 94% 68%;
+        --cb-brand-500-color: 217deg 91% 60%;
+        --cb-brand-700-color: 224deg 76% 48%;
+        --cb-brand-800-color: 226deg 71% 40%;
+        --cb-brand-900-color: 225deg 64% 33%;
+        --cb-brand-950-color: 226deg 57% 21%;
+        --cb-brand-aa-color: 221deg 81% 56%;
+
+        /* Mapped Carbonify variables */
+        --carbonify-primary: rgb(44, 117, 255);
+        --carbonify-primary-dark: rgb(32, 84, 184);
+        --carbonify-primary-light: rgb(214, 230, 255);
+        --carbonify-white: #ffffff;
+        --carbonify-gray-50: #f8f9fa;
+        --carbonify-gray-100: #e9ecef;
+        --carbonify-gray-200: #dee2e6;
+        --carbonify-gray-300: #ced4da;
+        --carbonify-gray-400: #adb5bd;
+        --carbonify-gray-500: #6c757d;
+        --carbonify-gray-600: #495057;
+        --carbonify-gray-700: #343a40;
+        --carbonify-gray-800: #212529;
+        --carbonify-success: #28a745;
+        --carbonify-warning: #ffc107;
+      }
+
+      body {
+        font-family: 'Inter', sans-serif;
+        background: var(--carbonify-gray-50);
+        margin: 0;
+        padding: 1rem;
+      }
+
+      .main-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        background: var(--carbonify-white);
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+      }
+
+      .header {
+        background: var(--carbonify-primary);
+        color: var(--carbonify-white);
+        padding: 2rem;
+        text-align: center;
+      }
+
+      .carbonify-logo {
+        font-weight: 700;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .header-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+
+      .header-subtitle {
+        opacity: 0.9;
+        font-size: 1.1rem;
+      }
+
+      .controls-section {
+        padding: 1.5rem 2rem;
+        border-bottom: 1px solid var(--carbonify-gray-100);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .view-toggle {
+        display: flex;
+        background: var(--carbonify-gray-100);
+        border-radius: 12px;
+        padding: 4px;
+        gap: 4px;
+      }
+
+      .toggle-option {
+        background: transparent;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 0.875rem;
+        cursor: pointer;
+        transition: all 200ms ease;
+        color: var(--carbonify-gray-600);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .toggle-option.active {
+        background: var(--carbonify-white);
+        color: var(--carbonify-primary);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .year-selector {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .year-chip {
+        background: var(--carbonify-white);
+        border: 2px solid var(--carbonify-gray-200);
+        border-radius: 20px;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        transition: all 200ms ease;
+        font-weight: 600;
+        font-size: 0.875rem;
+        color: var(--carbonify-gray-700);
+      }
+
+      .year-chip:hover {
+        border-color: var(--carbonify-primary);
+        color: var(--carbonify-primary);
+      }
+
+      .year-chip.selected {
+        background: var(--carbonify-primary);
+        color: var(--carbonify-white);
+        border-color: var(--carbonify-primary);
+      }
+
+      .vehicle-selector {
+        margin-top: 1rem;
+      }
+
+      .vehicle-dropdown {
+        padding: 0.75rem 1rem;
+        border: 2px solid var(--carbonify-gray-200);
+        border-radius: 12px;
+        background: var(--carbonify-white);
+        color: var(--carbonify-gray-700);
+        font-size: 0.875rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+        background-position: right 0.75rem center;
+        background-repeat: no-repeat;
+        background-size: 1.25em 1.25em;
+        padding-right: 2.5rem;
+        min-width: 200px;
+      }
+
+      .vehicle-dropdown:hover {
+        border-color: var(--carbonify-primary);
+        background-color: var(--carbonify-gray-50);
+      }
+
+      .vehicle-dropdown:focus {
+        outline: none;
+        border-color: var(--carbonify-primary);
+        box-shadow: 0 0 0 3px rgba(44, 117, 255, 0.1);
+      }
+
+      /* Mobile View Styles */
+      .mobile-view .main-container {
+        max-width: 100%;
+        margin: 0;
+        border-radius: 0;
+      }
+
+      .mobile-view .header {
+        padding: 1rem;
+      }
+
+      .mobile-view .header-title {
+        font-size: 1.5rem;
+      }
+
+      .mobile-view .controls-section {
+        padding: 1rem;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .mobile-view .view-toggle {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .mobile-view .year-selector {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .mobile-view .vehicle-selector {
+        margin-top: 0.5rem;
+      }
+
+      .mobile-view .vehicle-dropdown {
+        min-width: auto;
+        width: 100%;
+      }
+
+      .mobile-view .cards-view {
+        padding: 1rem;
+      }
+
+             .mobile-view .cards-grid {
+         grid-template-columns: 1fr;
+         gap: 1rem;
+       }
+
+       .mobile-view .plan-card {
+         padding: 1rem;
+       }
+
+       .mobile-view .comparison-view {
+         padding: 1rem;
+       }
+
+       .mobile-view .comparison-table {
+         font-size: 0.875rem;
+       }
+
+       .mobile-view .comparison-table th,
+       .mobile-view .comparison-table td {
+         padding: 0.5rem;
+       }
+
+       .mobile-view .comparison-table th.comparison-header-label {
+         font-size: 0.8rem;
+         padding: 0.75rem 0.5rem;
+       }
+
+       .mobile-view .comparison-table th.plan-header {
+         font-size: 1rem;
+         padding: 1.75rem 0.5rem 0.75rem 0.5rem;
+       }
+
+       
+
+      /* Card View Styles */
+      .cards-view {
+        padding: 2rem;
+      }
+
+             .cards-grid {
+         display: grid;
+         grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+         gap: 2rem;
+         margin-bottom: 2rem;
+       }
+
+      .plan-card {
+        background: var(--carbonify-white);
+        border: 2px solid var(--carbonify-gray-200);
+        border-radius: 16px;
+        padding: 2rem;
+        padding-bottom: 3rem;
+        transition: all 300ms ease;
+        position: relative;
+      }
+
+      .plan-card:hover {
+        border-color: var(--carbonify-primary);
+        transform: translateY(-4px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Glare hover effect */
+      .glare-hover::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(-45deg, hsla(0,0%,100%,0) 60%, hsla(0,0%,100%,0.35) 70%, hsla(0,0%,100%,0) 100%);
+        background-size: 250% 250%, 100% 100%;
+        background-repeat: no-repeat;
+        background-position: -120% -120%, 0 0;
+        pointer-events: none;
+        transition: background-position 650ms ease;
+      }
+
+      .glare-hover:hover::before {
+        background-position: 120% 120%, 0 0;
+      }
+
+      .plan-card.recommended {
+        /* Remove permanent border - only show when selected */
+        border-color: var(--carbonify-gray-200);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      }
+
+      .plan-card.recommended.selected {
+        border-color: var(--carbonify-primary);
+        box-shadow: 0 8px 25px rgba(44, 117, 255, 0.1);
+      }
+
+      .recommended-badge {
+        position: absolute;
+        top: -10px;
+        right: 1rem;
+        background: var(--carbonify-primary);
+        color: var(--carbonify-white);
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+
+      .plan-name {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--carbonify-gray-800);
+        margin-bottom: 0.5rem;
+      }
+
+      .plan-description {
+        color: var(--carbonify-gray-600);
+        margin-bottom: 1.5rem;
+        font-size: 0.95rem;
+      }
+
+      .price-display {
+        text-align: center;
+        margin: 1.5rem 0;
+        padding: 1rem;
+        background: var(--carbonify-gray-50);
+        border-radius: 12px;
+      }
+
+      .price-amount {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--carbonify-primary);
+        line-height: 1;
+      }
+
+      .price-period {
+        color: var(--carbonify-gray-500);
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+      }
+
+      .bonus-text {
+        color: var(--carbonify-success);
+        font-weight: 600;
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
+      }
+
+      /* Total Sum Display Styles */
+      .total-sum-display {
+        text-align: center;
+        margin: 1.5rem 0;
+        padding: 1.5rem;
+        background: var(--carbonify-primary);
+        border-radius: 16px;
+        color: var(--carbonify-white);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .total-sum-amount {
+        font-size: 3.5rem;
+        font-weight: 700;
+        color: var(--carbonify-white);
+        line-height: 1;
+        margin-bottom: 0.25rem;
+      }
+
+      .total-sum-period {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .total-sum-bonus {
+        background: rgba(255, 255, 255, 0.2);
+        color: var(--carbonify-white);
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 0.875rem;
+        display: inline-block;
+      }
+
+
+
+      /* Comparison Table Styles */
+      .comparison-view {
+        padding: 0;
+        display: none;
+      }
+
+      .comparison-view.active {
+        display: block;
+      }
+
+      .comparison-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.95rem;
+      }
+
+      .comparison-table th {
+        background: var(--carbonify-gray-50);
+        padding: 2.5rem 1rem 1.5rem 1rem;
+        text-align: center;
+        font-weight: 700;
+        color: var(--carbonify-gray-800);
+        border-bottom: 2px solid var(--carbonify-gray-200);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+
+      .comparison-table th.plan-header {
+        font-size: 1.25rem;
+        background: var(--carbonify-primary-light);
+        color: var(--carbonify-primary);
+      }
+
+      .comparison-table th.recommended {
+        background: var(--carbonify-primary);
+        color: var(--carbonify-white);
+        position: relative;
+      }
+
+      .comparison-table th.comparison-header-label {
+        background: var(--carbonify-gray-50);
+        color: var(--carbonify-gray-800);
+        text-align: left;
+        font-weight: 700;
+        border-right: 1px solid var(--carbonify-gray-200);
+      }
+
+      .table-recommended-badge {
+        position: absolute;
+        top: -8px;
+        right: 1rem;
+        background: var(--carbonify-white);
+        color: var(--carbonify-primary);
+        padding: 0.25rem 0.75rem;
+        border-radius: 12px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+
+      .comparison-table td {
+        padding: 1.25rem 1rem;
+        border-bottom: 1px solid var(--carbonify-gray-100);
+        vertical-align: top;
+      }
+
+      .comparison-table tr:hover {
+        background: var(--carbonify-gray-50);
+      }
+
+      .row-label {
+        font-weight: 600;
+        color: var(--carbonify-gray-800);
+        background: var(--carbonify-white);
+        border-right: none;
+        box-shadow: inset -1px 0 0 var(--carbonify-gray-100);
+        position: sticky;
+        left: 0;
+        z-index: 5;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .tooltip-trigger {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 18px;
+        height: 18px;
+        background: var(--carbonify-primary);
+        color: var(--carbonify-white);
+        border-radius: 50%;
+        font-size: 0.7rem;
+        font-weight: 700;
+        cursor: help;
+        position: relative;
+      }
+
+      .tooltip {
+        position: absolute;
+        bottom: 125%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--carbonify-gray-800);
+        color: var(--carbonify-white);
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        font-size: 0.8rem;
+        font-weight: 400;
+        white-space: nowrap;
+        max-width: 250px;
+        white-space: normal;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 200ms ease;
+        z-index: 1000;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      .tooltip::after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 5px solid transparent;
+        border-top-color: var(--carbonify-gray-800);
+      }
+
+      .tooltip-trigger:hover .tooltip {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .value-cell {
+        text-align: center;
+        color: var(--carbonify-gray-700);
+      }
+
+      .value-highlight {
+        font-weight: 600;
+        color: var(--carbonify-primary);
+      }
+
+      .value-success {
+        color: var(--carbonify-success);
+        font-weight: 600;
+      }
+
+      .value-warning {
+        color: var(--carbonify-warning);
+        font-weight: 600;
+      }
+
+      .speed-indicator {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+      }
+
+      .speed-dots {
+        display: flex;
+        gap: 2px;
+      }
+
+      .speed-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--carbonify-gray-300);
+      }
+
+      .speed-dot.active {
+        background: var(--carbonify-success);
+      }
+
+      .speed-dot.fast {
+        background: var(--carbonify-primary);
+      }
+
+      .cta-section {
+        padding: 2rem;
+        background: var(--carbonify-gray-50);
+        border-top: 1px solid var(--carbonify-gray-100);
+      }
+
+      .cta-buttons {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .cta-button {
+        background: var(--carbonify-primary);
+        color: var(--carbonify-white);
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 200ms ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .cta-button:hover {
+        background: hsl(var(--cb-brand-100-color));
+        color: var(--carbonify-primary);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(44, 117, 255, 0.3);
+      }
+
+      .cta-button::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(-45deg, hsla(0,0%,100%,0) 60%, hsla(0,0%,100%,0.35) 70%, hsla(0,0%,100%,0) 100%);
+        background-size: 250% 250%, 100% 100%;
+        background-repeat: no-repeat;
+        background-position: -120% -120%, 0 0;
+        pointer-events: none;
+        transition: background-position 650ms ease;
+      }
+
+      .cta-button:hover::before {
+        background-position: 120% 120%, 0 0;
+      }
+
+      .cta-button.secondary {
+        background: var(--carbonify-white);
+        color: var(--carbonify-gray-700);
+        border: 2px solid var(--carbonify-gray-200);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .cta-button.secondary::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(-45deg, hsla(0,0%,100%,0) 60%, hsla(0,0%,100%,0.35) 100%, hsla(0,0%,100%,0) 100%);
+        background-size: 250% 250%, 100% 100%;
+        background-repeat: no-repeat;
+        background-position: -120% -120%, 0 0;
+        pointer-events: none;
+        transition: background-position 650ms ease;
+      }
+
+      .cta-button.secondary:hover::before {
+        background-position: 120% 120%, 0 0;
+      }
+
+      .cta-button.secondary:hover {
+        background: var(--carbonify-primary);
+        color: var(--carbonify-white);
+        border-color: var(--carbonify-primary);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(44, 117, 255, 0.3);
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      /* Mobile Responsive */
+      @media (max-width: 768px) {
+        body {
+          padding: 0.5rem;
+        }
+
+        .main-container {
+          border-radius: 12px;
+        }
+
+        .header {
+          padding: 1.5rem 1rem;
+        }
+
+        .header-title {
+          font-size: 1.5rem;
+        }
+
+        .controls-section {
+          padding: 1rem;
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .cards-view {
+          padding: 1rem;
+        }
+
+        .cards-grid {
+          grid-template-columns: 1fr;
+          gap: 1rem;
+        }
+
+        .plan-card {
+          padding: 1.5rem;
+        }
+
+        .comparison-table {
+          font-size: 0.85rem;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+          padding: 1rem 0.5rem;
+        }
+
+        .row-label {
+          font-size: 0.85rem;
+        }
+
+        .tooltip {
+          position: fixed;
+          bottom: auto;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          max-width: 280px;
+        }
+      }
+
+      /* Animation */
+      .fade-in {
+        animation: fadeIn 300ms ease-in;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <script src="../sample-data.js"></script>
+    <!-- CountUp is loaded in the parent index.html -->
+    <div class="main-container">
+      <!-- Header -->
+      <div class="header">
+        <div class="carbonify-logo">carbonify</div>
+        <h1 class="header-title">THG-Prämie Vergleich</h1>
+        <p class="header-subtitle">Finden Sie den perfekten Plan für Ihre Bedürfnisse</p>
+      </div>
+
+      <!-- Controls -->
+      <div class="controls-section">
+        <div class="view-toggle">
+          <button
+            class="toggle-option active"
+            data-view="cards"
+          >
+            <svg
+              class="w-4 h-4"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"
+              />
+            </svg>
+            Karten
+          </button>
+          <button
+            class="toggle-option"
+            data-view="comparison"
+          >
+            <svg
+              class="w-4 h-4"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M3 4a1 1 0 011-1h4a1 1 0 010 2H6.414l2.293 2.293a1 1 0 01-1.414 1.414L5 6.414V8a1 1 0 01-2 0V4zm9 1a1 1 0 010-2h4a1 1 0 011 1v4a1 1 0 01-2 0V6.414l-2.293 2.293a1 1 0 11-1.414-1.414L13.586 5H12zm-9 7a1 1 0 012 0v1.586l2.293-2.293a1 1 0 111.414 1.414L6.414 15H8a1 1 0 010 2H4a1 1 0 01-1-1v-4zm13-1a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 010-2h1.586l-2.293-2.293a1 1 0 111.414-1.414L15 13.586V12a1 1 0 011-1z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            Vergleichen
+          </button>
+        </div>
+
+        <div class="year-selector">
+          <div
+            class="year-chip"
+            data-year="2025"
+          >
+            2025
+          </div>
+          <div
+            class="year-chip selected"
+            data-year="both"
+          >
+            Beide
+          </div>
+          <div
+            class="year-chip"
+            data-year="2026"
+          >
+            2026
+          </div>
+        </div>
+
+        <div class="vehicle-selector">
+          <select id="vehicleClassSelect" class="vehicle-dropdown">
+            <option value="M1">PKW (Klasse M1)</option>
+            <option value="M3">Busse (Klasse M3)</option>
+            <option value="N1">Leichtes Nutzfahrzeug (Klasse N1)</option>
+            <option value="N2">Schweres Nutzfahrzeug (Klasse N2)</option>
+            <option value="N3">Schweres Nutzfahrzeug (Klasse N3)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Cards View -->
+      <div
+        id="cardsView"
+        class="cards-view"
+      >
+        <div class="cards-grid">
+          <!-- Klassik Card -->
+          <div class="plan-card recommended glare-hover">
+            <div class="recommended-badge">Empfohlen</div>
+            <h3 class="plan-name">Klassik</h3>
+            <p class="plan-description">Etwas Wartezeit, höchste THG-Prämie</p>
+
+            <div class="total-sum-display">
+              <div
+                class="total-sum-amount"
+                id="klassikPrice"
+                data-countup="true"
+                data-start-val="0"
+                data-end-val="215"
+                data-prefix="€"
+                data-duration="2.0"
+                data-scroll-spy="true"
+              >
+                €0
+              </div>
+              <div
+                class="total-sum-period"
+                id="klassikPeriod"
+              >
+                Gesamtsumme 2025 & 2026
+              </div>
+                              <div class="total-sum-bonus" id="expressBonus" style="display: none;">+ 30€ Verivox-Bonus</div>
+            </div>
+
+            <ul class="list-none space-y-2">
+              <li class="flex items-center gap-2 text-sm text-gray-600">
+                <div class="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center">
+                  <svg
+                    class="w-3 h-3 text-white"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </div>
+                Höchste THG-Prämie am Markt
+              </li>
+              <li class="flex items-center gap-2 text-sm text-gray-600">
+                <div class="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center">
+                  <svg
+                    class="w-3 h-3 text-white"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </div>
+                4-16 Wochen Wartezeit
+              </li>
+              <li class="flex items-center gap-2 text-sm text-gray-600">
+                <div class="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center">
+                  <svg
+                    class="w-3 h-3 text-white"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </div>
+                Garantierte Auszahlung
+              </li>
+            </ul>
+
+            <button
+              class="cta-button secondary w-full mt-6"
+              onclick="selectPlan('Klassik')"
+              data-plan="Klassik"
+            >
+              Klassik beantragen
+              <svg
+                class="w-4 h-4"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </button>
+
+            <!-- Hover Info Box -->
+            <div class="info-box">
+              <div class="info-box-title">Auszahlungszeitraum</div>
+              <div class="info-box-details">4-16 Wochen nach UBA-Zertifizierung</div>
+              <ul class="info-box-process">
+                <li>Einreichung der Antragsunterlagen</li>
+                <li>UBA-Zertifizierung (2-8 Wochen)</li>
+                <li>Auszahlung der THG-Prämie (2-8 Wochen)</li>
+                <li>Gesamtzeitraum: 4-16 Wochen</li>
+              </ul>
+            </div>
+          </div>
+
+                     <!-- Express Card -->
+           <div class="plan-card glare-hover">
+             <h3 class="plan-name">Express</h3>
+             <p class="plan-description">Die richtige Wahl für alle die es schnell wollen</p>
+
+             <div class="total-sum-display">
+               <div
+                 class="total-sum-amount"
+                 id="expressPrice"
+                 data-countup="true"
+                 data-start-val="0"
+                 data-end-val="175"
+                 data-prefix="€"
+                 data-duration="2.0"
+                 data-scroll-spy="true"
+               >
+                 €0
+               </div>
+               <div
+                 class="total-sum-period"
+                 id="expressPeriod"
+               >
+                 Gesamtsumme 2025 & 2026
+               </div>
+               <div class="total-sum-bonus" id="klassikBonus" style="display: none;">+ 30€ Verivox-Bonus</div>
+             </div>
+
+             <ul class="list-none space-y-2">
+               <li class="flex items-center gap-2 text-sm text-gray-600">
+                 <div class="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center">
+                   <svg
+                     class="w-3 h-3 text-white"
+                     fill="currentColor"
+                     viewBox="0 0 20 20"
+                   >
+                     <path
+                       fill-rule="evenodd"
+                       d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                       clip-rule="evenodd"
+                     />
+                   </svg>
+                 </div>
+                 Schnellste Auszahlung am Markt
+               </li>
+               <li class="flex items-center gap-2 text-sm text-gray-600">
+                 <div class="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center">
+                   <svg
+                     class="w-3 h-3 text-white"
+                     fill="currentColor"
+                     viewBox="0 0 20 20"
+                   >
+                     <path
+                       fill-rule="evenodd"
+                       d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                       clip-rule="evenodd"
+                     />
+                   </svg>
+                 </div>
+                 24h-2 Wochen Bearbeitung
+               </li>
+               <li class="flex items-center gap-2 text-sm text-gray-600">
+                 <div class="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center">
+                   <svg
+                     class="w-3 h-3 text-white"
+                     fill="currentColor"
+                     viewBox="0 0 20 20"
+                   >
+                     <path
+                       fill-rule="evenodd"
+                       d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                       clip-rule="evenodd"
+                     />
+                   </svg>
+                 </div>
+                 Sofortige Garantie
+               </li>
+             </ul>
+
+             <button
+               class="cta-button secondary w-full mt-6"
+               onclick="selectPlan('Express')"
+               data-plan="Express"
+             >
+               Express beantragen
+               <svg
+                 class="w-4 h-4"
+                 fill="currentColor"
+                 viewBox="0 0 20 20"
+               >
+                 <path
+                   fill-rule="evenodd"
+                   d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                   clip-rule="evenodd"
+                 />
+               </svg>
+             </button>
+
+             <!-- Hover Info Box -->
+             <div class="info-box">
+               <div class="info-box-title">Auszahlungszeitraum</div>
+               <div class="info-box-details">24 Stunden - 2 Wochen</div>
+               <ul class="info-box-process">
+                 <li>Sofortige Antragsbearbeitung</li>
+                 <li>Direkte Auszahlung ohne UBA-Zertifizierung</li>
+                 <li>Garantierte Sofortauszahlung</li>
+                 <li>Gesamtzeitraum: 24h - 2 Wochen</li>
+               </ul>
+             </div>
+           </div>
+
+           <!-- Bonus Card (2026 only) -->
+           <div class="plan-card glare-hover" id="bonusCard" style="display: none;">
+             <h3 class="plan-name">Bonus</h3>
+             <p class="plan-description">Nur für 2026 - Höchste Prämie mit Zusatzbonus</p>
+
+             <div class="total-sum-display">
+               <div
+                 class="total-sum-amount"
+                 id="bonusPrice"
+                 data-countup="true"
+                 data-start-val="0"
+                 data-end-val="110"
+                 data-prefix="€"
+                 data-duration="2.0"
+                 data-scroll-spy="true"
+               >
+                 €0
+               </div>
+               <div
+                 class="total-sum-period"
+                 id="bonusPeriod"
+               >
+                 Nur für 2026
+               </div>
+                               <div class="total-sum-bonus" id="bonusCardBonus" style="display: none;">+ 50€ 2026 Bonus</div>
+             </div>
+
+             <ul class="list-none space-y-2">
+               <li class="flex items-center gap-2 text-sm text-gray-600">
+                 <div class="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center">
+                   <svg
+                     class="w-3 h-3 text-white"
+                     fill="currentColor"
+                     viewBox="0 0 20 20"
+                   >
+                     <path
+                       fill-rule="evenodd"
+                       d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                       clip-rule="evenodd"
+                     />
+                   </svg>
+                 </div>
+                 Höchste THG-Prämie aller Pläne
+               </li>
+               <li class="flex items-center gap-2 text-sm text-gray-600">
+                 <div class="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center">
+                   <svg
+                     class="w-3 h-3 text-white"
+                     fill="currentColor"
+                     viewBox="0 0 20 20"
+                   >
+                     <path
+                       fill-rule="evenodd"
+                       d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                       clip-rule="evenodd"
+                     />
+                   </svg>
+                 </div>
+                 Exklusiv für 2026 verfügbar
+               </li>
+               <li class="flex items-center gap-2 text-sm text-gray-600">
+                 <div class="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center">
+                   <svg
+                     class="w-3 h-3 text-white"
+                     fill="currentColor"
+                     viewBox="0 0 20 20"
+                   >
+                     <path
+                       fill-rule="evenodd"
+                       d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                       clip-rule="evenodd"
+                     />
+                   </svg>
+                 </div>
+                 Zusätzlicher 50€ Bonus
+               </li>
+             </ul>
+
+             <button
+               class="cta-button secondary w-full mt-6"
+               onclick="selectPlan('Bonus')"
+               data-plan="Bonus"
+             >
+               Bonus beantragen
+               <svg
+                 class="w-4 h-4"
+                 fill="currentColor"
+                 viewBox="0 0 20 20"
+               >
+                 <path
+                   fill-rule="evenodd"
+                   d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                   clip-rule="evenodd"
+                 />
+               </svg>
+             </button>
+
+             <!-- Hover Info Box -->
+             <div class="info-box">
+               <div class="info-box-title">Auszahlungszeitraum</div>
+               <div class="info-box-details">6-20 Wochen nach UBA-Zertifizierung</div>
+               <ul class="info-box-process">
+                 <li>Einreichung der Antragsunterlagen</li>
+                 <li>UBA-Zertifizierung (3-10 Wochen)</li>
+                 <li>Auszahlung der THG-Prämie (3-10 Wochen)</li>
+                 <li>Gesamtzeitraum: 6-20 Wochen</li>
+               </ul>
+             </div>
+           </div>
+        </div>
+      </div>
+
+      <!-- Comparison Table View -->
+      <div
+        id="comparisonView"
+        class="comparison-view"
+      >
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th
+                class="comparison-header-label"
+                style="width: 25%"
+              >
+                Vergleichskriterium
+              </th>
+              <th class="plan-header recommended">
+                Klassik
+                <div class="table-recommended-badge">Empfohlen</div>
+              </th>
+              <th class="plan-header">Express</th>
+              <th class="plan-header">Bonus</th>
+            </tr>
+          </thead>
+          <tbody id="comparisonTableBody">
+            <!-- Rows will be dynamically generated here -->
+          </tbody>
+        </table>
+      </div>
+
+      
+    </div>
+
+    <script>
+      let currentView = 'cards';
+      let currentYear = 'both';
+      let currentVehicleClass = 'M1';
+
+      // Plan data
+      const planData = {
+        klassik: { price2025: 65, price2026: 65 },
+        express: { price2025: 50, price2026: 50 },
+      };
+
+      // Initialize
+      document.addEventListener('DOMContentLoaded', function () {
+        setupEventListeners();
+        updatePrices();
+        updateComparisonTable();
+        // Countup animations will auto-initialize via data attributes
+      });
+
+      function setupEventListeners() {
+        // View toggle
+        document.querySelectorAll('[data-view]').forEach((button) => {
+          button.addEventListener('click', function () {
+            const view = this.dataset.view;
+            switchView(view);
+            updateActiveToggle(this, '[data-view]');
+          });
+        });
+
+        // Year selector
+        document.querySelectorAll('[data-year]').forEach((chip) => {
+          chip.addEventListener('click', function () {
+            const year = this.dataset.year;
+            currentYear = year;
+            updateActiveToggle(this, '[data-year]');
+            updatePrices();
+            updateComparisonTable();
+          });
+        });
+
+        // Vehicle class selector
+        document.getElementById('vehicleClassSelect').addEventListener('change', function() {
+          currentVehicleClass = this.value;
+          updatePrices();
+          updateComparisonTable();
+        });
+      }
+
+      function updateActiveToggle(activeElement, selector) {
+        document.querySelectorAll(selector).forEach((el) => {
+          el.classList.remove('active', 'selected');
+        });
+        activeElement.classList.add(selector.includes('data-year') ? 'selected' : 'active');
+      }
+
+      function switchView(view) {
+        currentView = view;
+
+        if (view === 'cards') {
+          document.getElementById('cardsView').style.display = 'block';
+          document.getElementById('comparisonView').classList.remove('active');
+        } else {
+          document.getElementById('cardsView').style.display = 'none';
+          document.getElementById('comparisonView').classList.add('active');
+          // Update comparison table when switching to comparison view
+          updateComparisonTable();
+        }
+
+        // Add fade-in animation
+        const activeView =
+          view === 'cards' ? document.getElementById('cardsView') : document.getElementById('comparisonView');
+        activeView.classList.add('fade-in');
+
+        setTimeout(() => {
+          activeView.classList.remove('fade-in');
+        }, 300);
+      }
+
+      function updatePrices() {
+        let klassikPrice, expressPrice, bonusPrice, periodText;
+        
+        if (currentYear === 'both') {
+          klassikPrice = window.CARBONIFY_SAMPLE_DATA.getTotalSum('klassik', currentVehicleClass);
+          expressPrice = window.CARBONIFY_SAMPLE_DATA.getTotalSum('express', currentVehicleClass);
+          periodText = 'Gesamtsumme 2025 & 2026';
+        } else {
+          klassikPrice = window.CARBONIFY_SAMPLE_DATA.getPrice('klassik', currentYear, currentVehicleClass);
+          expressPrice = window.CARBONIFY_SAMPLE_DATA.getPrice('express', currentYear, currentVehicleClass);
+          if (currentYear === '2026') {
+            bonusPrice = window.CARBONIFY_SAMPLE_DATA.getPrice('bonus', currentYear, currentVehicleClass);
+          }
+          periodText = currentYear === '2025' ? 'für 2025' : 'für 2026';
+        }
+
+        // Update card prices
+        document.getElementById('klassikPrice').textContent = `€${klassikPrice}`;
+        document.getElementById('klassikPeriod').textContent = periodText;
+        document.getElementById('expressPrice').textContent = `€${expressPrice}`;
+        document.getElementById('expressPeriod').textContent = periodText;
+        
+        // Show/hide Bonus card based on year selection
+        const bonusCard = document.getElementById('bonusCard');
+        if (bonusCard) {
+          if (currentYear === '2026') {
+            bonusCard.style.display = 'block';
+            if (bonusPrice) {
+              document.getElementById('bonusPrice').textContent = `€${bonusPrice}`;
+            }
+          } else {
+            bonusCard.style.display = 'none';
+          }
+        }
+      }
+
+      function updateComparisonTable() {
+        const tbody = document.getElementById('comparisonTableBody');
+        if (!tbody) return;
+
+        // Clear existing rows
+        tbody.innerHTML = '';
+
+        // Define table rows based on year selection
+        const rows = [
+          // Speed row - always visible
+          {
+            label: 'Auszahlungsgeschwindigkeit',
+            tooltip: 'Zeit von der Anmeldung bis zur Auszahlung der THG-Prämie',
+            klassik: {
+              content: '<div class="speed-indicator">4-16 Wochen<div class="speed-dots"><div class="speed-dot active"></div><div class="speed-dot"></div><div class="speed-dot"></div></div></div>',
+              type: 'speed'
+            },
+            express: {
+              content: '<div class="speed-indicator">24h-2 Wochen<div class="speed-dots"><div class="speed-dot fast"></div><div class="speed-dot fast"></div><div class="speed-dot fast"></div></div></div>',
+              type: 'speed'
+            },
+            bonus: {
+              content: '<div class="speed-indicator">6-20 Wochen<div class="speed-dots"><div class="speed-dot"></div><div class="speed-dot"></div><div class="speed-dot"></div></div></div>',
+              type: 'speed'
+            }
+          }
+        ];
+
+        // Add year-specific price rows based on selection
+        if (currentYear === 'both' || currentYear === '2025') {
+          rows.push({
+            label: 'Prämienhöhe (2025)',
+            tooltip: 'THG-Prämie für das Jahr 2025 pro Fahrzeug',
+            klassik: {
+              content: `€${window.CARBONIFY_SAMPLE_DATA.getPrice('klassik', '2025', currentVehicleClass)}`,
+              type: 'price',
+              highlight: true
+            },
+            express: {
+              content: `€${window.CARBONIFY_SAMPLE_DATA.getPrice('express', '2025', currentVehicleClass)}`,
+              type: 'price'
+            },
+            bonus: {
+              content: 'N/A',
+              type: 'info'
+            }
+          });
+        }
+
+        if (currentYear === 'both' || currentYear === '2026') {
+          rows.push({
+            label: 'Prämienhöhe (2026)',
+            tooltip: 'THG-Prämie für das Jahr 2026 pro Fahrzeug',
+            klassik: {
+              content: `€${window.CARBONIFY_SAMPLE_DATA.getPrice('klassik', '2026', currentVehicleClass)}`,
+              type: 'price',
+              highlight: true
+            },
+            express: {
+              content: `€${window.CARBONIFY_SAMPLE_DATA.getPrice('express', '2026', currentVehicleClass)}`,
+              type: 'price'
+            },
+            bonus: {
+              content: `€${window.CARBONIFY_SAMPLE_DATA.getPrice('bonus', '2026', currentVehicleClass)}`,
+              type: 'price',
+              highlight: true
+            }
+          });
+        }
+
+        // Add bonus row only if bonus is enabled
+        if (bonusEnabled) {
+          rows.push({
+            label: 'Boni',
+            tooltip: 'Zusätzliche Boni und Vergünstigungen',
+            klassik: {
+              content: '+ 30€ Verivox-Bonus',
+              type: 'bonus'
+            },
+            express: {
+              content: '+ 30€ Verivox-Bonus',
+              type: 'bonus'
+            },
+            bonus: {
+              content: '+ 50€ 2026 Bonus',
+              type: 'bonus'
+            }
+          });
+        }
+
+        // Add other common rows - always visible
+        rows.push(
+          {
+            label: 'Voraussetzungen',
+            tooltip: 'Bedingungen für die Auszahlung der THG-Prämie',
+            klassik: {
+              content: 'UBA-Zertifizierung<div class="tooltip-trigger">?<div class="tooltip">UBA = Umweltbundesamt. Offizielle Zertifizierung der CO2-Einsparungen</div></div> erforderlich',
+              type: 'requirement'
+            },
+            express: {
+              content: 'Sofortige Garantie ohne Wartezeit',
+              type: 'requirement'
+            },
+            bonus: {
+              content: 'UBA-Zertifizierung erforderlich',
+              type: 'requirement'
+            }
+          },
+          {
+            label: 'THG-Quote Vermarktung',
+            tooltip: 'THG = Treibhausgas-Minderungsquote. Gesetzliche Verpflichtung für Mineralölunternehmen',
+            klassik: {
+              content: 'Maximale Marktpreise durch Wartezeit',
+              type: 'info'
+            },
+            express: {
+              content: 'Feste Preise für sofortige Sicherheit',
+              type: 'info'
+            },
+            bonus: {
+              content: 'Maximale Marktpreise durch Wartezeit',
+              type: 'info'
+            }
+          },
+
+          {
+            label: 'Auszahlung',
+            tooltip: 'Zertifizierung = Offizielle Bestätigung der CO2-Einsparungen durch das UBA',
+            klassik: {
+              content: 'Nach UBA-Bestätigung',
+              type: 'info'
+            },
+            express: {
+              content: 'Sofort ohne Zertifizierung',
+              type: 'info'
+            },
+            bonus: {
+              content: 'Nach UBA-Bestätigung',
+              type: 'info'
+            }
+          }
+        );
+
+        // Generate table rows
+        rows.forEach(row => {
+          const tr = document.createElement('tr');
+          
+          // Label cell
+          const labelCell = document.createElement('td');
+          labelCell.className = 'row-label';
+          labelCell.innerHTML = `
+            ${row.label}
+            <div class="tooltip-trigger">
+              ?
+              <div class="tooltip">${row.tooltip}</div>
+            </div>
+          `;
+          tr.appendChild(labelCell);
+
+          // Klassik cell
+          const klassikCell = document.createElement('td');
+          klassikCell.className = 'value-cell';
+          if (row.klassik.highlight) klassikCell.classList.add('value-highlight');
+          if (row.klassik.type === 'bonus') klassikCell.classList.add('value-success');
+          klassikCell.innerHTML = row.klassik.content;
+          tr.appendChild(klassikCell);
+
+          // Express cell
+          const expressCell = document.createElement('td');
+          expressCell.className = 'value-cell';
+          if (row.express.highlight) expressCell.classList.add('value-highlight');
+          if (row.express.type === 'bonus') expressCell.classList.add('value-success');
+          expressCell.innerHTML = row.express.content;
+          tr.appendChild(expressCell);
+
+          // Bonus cell
+          const bonusCell = document.createElement('td');
+          bonusCell.className = 'value-cell';
+          if (row.bonus && row.bonus.highlight) bonusCell.classList.add('value-highlight');
+          if (row.bonus && row.bonus.type === 'bonus') bonusCell.classList.add('value-success');
+          bonusCell.innerHTML = row.bonus ? row.bonus.content : '';
+          tr.appendChild(bonusCell);
+
+          tbody.appendChild(tr);
+        });
+
+        // Reinitialize tooltips for new content
+        initializeTooltips();
+      }
+
+      function initializeTooltips() {
+        // Enhanced tooltip positioning for mobile
+        if (window.innerWidth <= 768) {
+          document.querySelectorAll('.tooltip-trigger').forEach((trigger) => {
+            trigger.addEventListener('click', function (e) {
+              e.preventDefault();
+              const tooltip = this.querySelector('.tooltip');
+              tooltip.style.position = 'fixed';
+              tooltip.style.top = '50%';
+              tooltip.style.left = '50%';
+              tooltip.style.transform = 'translate(-50%, -50%)';
+              tooltip.style.opacity = '1';
+              tooltip.style.visibility = 'visible';
+
+              // Hide after 3 seconds
+              setTimeout(() => {
+                tooltip.style.opacity = '0';
+                tooltip.style.visibility = 'hidden';
+              }, 3000);
+            });
+          });
+        }
+      }
+
+      function selectPlan(planName) {
+        // Remove selected class from all plan cards
+        document.querySelectorAll('.plan-card').forEach(card => {
+          card.classList.remove('selected');
+        });
+        
+        // Add selected class to the clicked plan card
+        const selectedCard = document.querySelector(`.plan-card button[data-plan="${planName}"]`).closest('.plan-card');
+        if (selectedCard) {
+          selectedCard.classList.add('selected');
+        }
+        
+        const yearText = currentYear === 'both' ? 'beide Jahre' : currentYear;
+        let planDescription = '';
+        
+        if (planName === 'Bonus') {
+          planDescription = 'Bonus-Plan (nur für 2026)';
+        } else {
+          planDescription = planName;
+        }
+        
+        alert(`Sie haben ${planDescription} für ${yearText} bei carbonify ausgewählt!\n\nWeiterleitung zur THG-Anmeldung...`);
+
+        // Analytics and conversion tracking would go here
+        console.log(`Plan selected: ${planName}, Year: ${currentYear}, View: ${currentView}`);
+      }
+
+      // Keyboard shortcuts
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Tab' && e.shiftKey) {
+          e.preventDefault();
+          const currentToggle = document.querySelector('[data-view].active');
+          const newView = currentView === 'cards' ? 'comparison' : 'cards';
+          const newToggle = document.querySelector(`[data-view="${newView}"]`);
+          newToggle.click();
+        }
+      });
+
+
+
+      // Bonus toggle functionality
+      let bonusEnabled = false;
+
+             function toggleBonus(enabled) {
+         bonusEnabled = enabled;
+         
+         // Show/hide bonus elements in cards
+         const bonusElements = document.querySelectorAll('#klassikBonus, #expressBonus, #bonusCardBonus');
+         bonusElements.forEach(element => {
+           if (enabled) {
+             element.style.display = 'block';
+           } else {
+             element.style.display = 'none';
+           }
+         });
+
+         // Update comparison table if it's currently visible
+         if (currentView === 'comparison') {
+           updateComparisonTable();
+         }
+       }
+
+      // Mobile view functionality
+      let mobileEnabled = false;
+
+      function toggleMobile(enabled) {
+        mobileEnabled = enabled;
+        const body = document.body;
+        
+        if (enabled) {
+          body.classList.add('mobile-view');
+          // Apply mobile-specific styles
+          body.style.fontSize = '14px';
+          body.style.padding = '0.5rem';
+        } else {
+          body.classList.remove('mobile-view');
+          // Restore desktop styles
+          body.style.fontSize = '';
+          body.style.padding = '';
+        }
+      }
+
+      // Listen for messages from parent window
+      window.addEventListener('message', (event) => {
+        if (event.data.type === 'toggleBonus') {
+          toggleBonus(event.data.enabled);
+        } else if (event.data.type === 'requestBonusState') {
+          // Send current bonus state to parent
+          parent.postMessage({
+            type: 'bonusState',
+            enabled: bonusEnabled
+          }, '*');
+        } else if (event.data.type === 'toggleMobile') {
+          toggleMobile(event.data.enabled);
+        } else if (event.data.type === 'requestMobileState') {
+          // Send current mobile state to parent
+          parent.postMessage({
+            type: 'mobileState',
+            enabled: mobileEnabled
+          }, '*');
+        }
+      });
+
+      // Request initial states from parent
+      window.addEventListener('load', () => {
+        // Hide bonus by default immediately
+        toggleBonus(false);
+        
+        parent.postMessage({
+          type: 'requestBonusState'
+        }, '*');
+        parent.postMessage({
+          type: 'requestMobileState'
+        }, '*');
+      });
+    </script>
+  </body>
+</html>
