@@ -34,40 +34,46 @@
       @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
       :root {
-        /* BaseProdWebsite brand palette */
-        --cb-brand-50-color: 214deg 100% 97%;
-        --cb-brand-100-color: 214deg 95% 93%;
-        --cb-brand-200-color: 213deg 97% 87%;
-        --cb-brand-300-color: 212deg 96% 78%;
-        --cb-brand-400-color: 213deg 94% 68%;
-        --cb-brand-500-color: 217deg 91% 60%;
-        --cb-brand-700-color: 224deg 76% 48%;
-        --cb-brand-800-color: 226deg 71% 40%;
-        --cb-brand-900-color: 225deg 64% 33%;
-        --cb-brand-950-color: 226deg 57% 21%;
-        --cb-brand-aa-color: 221deg 81% 56%;
-
-        /* Mapped Carbonify variables */
-        --carbonify-primary: rgb(44, 117, 255);
-        --carbonify-primary-dark: rgb(32, 84, 184);
-        --carbonify-primary-light: rgb(214, 230, 255);
-        --carbonify-white: #ffffff;
-        --carbonify-gray-50: #f8f9fa;
-        --carbonify-gray-100: #e9ecef;
-        --carbonify-gray-200: #dee2e6;
-        --carbonify-gray-300: #ced4da;
-        --carbonify-gray-400: #adb5bd;
-        --carbonify-gray-500: #6c757d;
-        --carbonify-gray-600: #495057;
-        --carbonify-gray-700: #343a40;
-        --carbonify-gray-800: #212529;
-        --carbonify-success: #28a745;
-        --carbonify-warning: #ffc107;
+        /* Registration Form Design System */
+        --primary-blue: #2C75FF;
+        --primary-blue-dark: #1e5bd8;
+        --primary-blue-light: #e8f0ff;
+        --white: #ffffff;
+        --gray-50: #f8f9fa;
+        --gray-100: #f1f3f4;
+        --gray-200: #e8eaed;
+        --gray-300: #dadce0;
+        --gray-400: #bdc1c6;
+        --gray-500: #9aa0a6;
+        --gray-600: #80868b;
+        --gray-700: #5f6368;
+        --gray-800: #3c4043;
+        --gray-900: #202124;
+        --success: #34a853;
+        --warning: #fbbc04;
+        --error: #ea4335;
+        
+        /* Legacy support */
+        --carbonify-primary: var(--primary-blue);
+        --carbonify-primary-dark: var(--primary-blue-dark);
+        --carbonify-primary-light: var(--primary-blue-light);
+        --carbonify-white: var(--white);
+        --carbonify-gray-50: var(--gray-50);
+        --carbonify-gray-100: var(--gray-100);
+        --carbonify-gray-200: var(--gray-200);
+        --carbonify-gray-300: var(--gray-300);
+        --carbonify-gray-400: var(--gray-400);
+        --carbonify-gray-500: var(--gray-500);
+        --carbonify-gray-600: var(--gray-600);
+        --carbonify-gray-700: var(--gray-700);
+        --carbonify-gray-800: var(--gray-800);
+        --carbonify-success: var(--success);
+        --carbonify-warning: var(--warning);
       }
 
       body {
         font-family: 'Inter', sans-serif;
-        background: var(--carbonify-gray-50);
+        background: var(--gray-50);
         margin: 0;
         padding: 1rem;
       }
@@ -75,15 +81,16 @@
       .main-container {
         max-width: 1000px;
         margin: 0 auto;
-        background: var(--carbonify-white);
-        border-radius: 20px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+        background: var(--white);
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        border: 1px solid var(--gray-200);
         overflow: hidden;
       }
 
       .header {
-        background: var(--carbonify-primary);
-        color: var(--carbonify-white);
+        background: var(--primary-blue);
+        color: var(--white);
         padding: 2rem;
         text-align: center;
       }
@@ -107,7 +114,7 @@
 
       .controls-section {
         padding: 1.5rem 2rem;
-        border-bottom: 1px solid var(--carbonify-gray-100);
+        border-bottom: 1px solid var(--gray-100);
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -117,10 +124,11 @@
 
       .view-toggle {
         display: flex;
-        background: var(--carbonify-gray-100);
+        background: var(--gray-100);
         border-radius: 12px;
         padding: 4px;
         gap: 4px;
+        border: 1px solid var(--gray-200);
       }
 
       .toggle-option {
@@ -132,16 +140,17 @@
         font-size: 0.875rem;
         cursor: pointer;
         transition: all 200ms ease;
-        color: var(--carbonify-gray-600);
+        color: var(--gray-600);
         display: flex;
         align-items: center;
         gap: 0.5rem;
       }
 
       .toggle-option.active {
-        background: var(--carbonify-white);
-        color: var(--carbonify-primary);
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        background: var(--white);
+        color: var(--primary-blue);
+        border: 1px solid var(--primary-blue);
+        box-shadow: 0 2px 8px rgba(44, 117, 255, 0.15);
       }
 
       .year-selector {
@@ -150,26 +159,28 @@
       }
 
       .year-chip {
-        background: var(--carbonify-white);
-        border: 2px solid var(--carbonify-gray-200);
-        border-radius: 20px;
-        padding: 0.5rem 1rem;
+        background: var(--white);
+        border: 1px solid var(--gray-200);
+        border-radius: 12px;
+        padding: 0.75rem 1.25rem;
         cursor: pointer;
         transition: all 200ms ease;
         font-weight: 600;
         font-size: 0.875rem;
-        color: var(--carbonify-gray-700);
+        color: var(--gray-700);
       }
 
       .year-chip:hover {
-        border-color: var(--carbonify-primary);
-        color: var(--carbonify-primary);
+        border-color: var(--primary-blue);
+        color: var(--primary-blue);
+        background: var(--primary-blue-light);
       }
 
       .year-chip.selected {
-        background: var(--carbonify-primary);
-        color: var(--carbonify-white);
-        border-color: var(--carbonify-primary);
+        background: var(--primary-blue);
+        color: var(--white);
+        border-color: var(--primary-blue);
+        box-shadow: 0 2px 8px rgba(44, 117, 255, 0.2);
       }
 
       .vehicle-selector {
@@ -178,10 +189,10 @@
 
       .vehicle-dropdown {
         padding: 0.75rem 1rem;
-        border: 2px solid var(--carbonify-gray-200);
+        border: 1px solid var(--gray-200);
         border-radius: 12px;
-        background: var(--carbonify-white);
-        color: var(--carbonify-gray-700);
+        background: var(--white);
+        color: var(--gray-700);
         font-size: 0.875rem;
         font-weight: 500;
         cursor: pointer;
@@ -196,13 +207,13 @@
       }
 
       .vehicle-dropdown:hover {
-        border-color: var(--carbonify-primary);
-        background-color: var(--carbonify-gray-50);
+        border-color: var(--primary-blue);
+        background-color: var(--gray-50);
       }
 
       .vehicle-dropdown:focus {
         outline: none;
-        border-color: var(--carbonify-primary);
+        border-color: var(--primary-blue);
         box-shadow: 0 0 0 3px rgba(44, 117, 255, 0.1);
       }
 
@@ -297,19 +308,20 @@
        }
 
       .plan-card {
-        background: var(--carbonify-white);
-        border: 2px solid var(--carbonify-gray-200);
+        background: var(--white);
+        border: 1px solid var(--gray-200);
         border-radius: 16px;
         padding: 2rem;
         padding-bottom: 3rem;
         transition: all 300ms ease;
         position: relative;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
       }
 
       .plan-card:hover {
-        border-color: var(--carbonify-primary);
-        transform: translateY(-4px);
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+        border-color: var(--primary-blue);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(44, 117, 255, 0.12);
       }
 
       /* Glare hover effect */
@@ -331,12 +343,12 @@
 
       .plan-card.recommended {
         /* Remove permanent border - only show when selected */
-        border-color: var(--carbonify-gray-200);
+        border-color: var(--gray-200);
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
       }
 
       .plan-card.recommended.selected {
-        border-color: var(--carbonify-primary);
+        border-color: var(--primary-blue);
         box-shadow: 0 8px 25px rgba(44, 117, 255, 0.1);
       }
 
@@ -344,51 +356,72 @@
         position: absolute;
         top: -10px;
         right: 1rem;
-        background: var(--carbonify-primary);
-        color: var(--carbonify-white);
+        background: var(--primary-blue);
+        color: var(--white);
         padding: 0.5rem 1rem;
         border-radius: 20px;
         font-size: 0.75rem;
         font-weight: 700;
         text-transform: uppercase;
+        box-shadow: 0 2px 8px rgba(44, 117, 255, 0.2);
       }
 
       .plan-name {
         font-size: 1.5rem;
         font-weight: 700;
-        color: var(--carbonify-gray-800);
+        color: var(--gray-800);
         margin-bottom: 0.5rem;
       }
 
       .plan-description {
-        color: var(--carbonify-gray-600);
+        color: var(--gray-600);
         margin-bottom: 1.5rem;
         font-size: 0.95rem;
+      }
+
+      .plan-card ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .plan-card li {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+        color: var(--gray-600);
+        font-size: 0.875rem;
+      }
+
+      .plan-card li:last-child {
+        margin-bottom: 0;
       }
 
       .price-display {
         text-align: center;
         margin: 1.5rem 0;
         padding: 1rem;
-        background: var(--carbonify-gray-50);
+        background: var(--gray-50);
         border-radius: 12px;
+        border: 1px solid var(--gray-200);
       }
 
       .price-amount {
         font-size: 2.5rem;
         font-weight: 700;
-        color: var(--carbonify-primary);
+        color: var(--primary-blue);
         line-height: 1;
       }
 
       .price-period {
-        color: var(--carbonify-gray-500);
+        color: var(--gray-500);
         font-size: 0.875rem;
         margin-top: 0.25rem;
       }
 
       .bonus-text {
-        color: var(--carbonify-success);
+        color: var(--success);
         font-weight: 600;
         font-size: 0.875rem;
         margin-top: 0.5rem;
@@ -399,17 +432,18 @@
         text-align: center;
         margin: 1.5rem 0;
         padding: 1.5rem;
-        background: var(--carbonify-primary);
+        background: var(--primary-blue);
         border-radius: 16px;
-        color: var(--carbonify-white);
+        color: var(--white);
         position: relative;
         overflow: hidden;
+        box-shadow: 0 4px 16px rgba(44, 117, 255, 0.15);
       }
 
       .total-sum-amount {
         font-size: 3.5rem;
         font-weight: 700;
-        color: var(--carbonify-white);
+        color: var(--white);
         line-height: 1;
         margin-bottom: 0.25rem;
       }
@@ -422,7 +456,7 @@
 
       .total-sum-bonus {
         background: rgba(255, 255, 255, 0.2);
-        color: var(--carbonify-white);
+        color: var(--white);
         padding: 0.5rem 1rem;
         border-radius: 20px;
         font-weight: 600;
@@ -449,66 +483,79 @@
       }
 
       .comparison-table th {
-        background: var(--carbonify-gray-50);
+        background: var(--gray-50);
         padding: 2.5rem 1rem 1.5rem 1rem;
         text-align: center;
         font-weight: 700;
-        color: var(--carbonify-gray-800);
-        border-bottom: 2px solid var(--carbonify-gray-200);
+        color: var(--gray-800);
+        border-bottom: 1px solid var(--gray-200);
         position: sticky;
         top: 0;
-        z-index: 10;
+        z-index: 5;
       }
 
       .comparison-table th.plan-header {
         font-size: 1.25rem;
-        background: var(--carbonify-primary-light);
-        color: var(--carbonify-primary);
+        background: var(--primary-blue-light);
+        color: var(--primary-blue);
       }
 
       .comparison-table th.recommended {
-        background: var(--carbonify-primary);
-        color: var(--carbonify-white);
+        background: var(--primary-blue);
+        color: var(--white);
         position: relative;
       }
 
       .comparison-table th.comparison-header-label {
-        background: var(--carbonify-gray-50);
-        color: var(--carbonify-gray-800);
+        background: var(--gray-50);
+        color: var(--gray-800);
         text-align: left;
         font-weight: 700;
-        border-right: 1px solid var(--carbonify-gray-200);
+        border-right: 1px solid var(--gray-200);
       }
 
       .table-recommended-badge {
         position: absolute;
         top: -8px;
         right: 1rem;
-        background: var(--carbonify-white);
-        color: var(--carbonify-primary);
+        background: var(--white);
+        color: var(--primary-blue);
         padding: 0.25rem 0.75rem;
         border-radius: 12px;
         font-size: 0.7rem;
         font-weight: 700;
         text-transform: uppercase;
+        box-shadow: 0 2px 8px rgba(44, 117, 255, 0.15);
       }
 
       .comparison-table td {
         padding: 1.25rem 1rem;
-        border-bottom: 1px solid var(--carbonify-gray-100);
+        border-bottom: 1px solid var(--gray-100);
         vertical-align: top;
       }
 
-      .comparison-table tr:hover {
-        background: var(--carbonify-gray-50);
+      .comparison-table tbody tr:last-child td {
+        border-bottom: none;
       }
 
-      .row-label {
+      .comparison-table tbody tr {
+        position: relative;
+      }
+
+      .comparison-table tbody tr + tr td {
+        border-top: none;
+      }
+
+      .comparison-table tr:hover {
+        background: var(--gray-50);
+      }
+
+      .comparison-table .row-label {
         font-weight: 600;
-        color: var(--carbonify-gray-800);
-        background: var(--carbonify-white);
+        color: var(--gray-800);
+        background: var(--white);
         border-right: none;
-        box-shadow: inset -1px 0 0 var(--carbonify-gray-100);
+        box-shadow: inset -1px 0 0 var(--gray-100);
         position: sticky;
         left: 0;
         z-index: 5;
@@ -523,8 +570,8 @@
         justify-content: center;
         width: 18px;
         height: 18px;
-        background: var(--carbonify-primary);
-        color: var(--carbonify-white);
+        background: var(--primary-blue);
+        color: var(--white);
         border-radius: 50%;
         font-size: 0.7rem;
         font-weight: 700;
@@ -537,8 +584,8 @@
         bottom: 125%;
         left: 50%;
         transform: translateX(-50%);
-        background: var(--carbonify-gray-800);
-        color: var(--carbonify-white);
+        background: #F8FAFC;
+        color: var(--gray-800);
         padding: 0.75rem 1rem;
         border-radius: 8px;
         font-size: 0.8rem;
@@ -549,8 +596,9 @@
         opacity: 0;
         visibility: hidden;
         transition: all 200ms ease;
-        z-index: 1000;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        z-index: 99999;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border: 1px solid var(--gray-200);
       }
 
       .tooltip::after {
@@ -560,7 +608,7 @@
         left: 50%;
         transform: translateX(-50%);
         border: 5px solid transparent;
-        border-top-color: var(--carbonify-gray-800);
+        border-top-color: #F8FAFC;
       }
 
       .tooltip-trigger:hover .tooltip {
@@ -568,24 +616,37 @@
         visibility: visible;
       }
 
+      .comparison-table .tooltip {
+        z-index: 99999;
+      }
+
+      .comparison-table .tooltip-trigger {
+        z-index: 99998;
+      }
+
       .value-cell {
         text-align: center;
-        color: var(--carbonify-gray-700);
+        color: var(--gray-700);
       }
 
       .value-highlight {
         font-weight: 600;
-        color: var(--carbonify-primary);
+        color: var(--primary-blue);
       }
 
       .value-success {
-        color: var(--carbonify-success);
+        color: var(--success);
         font-weight: 600;
       }
 
       .value-warning {
         color: var(--carbonify-warning);
         font-weight: 600;
+      }
+
+      .text-muted {
+        color: var(--gray-400);
+        font-style: italic;
       }
 
       .speed-indicator {
@@ -603,21 +664,21 @@
         width: 6px;
         height: 6px;
         border-radius: 50%;
-        background: var(--carbonify-gray-300);
+        background: var(--gray-300);
       }
 
       .speed-dot.active {
-        background: var(--carbonify-success);
+        background: var(--success);
       }
 
       .speed-dot.fast {
-        background: var(--carbonify-primary);
+        background: var(--primary-blue);
       }
 
       .cta-section {
         padding: 2rem;
-        background: var(--carbonify-gray-50);
-        border-top: 1px solid var(--carbonify-gray-100);
+        background: var(--gray-50);
+        border-top: 1px solid var(--gray-100);
       }
 
       .cta-buttons {
@@ -629,8 +690,8 @@
       }
 
       .cta-button {
-        background: var(--carbonify-primary);
-        color: var(--carbonify-white);
+        background: var(--primary-blue);
+        color: var(--white);
         border: none;
         padding: 1rem 2rem;
         border-radius: 12px;
@@ -644,13 +705,13 @@
         gap: 0.5rem;
         position: relative;
         overflow: hidden;
+        box-shadow: 0 2px 8px rgba(44, 117, 255, 0.15);
       }
 
       .cta-button:hover {
-        background: hsl(var(--cb-brand-100-color));
-        color: var(--carbonify-primary);
+        background: var(--primary-blue-dark);
         transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(44, 117, 255, 0.3);
+        box-shadow: 0 8px 25px rgba(44, 117, 255, 0.25);
       }
 
       .cta-button::before {
@@ -670,9 +731,9 @@
       }
 
       .cta-button.secondary {
-        background: var(--carbonify-white);
-        color: var(--carbonify-gray-700);
-        border: 2px solid var(--carbonify-gray-200);
+        background: var(--white);
+        color: var(--gray-700);
+        border: 1px solid var(--gray-200);
         position: relative;
         overflow: hidden;
       }
@@ -694,11 +755,11 @@
       }
 
       .cta-button.secondary:hover {
-        background: var(--carbonify-primary);
-        color: var(--carbonify-white);
-        border-color: var(--carbonify-primary);
+        background: var(--primary-blue);
+        color: var(--white);
+        border-color: var(--primary-blue);
         transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(44, 117, 255, 0.3);
+        box-shadow: 0 8px 25px rgba(44, 117, 255, 0.25);
       }
 
       .hidden {
@@ -751,7 +812,7 @@
           padding: 1rem 0.5rem;
         }
 
-        .row-label {
+        .comparison-table .row-label {
           font-size: 0.85rem;
         }
 
@@ -966,17 +1027,7 @@
               </svg>
             </button>
 
-            <!-- Hover Info Box -->
-            <div class="info-box">
-              <div class="info-box-title">Auszahlungszeitraum</div>
-              <div class="info-box-details">4-16 Wochen nach UBA-Zertifizierung</div>
-              <ul class="info-box-process">
-                <li>Einreichung der Antragsunterlagen</li>
-                <li>UBA-Zertifizierung (2-8 Wochen)</li>
-                <li>Auszahlung der THG-Prämie (2-8 Wochen)</li>
-                <li>Gesamtzeitraum: 4-16 Wochen</li>
-              </ul>
-            </div>
+
           </div>
 
                      <!-- Express Card -->
@@ -1076,17 +1127,7 @@
                </svg>
              </button>
 
-             <!-- Hover Info Box -->
-             <div class="info-box">
-               <div class="info-box-title">Auszahlungszeitraum</div>
-               <div class="info-box-details">24 Stunden - 2 Wochen</div>
-               <ul class="info-box-process">
-                 <li>Sofortige Antragsbearbeitung</li>
-                 <li>Direkte Auszahlung ohne UBA-Zertifizierung</li>
-                 <li>Garantierte Sofortauszahlung</li>
-                 <li>Gesamtzeitraum: 24h - 2 Wochen</li>
-               </ul>
-             </div>
+             
            </div>
 
            <!-- Bonus Card (2026 only) -->
@@ -1186,17 +1227,7 @@
                </svg>
              </button>
 
-             <!-- Hover Info Box -->
-             <div class="info-box">
-               <div class="info-box-title">Auszahlungszeitraum</div>
-               <div class="info-box-details">6-20 Wochen nach UBA-Zertifizierung</div>
-               <ul class="info-box-process">
-                 <li>Einreichung der Antragsunterlagen</li>
-                 <li>UBA-Zertifizierung (3-10 Wochen)</li>
-                 <li>Auszahlung der THG-Prämie (3-10 Wochen)</li>
-                 <li>Gesamtzeitraum: 6-20 Wochen</li>
-               </ul>
-             </div>
+             
            </div>
         </div>
       </div>
@@ -1207,21 +1238,8 @@
         class="comparison-view"
       >
         <table class="comparison-table">
-          <thead>
-            <tr>
-              <th
-                class="comparison-header-label"
-                style="width: 25%"
-              >
-                Vergleichskriterium
-              </th>
-              <th class="plan-header recommended">
-                Klassik
-                <div class="table-recommended-badge">Empfohlen</div>
-              </th>
-              <th class="plan-header">Express</th>
-              <th class="plan-header">Bonus</th>
-            </tr>
+          <thead id="comparisonTableHead">
+            <!-- Headers will be dynamically generated here -->
           </thead>
           <tbody id="comparisonTableBody">
             <!-- Rows will be dynamically generated here -->
@@ -1347,11 +1365,58 @@
       }
 
       function updateComparisonTable() {
+        const thead = document.getElementById('comparisonTableHead');
         const tbody = document.getElementById('comparisonTableBody');
-        if (!tbody) return;
+        if (!thead || !tbody) return;
 
-        // Clear existing rows
+        // Clear existing content
+        thead.innerHTML = '';
         tbody.innerHTML = '';
+
+        // Determine available plans based on year selection
+        const availablePlans = [];
+        
+        if (currentYear === 'both' || currentYear === '2025') {
+          availablePlans.push('klassik', 'express');
+        }
+        if (currentYear === 'both' || currentYear === '2026') {
+          availablePlans.push('klassik', 'express');
+          if (currentYear === '2026') {
+            availablePlans.push('bonus');
+          }
+        }
+
+        // Remove duplicates
+        const uniquePlans = [...new Set(availablePlans)];
+
+        // Generate table headers
+        const headerRow = document.createElement('tr');
+        
+        // First column - comparison criteria
+        const criteriaHeader = document.createElement('th');
+        criteriaHeader.className = 'comparison-header-label';
+        criteriaHeader.style.width = '25%';
+        criteriaHeader.textContent = 'Vergleichskriterium';
+        headerRow.appendChild(criteriaHeader);
+
+        // Plan headers
+        uniquePlans.forEach((plan, index) => {
+          const planHeader = document.createElement('th');
+          planHeader.className = 'plan-header';
+          
+          if (plan === 'klassik') {
+            planHeader.classList.add('recommended');
+            planHeader.innerHTML = 'Klassik<div class="table-recommended-badge">Empfohlen</div>';
+          } else if (plan === 'express') {
+            planHeader.textContent = 'Express';
+          } else if (plan === 'bonus') {
+            planHeader.textContent = 'Bonus';
+          }
+          
+          headerRow.appendChild(planHeader);
+        });
+
+        thead.appendChild(headerRow);
 
         // Define table rows based on year selection
         const rows = [
@@ -1505,29 +1570,22 @@
           `;
           tr.appendChild(labelCell);
 
-          // Klassik cell
-          const klassikCell = document.createElement('td');
-          klassikCell.className = 'value-cell';
-          if (row.klassik.highlight) klassikCell.classList.add('value-highlight');
-          if (row.klassik.type === 'bonus') klassikCell.classList.add('value-success');
-          klassikCell.innerHTML = row.klassik.content;
-          tr.appendChild(klassikCell);
-
-          // Express cell
-          const expressCell = document.createElement('td');
-          expressCell.className = 'value-cell';
-          if (row.express.highlight) expressCell.classList.add('value-highlight');
-          if (row.express.type === 'bonus') expressCell.classList.add('value-success');
-          expressCell.innerHTML = row.express.content;
-          tr.appendChild(expressCell);
-
-          // Bonus cell
-          const bonusCell = document.createElement('td');
-          bonusCell.className = 'value-cell';
-          if (row.bonus && row.bonus.highlight) bonusCell.classList.add('value-highlight');
-          if (row.bonus && row.bonus.type === 'bonus') bonusCell.classList.add('value-success');
-          bonusCell.innerHTML = row.bonus ? row.bonus.content : '';
-          tr.appendChild(bonusCell);
+          // Generate cells for each available plan
+          uniquePlans.forEach(plan => {
+            const cell = document.createElement('td');
+            cell.className = 'value-cell';
+            
+            if (row[plan]) {
+              if (row[plan].highlight) cell.classList.add('value-highlight');
+              if (row[plan].type === 'bonus') cell.classList.add('value-success');
+              cell.innerHTML = row[plan].content;
+            } else {
+              cell.innerHTML = 'N/A';
+              cell.classList.add('text-muted');
+            }
+            
+            tr.appendChild(cell);
+          });
 
           tbody.appendChild(tr);
         });
