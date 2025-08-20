@@ -52,34 +52,7 @@
         margin-top: 0.5rem;
         font-size: 0.875rem;
       }
-      .hero-design-toggle {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        margin-top: 0.5rem;
-        font-size: 0.875rem;
-      }
-
-      .hero-design-select {
-        background: rgba(255, 255, 255, 0.2);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        border-radius: 8px;
-        color: #ffffff;
-        padding: 0.25rem 0.5rem;
-        font-size: 0.75rem;
-        cursor: pointer;
-        transition: all 0.2s ease;
-      }
-
-      .hero-design-select:hover {
-        background: rgba(255, 255, 255, 0.3);
-        border-color: rgba(255, 255, 255, 0.5);
-      }
-
-      .hero-design-select option {
-        background: var(--brand-dark);
-        color: #ffffff;
-      }
+      
 
       /* Main Navigation Styles (from screenshot) */
       .main-navigation {
@@ -272,10 +245,10 @@
       }
 
              /* Hero Section Styles - Professional Design from Screenshot */
-       .hero-section {
+                      .hero-section {
          position: relative;
          overflow: hidden;
-         min-height: 100vh;
+         min-height: 60vh;
          display: flex;
          align-items: center;
          background-image: url('Hero-desktop-wide.webp');
@@ -283,12 +256,6 @@
          background-position: center;
          background-attachment: fixed;
          background-repeat: no-repeat;
-         transform: scale(1.1);
-         transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-       }
-
-       .hero-section.unfolded {
-         transform: scale(1);
        }
 
        /* Hero Background and Overlay */
@@ -313,18 +280,18 @@
        }
 
              /* Hero Container */
-       .hero-container {
-         position: relative;
-         z-index: 3;
-         max-width: 1200px;
-         margin: 0 auto;
-         padding: 0 2rem;
-         display: flex;
-         justify-content: center;
-         align-items: center;
-         min-height: 100vh;
-         text-align: center;
-       }
+               .hero-container {
+          position: relative;
+          z-index: 3;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 2rem;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 60vh;
+          text-align: center;
+        }
 
        /* Left Content */
        .hero-content-left {
@@ -640,197 +607,9 @@
         z-index: 1;
       }
 
-      /* Design 1: Current floating cards */
-      .design-1 .floating-card {
-        position: absolute;
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 16px;
-        padding: 1rem;
-        color: #ffffff;
-        font-size: 0.875rem;
-        font-weight: 500;
-        animation: float 6s ease-in-out infinite;
-        pointer-events: auto;
-      }
+      
 
-      /* Design 2: Minimalist cards */
-      .design-2 .floating-card {
-        position: absolute;
-        background: rgba(255, 255, 255, 0.9);
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        padding: 0.75rem;
-        color: var(--text);
-        font-size: 0.875rem;
-        font-weight: 500;
-        animation: float 6s ease-in-out infinite;
-        pointer-events: auto;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-      }
-
-      /* Design 3: Card-based modular */
-      .design-3 .floating-card {
-        position: absolute;
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 16px;
-        padding: 1rem;
-        color: var(--text);
-        font-size: 0.875rem;
-        font-weight: 500;
-        animation: float 6s ease-in-out infinite;
-        pointer-events: auto;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-      }
-
-      /* Design 4: Geometric gradient cards */
-      .design-4 .floating-card {
-        position: absolute;
-        background: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(15px);
-        border: 1px solid rgba(255, 255, 255, 0.25);
-        border-radius: 20px;
-        padding: 1rem;
-        color: #ffffff;
-        font-size: 0.875rem;
-        font-weight: 500;
-        animation: float 6s ease-in-out infinite;
-        pointer-events: auto;
-        transform: rotate(-2deg);
-      }
-
-      /* Additional design variations */
-      /* Design 2: Modern Light */
-      .hero-section.design-2 {
-        background-image: url('Hero-desktop-wide.webp');
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-        background-repeat: no-repeat;
-      }
-
-      .hero-section.design-2 .hero-overlay {
-        background: rgba(255, 255, 255, 0.1);
-      }
-
-      .hero-section.design-2 .hero-title {
-        color: var(--brand);
-        text-shadow: none;
-      }
-
-             .hero-section.design-2 .cta-primary {
-         background: var(--brand);
-         color: #ffffff;
-         box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
-       }
-
-       .hero-section.design-2 .cta-primary:hover {
-         background: var(--brand-dark);
-         transform: translateY(-3px);
-       }
-
-       .hero-section.design-2 .cta-secondary {
-         background: rgba(255, 255, 255, 0.9);
-         color: var(--text);
-         border-color: var(--border);
-       }
-
-      .hero-section.design-2 .floating-card {
-        background: rgba(255, 255, 255, 0.9);
-        color: var(--text);
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-      }
-
-      /* Design 3: Clean Minimalist */
-      .hero-section.design-3 {
-        background-image: url('Hero-desktop-wide.webp');
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-        background-repeat: no-repeat;
-      }
-
-      .hero-section.design-3 .hero-overlay {
-        background: none;
-      }
-
-      .hero-section.design-3 .hero-title {
-        color: var(--text);
-        text-shadow: none;
-      }
-
-             .hero-section.design-3 .cta-primary {
-         background: var(--brand);
-         color: #ffffff;
-         box-shadow: 0 8px 32px rgba(59, 130, 246, 0.2);
-       }
-
-       .hero-section.design-3 .cta-primary:hover {
-         background: var(--brand-dark);
-         transform: translateY(-3px);
-       }
-
-       .hero-section.design-3 .cta-secondary {
-         background: #ffffff;
-         color: var(--text);
-         border-color: var(--border);
-         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-       }
-
-      .hero-section.design-3 .floating-card {
-        background: #ffffff;
-        color: var(--text);
-        border: 1px solid var(--border);
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-      }
-
-      /* Design 4: Bold Gradient */
-      .hero-section.design-4 {
-        background-image: url('Hero-desktop-wide.webp');
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-        background-repeat: no-repeat;
-      }
-
-      .hero-section.design-4 .hero-overlay {
-        background: rgba(0, 0, 0, 0.2);
-      }
-
-      .hero-section.design-4 .hero-title {
-        color: #ffffff;
-        text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-      }
-
-             .hero-section.design-4 .cta-primary {
-         background: rgba(255, 255, 255, 0.2);
-         color: #ffffff;
-         backdrop-filter: blur(20px);
-         border: 1px solid rgba(255, 255, 255, 0.3);
-         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-       }
-
-       .hero-section.design-4 .cta-primary:hover {
-         background: rgba(255, 255, 255, 0.3);
-         transform: translateY(-3px);
-       }
-
-       .hero-section.design-4 .cta-secondary {
-         background: rgba(255, 255, 255, 0.1);
-         color: #ffffff;
-         border-color: rgba(255, 255, 255, 0.4);
-         backdrop-filter: blur(15px);
-       }
-
-      .hero-section.design-4 .floating-card {
-        background: rgba(255, 255, 255, 0.2);
-        backdrop-filter: blur(15px);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        transform: rotate(-2deg);
-      }
+      
 
       .floating-card:nth-child(1) {
         top: 15%;
@@ -849,6 +628,456 @@
         left: 8%;
         animation-delay: 4s;
       }
+
+      /* Design 0: Screenshot Style - Based on the screenshot description */
+             .hero-section.design-0 {
+         background-image: url('Hero-desktop-wide.webp');
+         background-size: cover;
+         background-position: center;
+         background-attachment: fixed;
+         background-repeat: no-repeat;
+         position: relative;
+         overflow: hidden;
+         min-height: 60vh;
+         display: flex;
+         align-items: center;
+       }
+
+      .hero-section.design-0 .hero-background {
+        background: none;
+      }
+
+      .hero-section.design-0 .hero-overlay {
+        background: none;
+      }
+
+                                           .hero-section.design-0 .hero-container {
+           position: relative;
+           z-index: 3;
+           max-width: none;
+           margin: 0;
+           padding: 0;
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           min-height: 60vh;
+           text-align: left;
+           width: 100%;
+         }
+
+                     .hero-section.design-0 .hero-content-left {
+          color: #ffffff;
+          max-width: none;
+          width: 100%;
+          padding-left: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+                                                                                       .hero-section.design-0 .hero-main-content {
+            max-width: none;
+            display: inline-flex;
+            flex-direction: column;
+            gap: 24px;
+            padding: 0;
+            border-radius: 0;
+            border: none;
+            background: none;
+            backdrop-filter: none;
+            color: rgb(255, 255, 255);
+          }
+
+             .hero-section.design-0 .hero-title {
+         font-size: 2.5rem;
+         font-weight: 700;
+         line-height: 1.2;
+         margin-bottom: 2rem;
+         color: rgb(255, 255, 255);
+         opacity: 1;
+         animation: none;
+       }
+
+      .hero-section.design-0 .title-line {
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+
+      .hero-section.design-0 .hero-ctas {
+        display: none;
+      }
+
+      .hero-section.design-0 .benefits-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin: 0 0 2rem 0;
+        padding: 0;
+        list-style: none;
+      }
+
+             .hero-section.design-0 .benefit-item {
+         display: flex;
+         align-items: flex-start;
+         gap: 1rem;
+         margin-bottom: 1rem;
+         font-size: 1rem;
+         line-height: 1.5;
+         opacity: 1;
+         color: rgb(255, 255, 255);
+       }
+
+             .hero-section.design-0 .benefit-icon {
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         width: 24px;
+         height: 24px;
+         background: var(--brand);
+         color: #ffffff;
+         border-radius: 50%;
+         font-weight: bold;
+         font-size: 0.875rem;
+         flex-shrink: 0;
+         margin-top: 0.125rem;
+         box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+       }
+
+             .hero-section.design-0 .hero-link {
+         display: inline-flex;
+         align-items: center;
+         gap: 0.5rem;
+         color: rgb(255, 255, 255);
+         text-decoration: underline;
+         font-size: 1rem;
+         margin-bottom: 2rem;
+         transition: color 0.2s ease;
+       }
+
+      .hero-section.design-0 .hero-link:hover {
+        color: var(--brand);
+      }
+
+      .hero-section.design-0 .arrow {
+        font-size: 1.2rem;
+        transition: transform 0.2s ease;
+      }
+
+      .hero-section.design-0 .hero-link:hover .arrow {
+        transform: translateX(4px);
+      }
+
+      .hero-section.design-0 .cta-button {
+        background: var(--brand);
+        color: #ffffff;
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 1.125rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        width: 100%;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-top: 1rem;
+      }
+
+      .hero-section.design-0 .cta-button:hover {
+        background: var(--brand-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      }
+
+      .hero-section.design-0 .floating-cards {
+        display: none;
+      }
+
+      .hero-section.design-0 .scroll-indicator {
+        display: none;
+      }
+
+                    /* Hero Design Slider */
+       .hero-design-slider {
+         background: rgba(255, 255, 255, 0.98);
+         backdrop-filter: blur(10px);
+         border-bottom: 2px solid var(--brand);
+         padding: 1.5rem 0;
+         position: sticky;
+         top: 80px;
+         z-index: 99;
+         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+       }
+
+       .slider-container {
+         max-width: 1200px;
+         margin: 0 auto;
+         padding: 0 1.5rem;
+         display: flex;
+         align-items: center;
+         gap: 1rem;
+       }
+
+       .slider-label {
+         font-weight: 600;
+         color: var(--text);
+         white-space: nowrap;
+       }
+
+       .slider-track {
+         flex: 1;
+         max-width: 400px;
+       }
+
+       .slider-input {
+         width: 100%;
+         height: 8px;
+         background: #e5e7eb;
+         border-radius: 4px;
+         outline: none;
+         -webkit-appearance: none;
+         appearance: none;
+         cursor: pointer;
+         border: 2px solid var(--brand);
+       }
+
+       .slider-input::-webkit-slider-thumb {
+         -webkit-appearance: none;
+         appearance: none;
+         width: 24px;
+         height: 24px;
+         background: var(--brand);
+         border-radius: 50%;
+         cursor: pointer;
+         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+         border: 2px solid #ffffff;
+       }
+
+       .slider-input::-moz-range-thumb {
+         width: 24px;
+         height: 24px;
+         background: var(--brand);
+         border-radius: 50%;
+         cursor: pointer;
+         border: 2px solid #ffffff;
+         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+       }
+
+       .slider-labels {
+         display: flex;
+         justify-content: space-between;
+         margin-top: 0.75rem;
+         font-size: 0.9rem;
+         color: var(--text);
+       }
+
+       .slider-option {
+         font-weight: 600;
+         padding: 0.25rem 0.5rem;
+         background: rgba(59, 130, 246, 0.1);
+         border-radius: 6px;
+         color: var(--brand);
+       }
+
+       /* Design Variations */
+       .design-variation {
+         width: 100%;
+       }
+
+                               /* Variation 1: H1 and H2 inside box (default) */
+         .variation-1 {
+           display: flex;
+           flex-direction: column;
+           gap: 24px;
+           padding: 20px 48px;
+           border-radius: 11px;
+           border: 1px solid rgb(255, 255, 255);
+           background: rgba(0, 0, 0, 0.6);
+           backdrop-filter: blur(5px);
+           color: rgb(255, 255, 255);
+           width: 100%;
+           max-width: 600px;
+         }
+
+        .variation-1 .hero-title {
+          font-size: 2.5rem;
+          font-weight: 700;
+          line-height: 1.2;
+          margin-bottom: 2rem;
+          color: #ffffff;
+        }
+
+                       /* Variation 2: H1 outside box, H2 inside */
+         .variation-2 .hero-title-outside {
+           font-size: 3.5rem;
+           font-weight: 800;
+           line-height: 1.1;
+           margin-bottom: 0;
+           color: #ffffff;
+           text-align: left;
+           text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+           max-width: 500px;
+           margin-right: 2rem;
+         }
+
+         .variation-2-layout {
+           display: flex;
+           align-items: center;
+           gap: 2rem;
+           width: 100%;
+         }
+
+         .variation-2 .content-box {
+           display: inline-flex;
+           flex-direction: column;
+           gap: 24px;
+           padding: 20px 48px;
+           border-radius: 11px;
+           border: 1px solid rgb(255, 255, 255);
+           background: rgba(0, 0, 0, 0.6);
+           backdrop-filter: blur(5px);
+           color: rgb(255, 255, 255);
+         }
+
+        .variation-2 .hero-subtitle {
+          font-size: 1.5rem;
+          font-weight: 600;
+          margin-bottom: 1.5rem;
+          color: rgb(255, 255, 255);
+        }
+
+                       /* Variation 3: H1 and H2 outside box */
+         .variation-3 .hero-title-outside {
+           font-size: 4rem;
+           font-weight: 800;
+           line-height: 1.1;
+           margin-bottom: 1rem;
+           color: #ffffff;
+           text-align: left;
+           text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+           max-width: 500px;
+           margin-right: 2rem;
+         }
+
+         .variation-3 .hero-subtitle-outside {
+           font-size: 1.75rem;
+           font-weight: 500;
+           margin-bottom: 2rem;
+           color: #ffffff;
+           text-align: left;
+           text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+           opacity: 0.9;
+           max-width: 500px;
+           margin-right: 2rem;
+         }
+
+         .variation-3-layout {
+           display: flex;
+           align-items: center;
+           gap: 2rem;
+           width: 100%;
+         }
+
+         .variation-3-titles {
+           display: flex;
+           flex-direction: column;
+           max-width: 500px;
+           margin-right: 2rem;
+         }
+
+         .variation-3 .content-box {
+           display: inline-flex;
+           flex-direction: column;
+           gap: 24px;
+           padding: 20px 48px;
+           border-radius: 11px;
+           border: 1px solid rgb(255, 255, 255);
+           background: rgba(0, 0, 0, 0.6);
+           backdrop-filter: blur(5px);
+           color: rgb(255, 255, 255);
+         }
+
+               /* Mobile Responsive for Design 0 */
+         @media (max-width: 768px) {
+           .hero-section.design-0 .hero-content-left {
+             padding-left: 2rem;
+             padding-right: 2rem;
+           }
+
+                                     .hero-section.design-0 .hero-main-content {
+             padding: 0;
+             max-width: none;
+           }
+
+         .hero-section.design-0 .hero-title {
+           font-size: 2rem;
+         }
+
+                  .hero-section.design-0 .benefit-item {
+            font-size: 0.9rem;
+          }
+
+          /* Mobile slider adjustments */
+          .hero-design-slider {
+            padding: 0.75rem 0;
+          }
+
+          .slider-container {
+            flex-direction: column;
+            gap: 0.75rem;
+            align-items: stretch;
+          }
+
+          .slider-track {
+            max-width: none;
+          }
+
+          .slider-labels {
+            font-size: 0.8rem;
+          }
+
+                                                                 /* Mobile adjustments for all variations */
+             .variation-1 {
+               padding: 16px 24px;
+             }
+
+             .variation-2-layout,
+             .variation-3-layout {
+               flex-direction: column;
+               gap: 1.5rem;
+               align-items: center;
+               text-align: center;
+             }
+
+            .variation-2 .hero-title-outside,
+            .variation-3 .hero-title-outside {
+              font-size: 2.5rem;
+              margin-right: 0;
+              text-align: center;
+            }
+
+            .variation-3 .hero-subtitle-outside {
+              font-size: 1.25rem;
+              margin-right: 0;
+              text-align: center;
+            }
+
+            .variation-3-titles {
+              margin-right: 0;
+              align-items: center;
+            }
+        }
+
+       /* Tablet adjustments for Design 0 */
+       @media (max-width: 1024px) and (min-width: 769px) {
+         .hero-section.design-0 .hero-content-left {
+           padding-left: 5rem;
+         }
+
+         .hero-design-slider {
+           padding: 0.875rem 0;
+         }
+       }
 
       @keyframes fadeInUp {
         from {
@@ -931,16 +1160,7 @@
           display: none;
         }
 
-        .hero-design-toggle {
-          flex-direction: column;
-          align-items: flex-start;
-          gap: 0.25rem;
-        }
-
-        .hero-design-select {
-          width: 100%;
-          max-width: 200px;
-        }
+        
 
         .benefits-list {
           text-align: left;
@@ -1164,15 +1384,7 @@
       <div class="container">
         <h1 style="margin: 0; font-size: 1.25rem">carbonify – View Showcase</h1>
         <div style="opacity: 0.9">Ein Basis-Layout mit allen Views</div>
-        <div class="hero-design-toggle">
-          <span>Hero Design</span>
-          <select id="hero-design-select" class="hero-design-select">
-            <option value="1">Design 1: Professional</option>
-            <option value="2">Design 2: Modern</option>
-            <option value="3">Design 3: Clean</option>
-            <option value="4">Design 4: Bold</option>
-          </select>
-        </div>
+        
         <div class="bonus-toggle">
           <span>Verivox Bonus anzeigen</span>
           <div
@@ -1215,8 +1427,23 @@
 
 
 
-    <!-- Hero Section -->
-    <div class="hero-section design-1">
+         <!-- Hero Design Variation Slider -->
+     <div class="hero-design-slider">
+       <div class="slider-container">
+         <span class="slider-label">Hero Design:</span>
+         <div class="slider-track">
+           <input type="range" id="heroDesignSlider" min="1" max="3" value="1" class="slider-input">
+           <div class="slider-labels">
+             <span class="slider-option">Variation 1</span>
+             <span class="slider-option">Variation 2</span>
+             <span class="slider-option">Variation 3</span>
+           </div>
+         </div>
+       </div>
+     </div>
+
+     <!-- Hero Section -->
+     <div class="hero-section design-0" data-variation="1">
       <!-- Background Image with Overlay -->
       <div class="hero-background">
         <div class="hero-overlay"></div>
@@ -1249,46 +1476,121 @@
       <!-- Main Hero Content -->
       <div class="hero-container">
         <div class="hero-content-left">
-          <div class="hero-main-content">
-            <h1 class="hero-title">THG-Prämie</h1>
-            
-                         <!-- Hero CTAs -->
-             <div class="hero-ctas">
-               <a href="#signup" class="cta-primary">
-                 <span>Jetzt anmelden</span>
-                 <svg class="cta-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                   <path d="M10 3L17 10L10 17" stroke="currentColor" stroke-width="2" fill="none"/>
-                 </svg>
-               </a>
+                     <div class="hero-main-content">
+             <!-- Variation 1: H1 and H2 inside box -->
+             <div class="design-variation variation-1" data-variation="1">
+               <h1 class="hero-title">
+                 <span class="title-line">THG-Prämie für Ihr</span>
+                 <span class="title-line">Elektrofahrzeug sichern</span>
+               </h1>
                
-                               <a href="#views" class="cta-secondary">
-                  <span>THG-Prämie auswählen</span>
-                  <svg class="cta-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M10 3L17 10L10 17" stroke="currentColor" stroke-width="2" fill="none"/>
-                  </svg>
-                </a>
+               <a href="#thg-info" class="hero-link">
+                 Klicke hier für mehr Informationen zu den THG-Prämien
+                 <span class="arrow">→</span>
+               </a>
+              
+              <ul class="benefits-list">
+                 <li class="benefit-item">
+                   <div class="benefit-icon">✓</div>
+                   <span>Vertraue dem Anbieter mit der höchsten Kundenzufriedenheit.</span>
+                 </li>
+                 <li class="benefit-item">
+                   <div class="benefit-icon">✓</div>
+                   <span>Erhalte eine marktgerechte und abgesicherte Auszahlung.</span>
+                 </li>
+                 <li class="benefit-item">
+                   <div class="benefit-icon">✓</div>
+                   <span>Setze auf Expertise aus 750.000 Quoten.</span>
+                 </li>
+                 <li class="benefit-item">
+                   <div class="benefit-icon">✓</div>
+                   <span>Binde dich ausschließlich für das Quotenjahr 2025.</span>
+                 </li>
+               </ul>
+               
+               <button class="cta-button">JETZT REGISTRIEREN</button>
              </div>
 
-            <!-- Benefits List -->
-            <div class="benefits-list">
-              <div class="benefit-item">
-                <div class="benefit-icon">✓</div>
-                <span>Vertraue dem Anbieter mit der höchsten Kundenzufriedenheit.</span>
+                                         <!-- Variation 2: H1 outside box, H2 inside -->
+               <div class="design-variation variation-2" data-variation="2" style="display: none;">
+                 <div class="variation-2-layout">
+                   <h1 class="hero-title-outside">
+                     <span class="title-line">THG-Prämie für Ihr</span>
+                     <span class="title-line">Elektrofahrzeug sichern</span>
+                   </h1>
+                   
+                   <div class="content-box">
+                     <a href="#thg-info" class="hero-link">
+                       Klicke hier für mehr Informationen zu den THG-Prämien
+                       <span class="arrow">→</span>
+                     </a>
+                    
+                    <ul class="benefits-list">
+                       <li class="benefit-item">
+                         <div class="benefit-icon">✓</div>
+                         <span>Vertraue dem Anbieter mit der höchsten Kundenzufriedenheit.</span>
+                       </li>
+                       <li class="benefit-item">
+                         <div class="benefit-icon">✓</div>
+                         <span>Erhalte eine marktgerechte und abgesicherte Auszahlung.</span>
+                       </li>
+                       <li class="benefit-item">
+                         <div class="benefit-icon">✓</div>
+                         <span>Setze auf Expertise aus 750.000 Quoten.</span>
+                       </li>
+                       <li class="benefit-item">
+                         <div class="benefit-icon">✓</div>
+                         <span>Binde dich ausschließlich für das Quotenjahr 2025.</span>
+                       </li>
+                     </ul>
+                     
+                     <button class="cta-button">JETZT REGISTRIEREN</button>
+                   </div>
+                 </div>
+               </div>
+
+                           <!-- Variation 3: H1 and H2 outside box -->
+              <div class="design-variation variation-3" data-variation="3" style="display: none;">
+                <div class="variation-3-layout">
+                  <div class="variation-3-titles">
+                    <h1 class="hero-title-outside">
+                      <span class="title-line">THG-Prämie für Ihr</span>
+                      <span class="title-line">Elektrofahrzeug sichern</span>
+                    </h1>
+                    
+                    <h2 class="hero-subtitle-outside">Sichern Sie sich Ihre Prämie</h2>
+                  </div>
+                  
+                  <div class="content-box">
+                    <a href="#thg-info" class="hero-link">
+                      Klicke hier für mehr Informationen zu den THG-Prämien
+                      <span class="arrow">→</span>
+                    </a>
+                   
+                   <ul class="benefits-list">
+                      <li class="benefit-item">
+                        <div class="benefit-icon">✓</div>
+                        <span>Vertraue dem Anbieter mit der höchsten Kundenzufriedenheit.</span>
+                      </li>
+                      <li class="benefit-item">
+                        <div class="benefit-icon">✓</div>
+                        <span>Erhalte eine marktgerechte und abgesicherte Auszahlung.</span>
+                      </li>
+                      <li class="benefit-item">
+                        <div class="benefit-icon">✓</div>
+                        <span>Setze auf Expertise aus 750.000 Quoten.</span>
+                      </li>
+                      <li class="benefit-item">
+                        <div class="benefit-icon">✓</div>
+                        <span>Binde dich ausschließlich für das Quotenjahr 2025.</span>
+                      </li>
+                    </ul>
+                    
+                    <button class="cta-button">JETZT REGISTRIEREN</button>
+                  </div>
+                </div>
               </div>
-              <div class="benefit-item">
-                <div class="benefit-icon">✓</div>
-                <span>Erhalte eine marktgerechte und abgesicherte Auszahlung.</span>
-              </div>
-              <div class="benefit-item">
-                <div class="benefit-icon">✓</div>
-                <span>Setze auf Expertise aus 750.000 Quoten.</span>
-              </div>
-              <div class="benefit-item">
-                <div class="benefit-icon">✓</div>
-                <span>Binde dich ausschließlich für das Quotenjahr 2025.</span>
-              </div>
-            </div>
-          </div>
+           </div>
         </div>
 
                  <!-- Scroll Indicator -->
@@ -1306,10 +1608,11 @@
 
 
 
-     <main
-      class="container"
-      id="views"
-    >
+           <main
+       class="container"
+       id="views"
+       style="padding-top: 2rem;"
+     >
       <div
         class="tabs"
         role="tablist"
@@ -1410,17 +1713,53 @@
     <script src="sample-data.js"></script>
     <script src="countup.js"></script>
     <script>
-      // Hero interactions
-      document.addEventListener('DOMContentLoaded', function () {
-        setupHeroInteractions();
-        // CountUp animations are auto-initialized via data attributes
-        console.log('Index.html: DOMContentLoaded, checking for countup elements...');
-        const countupElements = document.querySelectorAll('[data-countup]');
-        console.log('Index.html: Found', countupElements.length, 'countup elements');
-        countupElements.forEach((el, index) => {
-          console.log('Index.html: Element', index, ':', el.textContent, 'data:', el.dataset);
-        });
-      });
+             // Hero interactions
+       document.addEventListener('DOMContentLoaded', function () {
+         setupHeroInteractions();
+         setupHeroDesignSlider();
+         
+         // Initialize with Variation 1 visible
+         showDesignVariation(1);
+         
+         // CountUp animations are auto-initialized via data attributes
+         console.log('Index.html: DOMContentLoaded, checking for countup elements...');
+         const countupElements = document.querySelectorAll('[data-countup]');
+         console.log('Index.html: Found', countupElements.length, 'countup elements');
+         countupElements.forEach((el, index) => {
+           console.log('Index.html: Element', index, ':', el.textContent, 'data:', el.dataset);
+         });
+       });
+
+       // Hero design slider functionality
+       function setupHeroDesignSlider() {
+         const slider = document.getElementById('heroDesignSlider');
+         if (!slider) return;
+
+         slider.addEventListener('input', function() {
+           const variation = parseInt(this.value);
+           showDesignVariation(variation);
+         });
+       }
+
+       // Show specific design variation
+       function showDesignVariation(variation) {
+         // Hide all variations
+         document.querySelectorAll('.design-variation').forEach(el => {
+           el.style.display = 'none';
+         });
+
+         // Show selected variation
+         const selectedVariation = document.querySelector(`[data-variation="${variation}"]`);
+         if (selectedVariation) {
+           selectedVariation.style.display = 'block';
+         }
+
+         // Update hero section data attribute
+         const heroSection = document.querySelector('.hero-section');
+         if (heroSection) {
+           heroSection.setAttribute('data-variation', variation);
+         }
+       }
 
              function setupHeroInteractions() {
          // Add click handlers to floating cards
@@ -1447,39 +1786,7 @@
            });
          });
 
-         // Hero section scroll unfold effect
-         const heroSection = document.querySelector('.hero-section');
-         let isUnfolded = false;
-
-         function handleScroll() {
-           const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-           const heroHeight = heroSection.offsetHeight;
-           
-           if (scrollTop > heroHeight * 0.1 && !isUnfolded) {
-             heroSection.classList.add('unfolded');
-             isUnfolded = true;
-           } else if (scrollTop <= heroHeight * 0.1 && isUnfolded) {
-             heroSection.classList.remove('unfolded');
-             isUnfolded = false;
-           }
-         }
-
-         // Throttle scroll events for performance
-         let ticking = false;
-         function requestTick() {
-           if (!ticking) {
-             requestAnimationFrame(() => {
-               handleScroll();
-               ticking = false;
-             });
-             ticking = true;
-           }
-         }
-
-         window.addEventListener('scroll', requestTick);
          
-         // Initial check
-         handleScroll();
        }
 
 
@@ -1547,39 +1854,7 @@
         });
       });
 
-      // Hero design switching functionality
-      const heroDesignSelect = document.getElementById('hero-design-select');
-      const heroSection = document.querySelector('.hero-section');
-
-      heroDesignSelect.addEventListener('change', function() {
-        const selectedDesign = this.value;
-        
-        // Remove all design classes
-        heroSection.classList.remove('design-1', 'design-2', 'design-3', 'design-4');
-        
-        // Add the selected design class
-        heroSection.classList.add(`design-${selectedDesign}`);
-        
-        // Update hero content styling based on design
-        updateHeroContentForDesign(selectedDesign);
-        
-        console.log(`Switched to hero design ${selectedDesign}`);
-      });
-
-      function updateHeroContentForDesign(design) {
-        const heroSection = document.querySelector('.hero-section');
-        const heroTitle = document.querySelector('.hero-title');
-        const offerCards = document.querySelectorAll('.offer-card');
-        const floatingCards = document.querySelectorAll('.floating-card');
-        
-        // Remove all design classes
-        heroSection.classList.remove('design-1', 'design-2', 'design-3', 'design-4');
-        
-        // Add the selected design class
-        heroSection.classList.add(`design-${design}`);
-        
-        console.log(`Switched to hero design ${design}`);
-      }
+      
 
       // Listen for messages from iframes
       window.addEventListener('message', (event) => {
