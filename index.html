@@ -52,6 +52,148 @@
         margin-top: 0.5rem;
         font-size: 0.875rem;
       }
+      .hero-design-toggle {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+        font-size: 0.875rem;
+      }
+
+      .hero-design-select {
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 8px;
+        color: #ffffff;
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .hero-design-select:hover {
+        background: rgba(255, 255, 255, 0.3);
+        border-color: rgba(255, 255, 255, 0.5);
+      }
+
+      .hero-design-select option {
+        background: var(--brand-dark);
+        color: #ffffff;
+      }
+
+      /* Main Navigation Styles (from screenshot) */
+      .main-navigation {
+        background: #ffffff;
+        border-bottom: 1px solid #e5e7eb;
+        padding: 1rem 0;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .nav-logo {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .logo-icon {
+        width: 32px;
+        height: 32px;
+        background: var(--brand);
+        color: #ffffff;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 1.25rem;
+      }
+
+      .logo-text {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text);
+      }
+
+      .nav-menu {
+        display: flex;
+        gap: 2rem;
+      }
+
+      .nav-link {
+        color: var(--text);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s ease;
+        position: relative;
+      }
+
+      .nav-link:hover {
+        color: var(--brand);
+      }
+
+      .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--brand);
+        transition: width 0.2s ease;
+      }
+
+      .nav-link:hover::after {
+        width: 100%;
+      }
+
+      .nav-actions {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .btn {
+        padding: 0.5rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 0.875rem;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .btn-login {
+        background: transparent;
+        color: var(--text);
+        border: 1px solid #d1d5db;
+      }
+
+      .btn-login:hover {
+        background: #f9fafb;
+        border-color: var(--brand);
+      }
+
+      .btn-register {
+        background: var(--brand);
+        color: #ffffff;
+      }
+
+      .btn-register:hover {
+        background: var(--brand-dark);
+        transform: translateY(-1px);
+      }
+
       .mobile-toggle {
         display: flex;
         align-items: center;
@@ -129,30 +271,259 @@
         display: block;
       }
 
-      /* Hero Section Styles */
-      .hero-section {
-        background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
-        background-image: url('Hero-desktop-wide.webp');
-        background-size: cover;
-        background-position: center;
-        background-blend-mode: overlay;
-        position: relative;
-        overflow: hidden;
-        min-height: 60vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+             /* Hero Section Styles - Professional Design from Screenshot */
+       .hero-section {
+         position: relative;
+         overflow: hidden;
+         min-height: 100vh;
+         display: flex;
+         align-items: center;
+         background-image: url('Hero-desktop-wide.webp');
+         background-size: cover;
+         background-position: center;
+         background-attachment: fixed;
+         background-repeat: no-repeat;
+         transform: scale(1.1);
+         transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+       }
+
+       .hero-section.unfolded {
+         transform: scale(1);
+       }
+
+       /* Hero Background and Overlay */
+       .hero-background {
+         position: absolute;
+         top: 0;
+         left: 0;
+         right: 0;
+         bottom: 0;
+         background: linear-gradient(135deg, rgba(31, 41, 55, 0.7) 0%, rgba(55, 65, 81, 0.8) 100%);
+         z-index: 1;
+       }
+
+       .hero-overlay {
+         position: absolute;
+         top: 0;
+         left: 0;
+         right: 0;
+         bottom: 0;
+         background: rgba(0, 0, 0, 0.3);
+         z-index: 2;
+       }
+
+             /* Hero Container */
+       .hero-container {
+         position: relative;
+         z-index: 3;
+         max-width: 1200px;
+         margin: 0 auto;
+         padding: 0 2rem;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         min-height: 100vh;
+         text-align: center;
+       }
+
+       /* Left Content */
+       .hero-content-left {
+         color: #ffffff;
+         max-width: 800px;
+       }
+
+       .hero-main-content {
+         max-width: 100%;
+       }
+
+      .hero-title {
+        font-size: 3.5rem;
+        font-weight: 800;
+        margin-bottom: 2rem;
+        line-height: 1.1;
+        color: #ffffff;
       }
 
-      .hero-section::before {
-        content: '';
+             /* Hero CTAs */
+       .hero-ctas {
+         display: flex;
+         gap: 1.5rem;
+         margin-bottom: 2rem;
+         flex-wrap: wrap;
+       }
+
+       .cta-primary,
+       .cta-secondary {
+         display: inline-flex;
+         align-items: center;
+         gap: 0.75rem;
+         padding: 1rem 2rem;
+         border-radius: 50px;
+         font-weight: 600;
+         font-size: 1.1rem;
+         text-decoration: none;
+         transition: all 0.3s ease;
+         position: relative;
+         overflow: hidden;
+       }
+
+       .cta-primary {
+         background: #ffffff;
+         color: var(--brand);
+         box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+       }
+
+       .cta-primary:hover {
+         transform: translateY(-3px);
+         box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+         background: var(--brand);
+         color: #ffffff;
+       }
+
+       .cta-secondary {
+         background: transparent;
+         color: #ffffff;
+         border: 2px solid rgba(255, 255, 255, 0.3);
+         backdrop-filter: blur(10px);
+       }
+
+       .cta-secondary:hover {
+         background: rgba(255, 255, 255, 0.1);
+         border-color: rgba(255, 255, 255, 0.5);
+         transform: translateY(-2px);
+       }
+
+       .cta-icon {
+         width: 20px;
+         height: 20px;
+         transition: transform 0.3s ease;
+       }
+
+       .cta-primary:hover .cta-icon,
+       .cta-secondary:hover .cta-icon {
+         transform: translateX(4px);
+       }
+
+      /* Benefits List */
+             .benefits-list {
+         display: flex;
+         flex-direction: column;
+         gap: 1rem;
+       }
+
+       
+
+      .benefit-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        font-size: 0.875rem;
+        line-height: 1.5;
+        opacity: 0.9;
+      }
+
+      .benefit-icon {
+        color: #10b981;
+        font-weight: bold;
+        font-size: 1rem;
+        flex-shrink: 0;
+        margin-top: 0.125rem;
+      }
+
+      /* Right Side Image */
+      .hero-content-right {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+       /* Scroll Indicator */
+       .scroll-indicator {
+         position: absolute;
+         bottom: 2rem;
+         left: 50%;
+         transform: translateX(-50%);
+         z-index: 3;
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         gap: 1rem;
+         color: #ffffff;
+         opacity: 0;
+         animation: fadeInUp 1s ease-out 1.5s forwards;
+       }
+
+       .scroll-arrow {
+         width: 40px;
+         height: 40px;
+         border: 2px solid rgba(255, 255, 255, 0.3);
+         border-radius: 50%;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         animation: bounce 2s infinite;
+       }
+
+       .scroll-text {
+         font-size: 0.875rem;
+         font-weight: 500;
+         letter-spacing: 0.05em;
+         text-transform: uppercase;
+       }
+
+       @keyframes bounce {
+         0%, 20%, 50%, 80%, 100% {
+           transform: translateY(0);
+         }
+         40% {
+           transform: translateY(-10px);
+         }
+         60% {
+           transform: translateY(-5px);
+         }
+       }
+
+      /* Floating Cards */
+      .floating-cards {
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        background: linear-gradient(135deg, rgba(44, 117, 255, 0.9) 0%, rgba(32, 84, 184, 0.8) 100%);
-        z-index: 1;
+        pointer-events: none;
+        z-index: 2;
+      }
+
+      .floating-card {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 12px;
+        padding: 0.75rem;
+        color: #ffffff;
+        font-size: 0.75rem;
+        font-weight: 500;
+        animation: float 6s ease-in-out infinite;
+        pointer-events: auto;
+        text-align: center;
+        min-width: 80px;
+      }
+
+      .floating-card-1 { top: 15%; left: 5%; animation-delay: 0s; }
+      .floating-card-2 { top: 25%; right: 8%; animation-delay: 1s; }
+      .floating-card-3 { top: 45%; left: 8%; animation-delay: 2s; }
+      .floating-card-4 { bottom: 35%; right: 5%; animation-delay: 3s; }
+      .floating-card-5 { bottom: 20%; left: 15%; animation-delay: 4s; }
+
+      .card-icon {
+        font-size: 1.25rem;
+        margin-bottom: 0.25rem;
+      }
+
+      .card-text {
+        font-size: 0.75rem;
+        opacity: 0.9;
       }
 
       .hero-content {
@@ -269,7 +640,8 @@
         z-index: 1;
       }
 
-      .floating-card {
+      /* Design 1: Current floating cards */
+      .design-1 .floating-card {
         position: absolute;
         background: rgba(255, 255, 255, 0.1);
         backdrop-filter: blur(10px);
@@ -281,6 +653,183 @@
         font-weight: 500;
         animation: float 6s ease-in-out infinite;
         pointer-events: auto;
+      }
+
+      /* Design 2: Minimalist cards */
+      .design-2 .floating-card {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 0.75rem;
+        color: var(--text);
+        font-size: 0.875rem;
+        font-weight: 500;
+        animation: float 6s ease-in-out infinite;
+        pointer-events: auto;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      }
+
+      /* Design 3: Card-based modular */
+      .design-3 .floating-card {
+        position: absolute;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 1rem;
+        color: var(--text);
+        font-size: 0.875rem;
+        font-weight: 500;
+        animation: float 6s ease-in-out infinite;
+        pointer-events: auto;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+      }
+
+      /* Design 4: Geometric gradient cards */
+      .design-4 .floating-card {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 20px;
+        padding: 1rem;
+        color: #ffffff;
+        font-size: 0.875rem;
+        font-weight: 500;
+        animation: float 6s ease-in-out infinite;
+        pointer-events: auto;
+        transform: rotate(-2deg);
+      }
+
+      /* Additional design variations */
+      /* Design 2: Modern Light */
+      .hero-section.design-2 {
+        background-image: url('Hero-desktop-wide.webp');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+      }
+
+      .hero-section.design-2 .hero-overlay {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .hero-section.design-2 .hero-title {
+        color: var(--brand);
+        text-shadow: none;
+      }
+
+             .hero-section.design-2 .cta-primary {
+         background: var(--brand);
+         color: #ffffff;
+         box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+       }
+
+       .hero-section.design-2 .cta-primary:hover {
+         background: var(--brand-dark);
+         transform: translateY(-3px);
+       }
+
+       .hero-section.design-2 .cta-secondary {
+         background: rgba(255, 255, 255, 0.9);
+         color: var(--text);
+         border-color: var(--border);
+       }
+
+      .hero-section.design-2 .floating-card {
+        background: rgba(255, 255, 255, 0.9);
+        color: var(--text);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Design 3: Clean Minimalist */
+      .hero-section.design-3 {
+        background-image: url('Hero-desktop-wide.webp');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+      }
+
+      .hero-section.design-3 .hero-overlay {
+        background: none;
+      }
+
+      .hero-section.design-3 .hero-title {
+        color: var(--text);
+        text-shadow: none;
+      }
+
+             .hero-section.design-3 .cta-primary {
+         background: var(--brand);
+         color: #ffffff;
+         box-shadow: 0 8px 32px rgba(59, 130, 246, 0.2);
+       }
+
+       .hero-section.design-3 .cta-primary:hover {
+         background: var(--brand-dark);
+         transform: translateY(-3px);
+       }
+
+       .hero-section.design-3 .cta-secondary {
+         background: #ffffff;
+         color: var(--text);
+         border-color: var(--border);
+         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+       }
+
+      .hero-section.design-3 .floating-card {
+        background: #ffffff;
+        color: var(--text);
+        border: 1px solid var(--border);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      }
+
+      /* Design 4: Bold Gradient */
+      .hero-section.design-4 {
+        background-image: url('Hero-desktop-wide.webp');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+      }
+
+      .hero-section.design-4 .hero-overlay {
+        background: rgba(0, 0, 0, 0.2);
+      }
+
+      .hero-section.design-4 .hero-title {
+        color: #ffffff;
+        text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      }
+
+             .hero-section.design-4 .cta-primary {
+         background: rgba(255, 255, 255, 0.2);
+         color: #ffffff;
+         backdrop-filter: blur(20px);
+         border: 1px solid rgba(255, 255, 255, 0.3);
+         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+       }
+
+       .hero-section.design-4 .cta-primary:hover {
+         background: rgba(255, 255, 255, 0.3);
+         transform: translateY(-3px);
+       }
+
+       .hero-section.design-4 .cta-secondary {
+         background: rgba(255, 255, 255, 0.1);
+         color: #ffffff;
+         border-color: rgba(255, 255, 255, 0.4);
+         backdrop-filter: blur(15px);
+       }
+
+      .hero-section.design-4 .floating-card {
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        transform: rotate(-2deg);
       }
 
       .floating-card:nth-child(1) {
@@ -337,22 +886,82 @@
 
       /* Mobile Responsive */
       @media (max-width: 768px) {
-        .hero-title {
-          font-size: 2.5rem;
-        }
-
-        .hero-stats {
+        .nav-container {
           flex-direction: column;
-          gap: 1.5rem;
+          gap: 1rem;
+          padding: 1rem;
         }
 
-        .stat-number {
-          font-size: 2rem;
+        .nav-menu {
+          gap: 1rem;
+          flex-wrap: wrap;
+          justify-content: center;
         }
+
+        .nav-actions {
+          width: 100%;
+          justify-content: center;
+        }
+
+                 .hero-container {
+           padding: 1rem;
+           text-align: center;
+         }
+
+                 .hero-title {
+           font-size: 2.5rem;
+         }
+
+         .hero-ctas {
+           flex-direction: column;
+           gap: 1rem;
+         }
+
+         .cta-primary,
+         .cta-secondary {
+           width: 100%;
+           justify-content: center;
+         }
+
+         
+
+        
 
         .floating-cards {
           display: none;
         }
+
+        .hero-design-toggle {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.25rem;
+        }
+
+        .hero-design-select {
+          width: 100%;
+          max-width: 200px;
+        }
+
+        .benefits-list {
+          text-align: left;
+        }
+      }
+
+      @media (max-width: 1024px) {
+        .hero-container {
+          gap: 2rem;
+          padding: 1rem;
+        }
+
+        .hero-title {
+          font-size: 3rem;
+        }
+
+        .offer-cards {
+          gap: 1rem;
+        }
+
+        
       }
 
       /* Tablet adjustments */
@@ -555,6 +1164,15 @@
       <div class="container">
         <h1 style="margin: 0; font-size: 1.25rem">carbonify – View Showcase</h1>
         <div style="opacity: 0.9">Ein Basis-Layout mit allen Views</div>
+        <div class="hero-design-toggle">
+          <span>Hero Design</span>
+          <select id="hero-design-select" class="hero-design-select">
+            <option value="1">Design 1: Professional</option>
+            <option value="2">Design 2: Modern</option>
+            <option value="3">Design 3: Clean</option>
+            <option value="4">Design 4: Bold</option>
+          </select>
+        </div>
         <div class="bonus-toggle">
           <span>Verivox Bonus anzeigen</span>
           <div
@@ -574,66 +1192,121 @@
       </div>
     </header>
 
+    <!-- Professional Navigation Header (from screenshot) -->
+    <nav class="main-navigation">
+      <div class="nav-container">
+        <div class="nav-logo">
+          <div class="logo-icon">C</div>
+          <span class="logo-text">carbonify</span>
+        </div>
+        <div class="nav-menu">
+          <a href="#" class="nav-link">Prämie</a>
+          <a href="#" class="nav-link">FAQ</a>
+          <a href="#" class="nav-link">Blog</a>
+          <a href="#" class="nav-link">B2B</a>
+          <a href="#" class="nav-link">Biomethan</a>
+        </div>
+        <div class="nav-actions">
+          <button class="btn btn-login">Login</button>
+          <button class="btn btn-register">Registrieren</button>
+        </div>
+      </div>
+    </nav>
+
 
 
     <!-- Hero Section -->
-    <div class="hero-section">
+    <div class="hero-section design-1">
+      <!-- Background Image with Overlay -->
+      <div class="hero-background">
+        <div class="hero-overlay"></div>
+      </div>
+
+      <!-- Floating Info Cards -->
       <div class="floating-cards">
-        <div class="floating-card interactive-element">
-          <div>🚗</div>
-          <div>THG-Prämie</div>
+        <div class="floating-card floating-card-1">
+          <div class="card-icon">🚗</div>
+          <div class="card-text">THG-Prämie</div>
         </div>
-        <div class="floating-card interactive-element">
-          <div>💰</div>
-          <div id="maxPriceDisplay">Bis zu €215</div>
+        <div class="floating-card floating-card-2">
+          <div class="card-icon">💰</div>
+          <div class="card-text">Einfach & Schnell</div>
         </div>
-        <div class="floating-card interactive-element">
-          <div>⚡</div>
-          <div>Express verfügbar</div>
+        <div class="floating-card floating-card-3">
+          <div class="card-icon">⚡</div>
+          <div class="card-text">Sicher</div>
+        </div>
+        <div class="floating-card floating-card-4">
+          <div class="card-icon">✅</div>
+          <div class="card-text">Fair</div>
+        </div>
+        <div class="floating-card floating-card-5">
+          <div class="card-icon">📅</div>
+          <div class="card-text">2025</div>
         </div>
       </div>
 
-      <div class="hero-content">
-        <div class="hero-logo"></div>
-        <h1 class="hero-title">THG-Prämie sichern</h1>
-        <p class="hero-subtitle">Maximieren Sie Ihre Auszahlung mit Deutschlands führendem THG-Prämien-Service</p>
+      <!-- Main Hero Content -->
+      <div class="hero-container">
+        <div class="hero-content-left">
+          <div class="hero-main-content">
+            <h1 class="hero-title">THG-Prämie 2025</h1>
+            
+                         <!-- Hero CTAs -->
+             <div class="hero-ctas">
+               <a href="#signup" class="cta-primary">
+                 <span>Jetzt anmelden</span>
+                 <svg class="cta-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                   <path d="M10 3L17 10L10 17" stroke="currentColor" stroke-width="2" fill="none"/>
+                 </svg>
+               </a>
+               
+                               <a href="#views" class="cta-secondary">
+                  <span>THG-Prämie auswählen</span>
+                  <svg class="cta-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M10 3L17 10L10 17" stroke="currentColor" stroke-width="2" fill="none"/>
+                  </svg>
+                </a>
+             </div>
 
-        <div class="hero-stats">
-          <div class="stat-item">
-            <span class="stat-number" data-countup="true" data-start-val="0" data-end-val="250000" data-suffix="+" data-prefix="" data-duration="2.5" data-scroll-spy="true" data-scroll-spy-delay="0">0+</span>
-            <span class="stat-label">Zufriedene Kunden</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number" id="maxPriceStat" data-countup="true" data-start-val="0" data-end-val="215" data-prefix="€" data-duration="2.0" data-scroll-spy="true" data-scroll-spy-delay="300">€0</span>
-            <span class="stat-label">Max. Prämie</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number" data-countup="true" data-start-val="0" data-end-val="24" data-prefix="" data-suffix="h" data-duration="1.5" data-scroll-spy="true" data-scroll-spy-delay="600">0h</span>
-            <span class="stat-label">Express Service</span>
+            <!-- Benefits List -->
+            <div class="benefits-list">
+              <div class="benefit-item">
+                <div class="benefit-icon">✓</div>
+                <span>Vertraue dem Anbieter mit der höchsten Kundenzufriedenheit.</span>
+              </div>
+              <div class="benefit-item">
+                <div class="benefit-icon">✓</div>
+                <span>Erhalte eine marktgerechte und abgesicherte Auszahlung.</span>
+              </div>
+              <div class="benefit-item">
+                <div class="benefit-icon">✓</div>
+                <span>Setze auf Expertise aus 750.000 Quoten.</span>
+              </div>
+              <div class="benefit-item">
+                <div class="benefit-icon">✓</div>
+                <span>Binde dich ausschließlich für das Quotenjahr 2025.</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <a
-          href="#views"
-          class="hero-cta interactive-element"
-        >
-          <span>Wähle deine THG-Prämie</span>
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-              clip-rule="evenodd"
-            />
-          </svg>
-        </a>
-      </div>
-    </div>
-    <main
+                 <!-- Scroll Indicator -->
+         <div class="scroll-indicator">
+           <div class="scroll-arrow">
+             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+               <path d="M7 13l5 5 5-5"/>
+               <path d="M7 6l5 5 5-5"/>
+             </svg>
+           </div>
+           <span class="scroll-text">Scroll to explore</span>
+         </div>
+             </div>
+     </div>
+
+
+
+     <main
       class="container"
       id="views"
     >
@@ -749,25 +1422,65 @@
         });
       });
 
-      function setupHeroInteractions() {
-        // Add click handlers to floating cards
-        document.querySelectorAll('.floating-card').forEach((card) => {
-          card.addEventListener('click', function () {
-            this.style.transform = 'scale(1.1) rotate(5deg)';
-            setTimeout(() => {
-              this.style.transform = '';
-            }, 300);
-          });
-        });
+             function setupHeroInteractions() {
+         // Add click handlers to floating cards
+         document.querySelectorAll('.floating-card').forEach((card) => {
+           card.addEventListener('click', function () {
+             this.style.transform = 'scale(1.1) rotate(5deg)';
+             setTimeout(() => {
+               this.style.transform = '';
+             }, 300);
+           });
+         });
 
-        // Smooth scroll to views section
-        document.querySelector('.hero-cta').addEventListener('click', function (e) {
-          e.preventDefault();
-          document.getElementById('views').scrollIntoView({
-            behavior: 'smooth',
-          });
-        });
-      }
+         // Smooth scroll for anchor links
+         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+           anchor.addEventListener('click', function (e) {
+             e.preventDefault();
+             const target = document.querySelector(this.getAttribute('href'));
+             if (target) {
+               target.scrollIntoView({
+                 behavior: 'smooth',
+                 block: 'start'
+               });
+             }
+           });
+         });
+
+         // Hero section scroll unfold effect
+         const heroSection = document.querySelector('.hero-section');
+         let isUnfolded = false;
+
+         function handleScroll() {
+           const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+           const heroHeight = heroSection.offsetHeight;
+           
+           if (scrollTop > heroHeight * 0.1 && !isUnfolded) {
+             heroSection.classList.add('unfolded');
+             isUnfolded = true;
+           } else if (scrollTop <= heroHeight * 0.1 && isUnfolded) {
+             heroSection.classList.remove('unfolded');
+             isUnfolded = false;
+           }
+         }
+
+         // Throttle scroll events for performance
+         let ticking = false;
+         function requestTick() {
+           if (!ticking) {
+             requestAnimationFrame(() => {
+               handleScroll();
+               ticking = false;
+             });
+             ticking = true;
+           }
+         }
+
+         window.addEventListener('scroll', requestTick);
+         
+         // Initial check
+         handleScroll();
+       }
 
 
 
@@ -833,6 +1546,40 @@
           }
         });
       });
+
+      // Hero design switching functionality
+      const heroDesignSelect = document.getElementById('hero-design-select');
+      const heroSection = document.querySelector('.hero-section');
+
+      heroDesignSelect.addEventListener('change', function() {
+        const selectedDesign = this.value;
+        
+        // Remove all design classes
+        heroSection.classList.remove('design-1', 'design-2', 'design-3', 'design-4');
+        
+        // Add the selected design class
+        heroSection.classList.add(`design-${selectedDesign}`);
+        
+        // Update hero content styling based on design
+        updateHeroContentForDesign(selectedDesign);
+        
+        console.log(`Switched to hero design ${selectedDesign}`);
+      });
+
+      function updateHeroContentForDesign(design) {
+        const heroSection = document.querySelector('.hero-section');
+        const heroTitle = document.querySelector('.hero-title');
+        const offerCards = document.querySelectorAll('.offer-card');
+        const floatingCards = document.querySelectorAll('.floating-card');
+        
+        // Remove all design classes
+        heroSection.classList.remove('design-1', 'design-2', 'design-3', 'design-4');
+        
+        // Add the selected design class
+        heroSection.classList.add(`design-${design}`);
+        
+        console.log(`Switched to hero design ${design}`);
+      }
 
       // Listen for messages from iframes
       window.addEventListener('message', (event) => {
