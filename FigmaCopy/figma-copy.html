@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Figma Copy - Service Plan Selection</title>
     <style>
         :root {
@@ -27,6 +27,8 @@
             background: var(--bg);
             color: var(--text);
             padding: 2rem;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
         .form-container {
@@ -35,13 +37,20 @@
             background: #f5f5f5;
             border-radius: 16px;
             padding: 2rem;
+            min-height: auto;
+            overflow: visible;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         .tabs {
             display: flex;
             gap: 0.5rem;
-            margin-bottom: 2rem;
-            justify-content: center;
+            margin-bottom: 0;
+            justify-content: flex-start;
+            align-items: center;
         }
 
         .tab-btn {
@@ -54,6 +63,11 @@
             cursor: pointer;
             transition: all 0.3s ease;
             font-size: 1rem;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 80px;
         }
 
         .tab-btn.active {
@@ -63,6 +77,54 @@
 
         .tab-btn:hover:not(.active) {
             background: var(--light-blue);
+        }
+
+        .selector-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            gap: 2rem;
+        }
+
+        .vehicle-selector {
+            margin-top: 0;
+            text-align: right;
+            display: flex;
+            align-items: center;
+        }
+
+        .vehicle-dropdown {
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--surface);
+            color: var(--text);
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 0.75rem center;
+            background-repeat: no-repeat;
+            background-size: 1.25em 1.25em;
+            padding-right: 2.5rem;
+            min-width: 280px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+        }
+
+        .vehicle-dropdown:hover {
+            border-color: var(--brand);
+            background-color: var(--light-blue);
+        }
+
+        .vehicle-dropdown:focus {
+            outline: none;
+            border-color: var(--brand);
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
         }
 
         .plans-container {
@@ -168,27 +230,73 @@
 
         /* Mobile responsive */
         @media (max-width: 768px) {
+            html, body {
+                height: auto;
+                min-height: 100vh;
+                overflow-x: hidden;
+            }
+
             body {
                 padding: 1rem;
+                position: relative;
             }
 
             .form-container {
                 padding: 1.5rem;
+                min-height: auto;
+                overflow: visible;
+                height: auto;
+                position: relative;
+            }
+
+            .selector-row {
+                flex-direction: column;
+                gap: 1.5rem;
+                align-items: stretch;
+            }
+
+            .tabs {
+                justify-content: center;
+                flex-direction: row;
+                align-items: center;
+                gap: 0.75rem;
+            }
+
+            .tab-btn {
+                width: auto;
+                min-width: 70px;
+                height: 44px;
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .vehicle-selector {
+                text-align: center;
+                justify-content: center;
+            }
+
+            .vehicle-dropdown {
+                min-width: auto;
+                width: 100%;
+                max-width: 320px;
+                height: 44px;
             }
 
             .plans-container {
                 grid-template-columns: 1fr;
                 gap: 1.5rem;
+                margin-bottom: 2rem;
+                height: auto;
             }
 
-            .tabs {
-                flex-direction: column;
-                align-items: center;
+            .plan-card {
+                padding: 1.5rem;
+                margin-bottom: 0;
+                height: auto;
             }
 
-            .tab-btn {
-                width: 100%;
-                max-width: 200px;
+            .form-container {
+                margin-bottom: 2rem;
             }
         }
 
@@ -206,11 +314,25 @@
 </head>
 <body>
     <div class="form-container">
-        <!-- Tab Navigation -->
-        <div class="tabs">
-            <button class="tab-btn active" data-year="2025">2025</button>
-            <button class="tab-btn" data-year="2026">2026</button>
-            <button class="tab-btn" data-year="both">2025 & 2026</button>
+        <!-- Selector Row with Year Tabs and Vehicle Dropdown -->
+        <div class="selector-row">
+            <!-- Year Selector Tabs -->
+            <div class="tabs">
+                <button class="tab-btn active" data-year="2025">2025</button>
+                <button class="tab-btn" data-year="2026">2026</button>
+                <button class="tab-btn" data-year="both">2025 & 2026</button>
+            </div>
+
+            <!-- Vehicle Class Selector -->
+            <div class="vehicle-selector">
+                <select id="vehicleClass" class="vehicle-dropdown">
+                    <option value="M1">PKW (Klasse M1) - Personenkraftwagen bis 3,5t</option>
+                    <option value="M3">Busse (Klasse M3) - Busse über 8 Sitzplätze</option>
+                    <option value="N1">Leichtes Nutzfahrzeug (Klasse N1) - Nutzfahrzeuge bis 3,5t</option>
+                    <option value="N2">Schweres Nutzfahrzeug (Klasse N2) - Nutzfahrzeuge 3,5t - 12t</option>
+                    <option value="N3">Schweres Nutzfahrzeug (Klasse N3) - Nutzfahrzeuge über 12t</option>
+                </select>
+            </div>
         </div>
 
         <!-- Plans Container -->
@@ -257,34 +379,44 @@
         </div>
     </div>
 
+    <!-- Include the sample data -->
+    <script src="../sample-data.js"></script>
+
     <script>
-        // Tab switching functionality
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Remove active class from all tabs
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                
-                // Add active class to clicked tab
-                btn.classList.add('active');
-                
-                // Get the selected year
-                const selectedYear = btn.getAttribute('data-year');
-                
-                // Update plan titles and content based on selected year
-                updatePlanContent(selectedYear);
+        // Initialize with default values
+        let selectedYear = '2025';
+        let selectedVehicleClass = 'M1';
+
+        // Year selector functionality
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                selectedYear = this.getAttribute('data-year');
+                updatePlanContent(selectedYear, selectedVehicleClass);
             });
         });
 
-        function updatePlanContent(year) {
+        // Vehicle class selector functionality
+        document.getElementById('vehicleClass').addEventListener('change', function() {
+            selectedVehicleClass = this.value;
+            updatePlanContent(selectedYear, selectedVehicleClass);
+        });
+
+        function updatePlanContent(year, vehicleClass) {
             const klassikCard = document.querySelector('[data-plan="klassik"]');
             const expressCard = document.querySelector('[data-plan="express"]');
+            
+            // Get prices from the sample data
+            const klassikPrice = window.CARBONIFY_SAMPLE_DATA.getPrice('klassik', year, vehicleClass);
+            const expressPrice = window.CARBONIFY_SAMPLE_DATA.getPrice('express', year, vehicleClass);
             
             if (year === '2025') {
                 klassikCard.querySelector('.plan-title').textContent = 'Klassik 2025';
                 expressCard.querySelector('.plan-title').textContent = 'Express 2025';
                 
-                klassikCard.querySelector('.premium-amount').textContent = '€ 90';
-                expressCard.querySelector('.premium-amount').textContent = '€ 70';
+                klassikCard.querySelector('.premium-amount').textContent = `€ ${klassikPrice}`;
+                expressCard.querySelector('.premium-amount').textContent = `€ ${expressPrice}`;
                 
                 klassikCard.querySelector('.premium-timing').textContent = 'in 4-6 Monaten';
                 expressCard.querySelector('.premium-timing').textContent = 'innerhalb 1 Woche';
@@ -292,8 +424,8 @@
                 klassikCard.querySelector('.plan-title').textContent = 'Klassik 2026';
                 expressCard.querySelector('.plan-title').textContent = 'Express 2026';
                 
-                klassikCard.querySelector('.premium-amount').textContent = '€ 95';
-                expressCard.querySelector('.premium-amount').textContent = '€ 75';
+                klassikCard.querySelector('.premium-amount').textContent = `€ ${klassikPrice}`;
+                expressCard.querySelector('.premium-amount').textContent = `€ ${expressPrice}`;
                 
                 klassikCard.querySelector('.premium-timing').textContent = 'in 4-6 Monaten';
                 expressCard.querySelector('.premium-timing').textContent = 'innerhalb 1 Woche';
@@ -301,8 +433,8 @@
                 klassikCard.querySelector('.plan-title').textContent = 'Klassik 2025 & 2026';
                 expressCard.querySelector('.plan-title').textContent = 'Express 2025 & 2026';
                 
-                klassikCard.querySelector('.premium-amount').textContent = '€ 185';
-                expressCard.querySelector('.premium-amount').textContent = '€ 145';
+                klassikCard.querySelector('.premium-amount').textContent = `€ ${klassikPrice}`;
+                expressCard.querySelector('.premium-amount').textContent = `€ ${expressPrice}`;
                 
                 klassikCard.querySelector('.premium-timing').textContent = 'in 4-6 Monaten';
                 expressCard.querySelector('.premium-timing').textContent = 'innerhalb 1 Woche';
@@ -316,9 +448,17 @@
                 const planType = planCard.getAttribute('data-plan');
                 const activeTab = document.querySelector('.tab-btn.active');
                 const selectedYear = activeTab.getAttribute('data-year');
+                const vehicleClass = document.getElementById('vehicleClass').value;
+                const vehicleClassLabel = window.CARBONIFY_SAMPLE_DATA.vehicleTypes.find(vt => vt.id === vehicleClass)?.label || vehicleClass;
+                const price = window.CARBONIFY_SAMPLE_DATA.getPrice(planType, selectedYear, vehicleClass);
                 
-                alert(`Sie haben den ${planType} Plan für ${selectedYear} ausgewählt. Weiterleitung zur Buchung...`);
+                alert(`Sie haben den ${planType} Plan für ${selectedYear} (${vehicleClassLabel}) ausgewählt.\nPrämie: €${price}\nWeiterleitung zur Buchung...`);
             });
+        });
+
+        // Initialize the page with default values
+        document.addEventListener('DOMContentLoaded', function() {
+            updatePlanContent(selectedYear, selectedVehicleClass);
         });
     </script>
 </body>
