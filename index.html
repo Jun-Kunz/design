@@ -29,6 +29,8 @@
         --border: #e9ecef;
         --text: #212529;
         --muted: #6c757d;
+        --primary-blue-light: rgba(59, 130, 246, 0.1);
+        --gray-100: #f3f4f6;
       }
 
       * {
@@ -1238,6 +1240,8 @@
          z-index: 999999 !important;
        }
 
+      /* Info box hover disabled - will be replaced with image later */
+      /*
       .total-sum-display:hover .info-box,
       .price-display:hover .info-box {
         opacity: 1 !important;
@@ -1245,6 +1249,7 @@
         pointer-events: auto !important;
         z-index: 999999 !important;
       }
+      */
 
       /* Default right arrow */
       .info-box::before {
@@ -1606,9 +1611,93 @@
              </div>
      </div>
 
+           <!-- Product Options Table Section -->
+     <section class="product-options-section" style="padding: 4rem 2rem; background: var(--bg);">
+       <div class="container" style="max-width: 1200px; margin: 0 auto;">
+         <div class="section-header" style="text-align: center; margin-bottom: 3rem;">
+           <h2 style="font-size: 2.5rem; font-weight: 700; color: var(--text); margin-bottom: 1rem;">Unsere Tarife im Vergleich</h2>
+           <p style="font-size: 1.125rem; color: var(--muted); max-width: 600px; margin: 0 auto;">Wählen Sie den Tarif, der am besten zu Ihren Bedürfnissen passt</p>
+         </div>
+         
+         <div class="main-container" style="background: var(--surface); border-radius: 20px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08); border: 1px solid var(--border); overflow: hidden;">
+           <div class="table-container" style="padding: 1rem; overflow-x: auto;">
+             <table class="product-table" style="width: 100%; border-collapse: collapse; font-size: 1rem; background: var(--surface);">
+               <thead>
+                 <tr>
+                   <th class="feature-header" style="text-align: left; font-size: 1.5rem; font-weight: 700; color: var(--text); width: 30%; border-bottom: 1px solid var(--border); padding: 1.5rem 1rem;">Leistungen</th>
+                   <th class="plan-header" style="position: relative; border-bottom: 1px solid var(--border); padding: 1.5rem 1rem;">
+                     <div class="product-name" style="font-size: 1.5rem; font-weight: 700; color: var(--brand); display: flex; align-items: center; justify-content: center; gap: 0.5rem;">Express</div>
+                     <div class="product-subtext" style="font-size: 0.9rem; color: var(--muted); margin-top: 0.5rem;">Schnelle Teilauszahlung</div>
+                   </th>
+                   <th class="plan-header highlight-col" style="position: relative; border-bottom: 1px solid var(--border); padding: 1.5rem 1rem; background-color: var(--surface);">
+                     <div class="bestseller-badge" style="background-color: var(--brand); color: var(--surface); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; position: absolute; top: -15px; left: 50%; transform: translateX(-50%); box-shadow: 0 4px 10px rgba(59, 130, 246, 0.2);">Bestseller</div>
+                     <div class="product-name" style="font-size: 1.5rem; font-weight: 700; color: var(--brand); display: flex; align-items: center; justify-content: center; gap: 0.5rem;">Klassik</div>
+                     <div class="product-subtext" style="font-size: 0.9rem; color: var(--muted); margin-top: 0.5rem;">Maximale Auszahlung</div>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr style="border-bottom: 1px solid var(--border); transition: background-color 0.2s ease;">
+                   <td class="row-label" style="text-align: left; font-weight: 600; color: var(--text); background: var(--surface); padding: 1.5rem 1rem;">Prämie für 2025</td>
+                   <td style="padding: 1.5rem 1rem; text-align: center; vertical-align: middle;">
+                     <div class="price-display" style="font-size: 1.75rem; font-weight: 700; color: var(--text);">80€<sup style="font-size: 0.6em; vertical-align: super;">*</sup></div>
+                   </td>
+                   <td class="highlight-col" style="padding: 1.5rem 1rem; text-align: center; vertical-align: middle; background-color: var(--surface);">
+                     <div class="price-display" style="font-size: 1.75rem; font-weight: 700; color: var(--text);">100€<sup style="font-size: 0.6em; vertical-align: super;">*</sup></div>
+                   </td>
+                 </tr>
+                 <tr style="border-bottom: 1px solid var(--border); transition: background-color 0.2s ease;">
+                   <td class="row-label" style="text-align: left; font-weight: 600; color: var(--text); background: var(--surface); padding: 1.5rem 1rem;">Prämie für 2026</td>
+                   <td style="padding: 1.5rem 1rem; text-align: center; vertical-align: middle;">
+                     <div class="price-display" style="font-size: 1.75rem; font-weight: 700; color: var(--text);">100€<sup style="font-size: 0.6em; vertical-align: super;">*</sup></div>
+                   </td>
+                   <td class="highlight-col" style="padding: 1.5rem 1rem; text-align: center; vertical-align: middle; background-color: var(--surface);">
+                     <div class="price-display" style="font-size: 1.75rem; font-weight: 700; color: var(--text);">120€<sup style="font-size: 0.6em; vertical-align: super;">*</sup></div>
+                   </td>
+                 </tr>
+                 <tr style="border-bottom: 1px solid var(--border); transition: background-color 0.2s ease;">
+                   <td class="row-label" style="text-align: left; font-weight: 600; color: var(--text); background: var(--surface); padding: 1.5rem 1rem;">Auszahlungszeitpunkt</td>
+                   <td style="padding: 1.5rem 1rem; text-align: center; vertical-align: middle;">
+                     <div class="payout-info" style="line-height: 1.5;">
+                       <div class="payout-primary" style="font-weight: 600; color: var(--text);">2025: 100% innerhalb einer Woche</div>
+                       <div class="payout-secondary" style="font-size: 0.9rem; color: var(--muted);">2026: 50% innerhalb einer Woche + 50% nach Zertifizierung</div>
+                     </div>
+                   </td>
+                   <td class="highlight-col" style="padding: 1.5rem 1rem; text-align: center; vertical-align: middle; background-color: var(--surface);">
+                     <div class="payout-info" style="line-height: 1.5;">
+                       <div class="payout-primary" style="font-weight: 600; color: var(--text);">Jedes Jahr direkt nach Zertifizierung</div>
+                     </div>
+                   </td>
+                 </tr>
+                                   <tr class="combo-section" style="background-color: var(--primary-blue-light); padding-top: 2rem; padding-bottom: 2rem; border-bottom: none;">
+                    <td class="row-label" style="background: transparent; padding: 1.5rem 1rem; text-align: left; font-weight: 600; color: var(--text);">
+                      <strong>Kombinationsangebot</strong>
+                      <div class="product-subtext" style="font-size: 0.9rem; color: var(--muted); margin-top: 0.5rem;">Beide Jahre zusammen sichern</div>
+                    </td>
+                    <td style="padding: 1.5rem 1rem; text-align: center; vertical-align: middle;">
+                      <div class="combo-price" style="font-size: 2.25rem; font-weight: 800; color: var(--brand);">200€<sup style="font-size: 0.6em; vertical-align: super;">*</sup></div>
+                      <div class="combo-bonus" style="background: var(--brand); color: var(--surface); padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; display: inline-block; margin-top: 0.75rem;">+20€ Bonus inklusive</div>
+                    </td>
+                    <td class="highlight-col" style="padding: 1.5rem 1rem; text-align: center; vertical-align: middle; background-color: var(--primary-blue-light);">
+                      <div class="combo-price" style="font-size: 2.25rem; font-weight: 800; color: var(--brand);">240€<sup style="font-size: 0.6em; vertical-align: super;">*</sup></div>
+                      <div class="combo-bonus" style="background: var(--brand); color: var(--surface); padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; display: inline-block; margin-top: 0.75rem;">+20€ Bonus inklusive</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align: right; padding: 0.5rem 1rem;">
+                      <div class="price-note" style="color: var(--muted); font-size: 0.8rem; font-style: italic;">* Basierend auf PKW (M1)</div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+         </div>
+       </div>
+     </section>
 
-
-           <main
+     <main
        class="container"
        id="views"
        style="padding-top: 2rem;"
@@ -2102,134 +2191,14 @@
         return infoBox;
       }
 
-      // Function to setup dynamic positioning for info boxes
+      // Function to setup dynamic positioning for info boxes - DISABLED (will be replaced with image later)
       function setupDynamicInfoBoxPositioning(doc) {
-        const priceBoxes = doc.querySelectorAll('.total-sum-display, .price-display');
-        console.log('Found price boxes for info-box positioning:', priceBoxes.length);
+        // Info box functionality disabled - will be replaced with image later
+        console.log('Info box positioning disabled - will be replaced with image later');
+        return;
         
-        priceBoxes.forEach(priceBox => {
-          let infoBox = priceBox.querySelector('.info-box');
-          if (!infoBox) {
-            console.log('Creating info-box for price box:', priceBox);
-            infoBox = createInfoBox();
-            priceBox.appendChild(infoBox);
-          }
-          
-          console.log('Setting up info-box positioning for:', priceBox, infoBox);
-          
-          // Function to determine positioning
-          function updateInfoBoxPosition() {
-            const priceBoxRect = priceBox.getBoundingClientRect();
-            const viewportWidth = window.innerWidth;
-            const infoBoxWidth = 320; // max-width of info box
-            
-            // Simple logic: if price box is in left half of viewport, show info-box on right
-            // if price box is in right half of viewport, show info-box on left
-            const priceBoxCenter = priceBoxRect.left + priceBoxRect.width / 2;
-            const viewportCenter = viewportWidth / 2;
-            
-            if (priceBoxCenter < viewportCenter) {
-              // Price box is on left side, show info-box on right
-              infoBox.classList.remove('info-box-left');
-              console.log('Price box on LEFT side, positioning info-box on RIGHT');
-            } else {
-              // Price box is on right side, show info-box on left
-              infoBox.classList.add('info-box-left');
-              console.log('Price box on RIGHT side, positioning info-box on LEFT');
-            }
-          }
-          
-          // Function to update info-box content based on plan and year selection
-          function updateInfoBoxContent() {
-            // Try to determine the plan from the price box context
-            let planName = 'klassik'; // default
-            let selectedYear = 'both'; // default
-            
-            // Look for plan indicators in the price box or its parent
-            const planCard = priceBox.closest('.plan-card, .card, .mobile-card');
-            if (planCard) {
-              const planNameElement = planCard.querySelector('.plan-name, h3');
-              if (planNameElement) {
-                const planText = planNameElement.textContent.toLowerCase();
-                if (planText.includes('express')) {
-                  planName = 'express';
-                } else if (planText.includes('klassik')) {
-                  planName = 'klassik';
-                }
-              }
-            }
-            
-            // Try to determine selected year from toggle options or other indicators
-            const yearToggle = doc.querySelector('.toggle-options .toggle-option.active');
-            if (yearToggle) {
-              const yearText = yearToggle.textContent.trim();
-              if (yearText === '2025') {
-                selectedYear = '2025';
-              } else if (yearText === '2026') {
-                selectedYear = '2026';
-              } else if (yearText.includes('2025') && yearText.includes('2026')) {
-                selectedYear = 'both';
-              }
-            }
-            
-            // Get vehicle class
-            const vehicleSelect = doc.querySelector('#vehicleClassSelect, .vehicle-dropdown');
-            const vehicleClass = vehicleSelect ? vehicleSelect.value : 'M1';
-            
-            // Generate content based on plan and year
-            let content = '';
-            
-            if (selectedYear === 'both') {
-              const price2025 = window.CARBONIFY_SAMPLE_DATA.getPrice(planName, '2025', vehicleClass);
-              const price2026 = window.CARBONIFY_SAMPLE_DATA.getPrice(planName, '2026', vehicleClass);
-              const totalSum = window.CARBONIFY_SAMPLE_DATA.getTotalSum(planName, vehicleClass);
-              
-              content = `
-                <div class="info-box-title">${planName.charAt(0).toUpperCase() + planName.slice(1)} Plan - Beide Jahre</div>
-                <div class="info-box-details">Gesamtprämie: €${totalSum}</div>
-                <ul class="info-box-process">
-                  <li>2025: €${price2025}</li>
-                  <li>2026: €${price2026}</li>
-                  <li>Verivox Bonus: +€30</li>
-                  <li>${planName === 'express' ? 'Auszahlung: 24h-2 Wochen' : 'Auszahlung: 4-16 Wochen'}</li>
-                </ul>
-              `;
-            } else {
-              const price = window.CARBONIFY_SAMPLE_DATA.getPrice(planName, selectedYear, vehicleClass);
-              
-              content = `
-                <div class="info-box-title">${planName.charAt(0).toUpperCase() + planName.slice(1)} Plan - ${selectedYear}</div>
-                <div class="info-box-details">Prämie: €${price}</div>
-                <ul class="info-box-process">
-                  <li>Jahr: ${selectedYear}</li>
-                  <li>Prämie: €${price}</li>
-                  <li>${planName === 'express' ? 'Auszahlung: 24h-2 Wochen' : 'Auszahlung: 4-16 Wochen'}</li>
-                </ul>
-              `;
-            }
-            
-            infoBox.innerHTML = content;
-          }
-          
-          // Update position on hover
-          priceBox.addEventListener('mouseenter', () => {
-            updateInfoBoxPosition();
-            updateInfoBoxContent();
-          });
-          
-          // Also update on window resize
-          window.addEventListener('resize', updateInfoBoxPosition);
-          
-          // Add click event for testing
-          priceBox.addEventListener('click', () => {
-            console.log('Price box clicked, info-box state:', {
-              opacity: infoBox.style.opacity,
-              visibility: infoBox.style.visibility,
-              zIndex: infoBox.style.zIndex,
-              classes: infoBox.className
-            });
-          });
-        });
+        // All info box functionality commented out - will be replaced with image later
+        */
       }
 
       // Inject styles when iframes load
