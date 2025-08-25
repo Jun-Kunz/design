@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carbonify Produktvergleich | Verbessertes Design</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+        :root {
+            --primary-blue: #2C75FF;
+            --primary-blue-dark: #1e5bd8;
+            --primary-blue-light: #e8f0ff;
+            --white: #ffffff;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-400: #9ca3af;
+            --gray-600: #4b5563;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--gray-50);
+            padding: 2rem;
+            color: var(--gray-800);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--gray-200);
+            overflow: hidden;
+        }
+
+
+
+        .table-container {
+            padding: 1rem;
+            overflow-x: auto;
+        }
+
+        .product-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1rem;
+            background: var(--white);
+        }
+
+        .product-table th, .product-table td {
+            padding: 1.5rem 1rem;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        /* Header section */
+        .product-table thead th {
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .product-table .feature-header {
+            text-align: left;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            width: 30%;
+        }
+
+        .product-table .plan-header {
+            position: relative;
+        }
+
+        .product-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .product-subtext {
+            font-size: 0.9rem;
+            color: var(--gray-600);
+            margin-top: 0.5rem;
+        }
+        
+        .bestseller-badge {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 4px 10px rgba(44, 117, 255, 0.2);
+        }
+
+        /* Body rows */
+        .product-table tbody tr {
+            border-bottom: 1px solid var(--gray-100);
+            transition: background-color 0.2s ease;
+        }
+
+        .product-table tbody tr:hover {
+            background-color: var(--gray-50);
+        }
+        
+        .product-table .row-label {
+            text-align: left;
+            font-weight: 600;
+            color: var(--gray-800);
+            background: var(--white);
+        }
+        
+        .price-display {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .disclaimer-text {
+            font-size: 0.8rem;
+            color: var(--gray-400);
+            margin-top: 0.25rem;
+        }
+
+        .payout-info {
+            line-height: 1.5;
+        }
+        .payout-primary {
+            font-weight: 600;
+            color: var(--gray-800);
+        }
+        .payout-secondary {
+            font-size: 0.9rem;
+            color: var(--gray-600);
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            margin-left: 0.3rem;
+        }
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 220px;
+            background-color: var(--gray-800);
+            color: var(--white);
+            text-align: center;
+            border-radius: 6px;
+            padding: 0.5rem;
+            position: absolute;
+            z-index: 10;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -110px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.85rem;
+            font-weight: 400;
+        }
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Combination offer section */
+        .combo-section td {
+            background-color: var(--primary-blue-light);
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+        
+        .combo-price {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+        }
+
+        .combo-bonus {
+            background: var(--primary-blue);
+            color: var(--white);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 0.75rem;
+        }
+
+
+        
+        /* Highlighted 'Bestseller' column */
+        .highlight-col {
+            background-color: var(--white);
+        }
+
+        .footer {
+            background: var(--gray-100);
+            color: var(--gray-600);
+            padding: 1rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .price-note {
+            text-align: right;
+            color: var(--gray-400);
+            font-size: 0.8rem;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 1rem 0.5rem; }
+            .table-container { padding: 1rem; }
+            .product-table th, .product-table td { padding: 1rem 0.75rem; }
+            .price-display { font-size: 1.5rem; }
+            .combo-price { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="table-container">
+            <table class="product-table">
+                <thead>
+                    <tr>
+                        <th class="feature-header">Leistungen</th>
+                                                 <th class="plan-header">
+                             <div class="product-name">Express</div>
+                             <div class="product-subtext">Schnelle Teilauszahlung</div>
+                         </th>
+                         <th class="plan-header highlight-col">
+                              <div class="bestseller-badge">Bestseller</div>
+                             <div class="product-name">Klassik</div>
+                             <div class="product-subtext">Maximale Auszahlung</div>
+                         </th>
+                    </tr>
+                </thead>
+                <tbody>
+                                         <tr>
+                         <td class="row-label">Prämie für 2025</td>
+                         <td>
+                             <div class="price-display">100€*</div>
+                         </td>
+                         <td class="highlight-col">
+                             <div class="price-display">120€*</div>
+                         </td>
+                     </tr>
+                     <tr>
+                         <td class="row-label">Prämie für 2026</td>
+                         <td>
+                             <div class="price-display">100€*</div>
+                         </td>
+                         <td class="highlight-col">
+                             <div class="price-display">120€*</div>
+                         </td>
+                     </tr>
+                                          <tr>
+                         <td class="row-label">Auszahlungszeitpunkt</td>
+                         <td>
+                             <div class="payout-info">
+                                 <div class="payout-primary">2025: 100% innerhalb einer Woche</div>
+                                 <div class="payout-secondary">2026: 50% innerhalb einer Woche + 50% nach Zertifizierung</div>
+                             </div>
+                         </td>
+                         <td class="highlight-col">
+                             <div class="payout-info">
+                                 <div class="payout-primary">Jedes Jahr direkt nach Zertifizierung</div>
+                             </div>
+                         </td>
+                     </tr>
+                                                              <tr class="combo-section">
+                           <td class="row-label" style="background:transparent;">
+                              <strong>Kombinationsangebot</strong>
+                              <div class="product-subtext">Beide Jahre zusammen sichern</div>
+                          </td>
+                          <td>
+                              <div class="combo-price">220€*</div>
+                              <div class="combo-bonus">+20€ Bonus inklusive</div>
+                          </td>
+                          <td class="highlight-col">
+                               <div class="combo-price">260€*</div>
+                               <div class="combo-bonus">+20€ Bonus inklusive</div>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td></td>
+                          <td colspan="2" style="text-align: right; padding: 0.5rem 1rem;">
+                              <div class="price-note">* Preisberechnung basiert auf PKW (M1)</div>
+                          </td>
+                      </tr>
+                    
+                </tbody>
+                         </table>
+         </div>
+         
+         <div class="footer">
+             <p>© 2025 Carbonify GmbH - Alle Rechte vorbehalten.</p>
+         </div>
+    </div>
+</body>
+</html>
+

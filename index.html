@@ -176,6 +176,36 @@
         margin-top: 0.5rem;
         font-size: 0.875rem;
       }
+      
+      .table-view-toggle {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-top: 0.5rem;
+        font-size: 0.875rem;
+      }
+      
+      .view-toggle-btn {
+        padding: 0.5rem 1rem;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--text);
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.875rem;
+        transition: all 0.2s ease;
+      }
+      
+      .view-toggle-btn:hover {
+        background: var(--primary-blue-light);
+        border-color: var(--brand);
+      }
+      
+      .view-toggle-btn.active {
+        background: var(--brand);
+        color: var(--surface);
+        border-color: var(--brand);
+      }
       .toggle-switch {
         position: relative;
         width: 44px;
@@ -1382,6 +1412,75 @@
           border-right: 6px solid transparent;
         }
       }
+      
+      /* Mobile Table Styles */
+      @media (max-width: 768px) {
+        .main-container {
+          display: none !important;
+        }
+        
+        .mobile-table-container {
+          display: block !important;
+        }
+        
+        .table-cta {
+          margin-bottom: 1rem;
+        }
+      }
+      
+      @media (min-width: 769px) {
+        .mobile-table-container {
+          display: none !important;
+        }
+        
+        .main-container {
+          display: block !important;
+        }
+      }
+      
+      /* Mobile Plan Card Hover Effects */
+      .mobile-plan-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      
+      .mobile-plan-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+      }
+      
+      /* Mobile Table Container Spacing */
+      .mobile-table-container .container {
+        padding: 0 1rem;
+      }
+      
+      .mobile-table-container .section-header {
+        margin-bottom: 2rem;
+      }
+      
+      /* Mobile Plan Card Responsive Adjustments */
+      @media (max-width: 480px) {
+        .mobile-plan-card {
+          margin-bottom: 1rem;
+        }
+        
+        .mobile-plan-card .plan-header {
+          padding: 1rem;
+        }
+        
+        .mobile-plan-card .plan-content {
+          padding: 1rem;
+        }
+        
+        .price-row {
+          flex-direction: column;
+          align-items: flex-start !important;
+          gap: 0.5rem;
+        }
+        
+        .combo-section {
+          padding: 0.75rem;
+        }
+      }
     </style>
   </head>
   <body>
@@ -1405,6 +1504,11 @@
             id="mobileToggle"
             title="Mobile Ansicht ein-/ausschalten"
           ></div>
+        </div>
+        <div class="table-view-toggle">
+          <span>Table View:</span>
+          <button id="desktopViewBtn" class="view-toggle-btn active">Desktop</button>
+          <button id="mobileViewBtn" class="view-toggle-btn">Mobile</button>
         </div>
       </div>
     </header>
@@ -1610,7 +1714,10 @@
          </div>
              </div>
      </div>
-
+    </div> <!-- Close hero-container -->
+  </div> <!-- Close hero-content-left -->
+</div> <!-- Close hero-main-content -->
+</div> <!-- Close hero-section -->
            <!-- Product Options Table Section -->
      <section class="product-options-section" style="padding: 4rem 2rem; background: var(--bg);">
        <div class="container" style="max-width: 1200px; margin: 0 auto;">
@@ -1624,80 +1731,164 @@
              <table class="product-table" style="width: 100%; border-collapse: collapse; font-size: 1rem; background: var(--surface);">
                <thead>
                  <tr>
-                   <th class="feature-header" style="text-align: left; font-size: 1.5rem; font-weight: 700; color: var(--text); width: 30%; border-bottom: 1px solid var(--border); padding: 1.5rem 1rem;">Leistungen</th>
+                   <th class="feature-header" style="text-align: left; font-size: 1.5rem; font-weight: 700; color: var(--text); width: 30%; border-bottom: 1px solid var(--border); padding: 1.5rem 1rem;">THG-Prämienangebot</th>
                    <th class="plan-header" style="position: relative; border-bottom: 1px solid var(--border); padding: 1.5rem 1rem;">
                      <div class="product-name" style="font-size: 1.5rem; font-weight: 700; color: var(--brand); display: flex; align-items: center; justify-content: center; gap: 0.5rem;">Express</div>
-                     <div class="product-subtext" style="font-size: 0.9rem; color: var(--muted); margin-top: 0.5rem;">Schnelle Teilauszahlung</div>
+                     <div class="product-subtext" style="font-size: 0.9rem; color: var(--muted); margin-top: 0.5rem;">Schnelle Auszahlung</div>
                    </th>
                    <th class="plan-header highlight-col" style="position: relative; border-bottom: 1px solid var(--border); padding: 1.5rem 1rem; background-color: var(--surface);">
-                     <div class="bestseller-badge" style="background-color: var(--brand); color: var(--surface); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; position: absolute; top: -15px; left: 50%; transform: translateX(-50%); box-shadow: 0 4px 10px rgba(59, 130, 246, 0.2);">Bestseller</div>
-                     <div class="product-name" style="font-size: 1.5rem; font-weight: 700; color: var(--brand); display: flex; align-items: center; justify-content: center; gap: 0.5rem;">Klassik</div>
-                     <div class="product-subtext" style="font-size: 0.9rem; color: var(--muted); margin-top: 0.5rem;">Maximale Auszahlung</div>
-                   </th>
+                    <div class="product-name" style="font-size: 1.5rem; font-weight: 700; color: var(--brand); display: flex; align-items: center; justify-content: center; gap: 0.5rem;">Klassik</div>
+                    <div class="product-subtext" style="font-size: 0.9rem; color: var(--muted); margin-top: 0.5rem;">Maximale Auszahlung</div>
+                  </th>
                  </tr>
                </thead>
                <tbody>
                  <tr style="border-bottom: 1px solid var(--border); transition: background-color 0.2s ease;">
-                   <td class="row-label" style="text-align: left; font-weight: 600; color: var(--text); background: var(--surface); padding: 1.5rem 1rem;">Prämie für 2025</td>
+                   <td class="row-label" style="text-align: left; font-weight: 600; color: var(--text); background: var(--surface); padding: 1.5rem 1rem;">THG-Prämie für 2025</td>
                    <td style="padding: 1.5rem 1rem; text-align: center; vertical-align: middle;">
-                     <div class="price-display" style="font-size: 1.75rem; font-weight: 700; color: var(--text);">80€<sup style="font-size: 0.6em; vertical-align: super;">*</sup></div>
+                     <div class="price-display" style="font-size: 1.75rem; font-weight: 700; color: var(--text);">80€<sup style="font-size: 0.6em; vertical-align: super;"></sup></div>
                    </td>
                    <td class="highlight-col" style="padding: 1.5rem 1rem; text-align: center; vertical-align: middle; background-color: var(--surface);">
-                     <div class="price-display" style="font-size: 1.75rem; font-weight: 700; color: var(--text);">100€<sup style="font-size: 0.6em; vertical-align: super;">*</sup></div>
+                     <div class="price-display" style="font-size: 1.75rem; font-weight: 700; color: var(--text);">100€<sup style="font-size: 0.6em; vertical-align: super;"></sup></div>
                    </td>
                  </tr>
                  <tr style="border-bottom: 1px solid var(--border); transition: background-color 0.2s ease;">
-                   <td class="row-label" style="text-align: left; font-weight: 600; color: var(--text); background: var(--surface); padding: 1.5rem 1rem;">Prämie für 2026</td>
+                   <td class="row-label" style="text-align: left; font-weight: 600; color: var(--text); background: var(--surface); padding: 1.5rem 1rem;">THG-Prämie für 2026</td>
                    <td style="padding: 1.5rem 1rem; text-align: center; vertical-align: middle;">
-                     <div class="price-display" style="font-size: 1.75rem; font-weight: 700; color: var(--text);">100€<sup style="font-size: 0.6em; vertical-align: super;">*</sup></div>
+                     <div class="price-display" style="font-size: 1.75rem; font-weight: 700; color: var(--text);">100€<sup style="font-size: 0.6em; vertical-align: super;"></sup></div>
                    </td>
                    <td class="highlight-col" style="padding: 1.5rem 1rem; text-align: center; vertical-align: middle; background-color: var(--surface);">
-                     <div class="price-display" style="font-size: 1.75rem; font-weight: 700; color: var(--text);">120€<sup style="font-size: 0.6em; vertical-align: super;">*</sup></div>
+                     <div class="price-display" style="font-size: 1.75rem; font-weight: 700; color: var(--text);">120€<sup style="font-size: 0.6em; vertical-align: super;"></sup></div>
                    </td>
                  </tr>
                  <tr style="border-bottom: 1px solid var(--border); transition: background-color 0.2s ease;">
                    <td class="row-label" style="text-align: left; font-weight: 600; color: var(--text); background: var(--surface); padding: 1.5rem 1rem;">Auszahlungszeitpunkt</td>
                    <td style="padding: 1.5rem 1rem; text-align: center; vertical-align: middle;">
                      <div class="payout-info" style="line-height: 1.5;">
-                       <div class="payout-primary" style="font-weight: 600; color: var(--text);">2025: 100% innerhalb einer Woche</div>
-                       <div class="payout-secondary" style="font-size: 0.9rem; color: var(--muted);">2026: 50% innerhalb einer Woche + 50% nach Zertifizierung</div>
+                       <div class="payout-primary" style="font-weight: 600; color: var(--text);">2025: innerhalb einer Woche</div>
+                       <div class="payout-primary" style="font-weight: 600; color: var(--text);">2026: 50% innerhalb einer Woche; 50% nach UBA-Zertifizierung</div>
                      </div>
                    </td>
                    <td class="highlight-col" style="padding: 1.5rem 1rem; text-align: center; vertical-align: middle; background-color: var(--surface);">
                      <div class="payout-info" style="line-height: 1.5;">
-                       <div class="payout-primary" style="font-weight: 600; color: var(--text);">Jedes Jahr direkt nach Zertifizierung</div>
+                       <div class="payout-primary" style="font-weight: 600; color: var(--text);">2025 & 2026: direkt nach UBA-Zertifizierung</div>
                      </div>
                    </td>
                  </tr>
                                    <tr class="combo-section" style="background-color: var(--primary-blue-light); padding-top: 2rem; padding-bottom: 2rem; border-bottom: none;">
                     <td class="row-label" style="background: transparent; padding: 1.5rem 1rem; text-align: left; font-weight: 600; color: var(--text);">
                       <strong>Kombinationsangebot</strong>
-                      <div class="product-subtext" style="font-size: 0.9rem; color: var(--muted); margin-top: 0.5rem;">Beide Jahre zusammen sichern</div>
+                      <div class="product-subtext" style="font-size: 0.9rem; color: var(--muted); margin-top: 0.5rem;">Sichere dir die THG-Prämie für 2025 und 2026 im Paket und erhalte einen Bonus
+                      </div>
                     </td>
                     <td style="padding: 1.5rem 1rem; text-align: center; vertical-align: middle;">
-                      <div class="combo-price" style="font-size: 2.25rem; font-weight: 800; color: var(--brand);">200€<sup style="font-size: 0.6em; vertical-align: super;">*</sup></div>
-                      <div class="combo-bonus" style="background: var(--brand); color: var(--surface); padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; display: inline-block; margin-top: 0.75rem;">+20€ Bonus inklusive</div>
+                      <div class="combo-price" style="font-size: 2.25rem; font-weight: 800; color: var(--brand);">200€<sup style="font-size: 0.6em; vertical-align: super;"></sup></div>
+                      <div class="combo-bonus" style="background: var(--brand); color: var(--surface); padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; display: inline-block; margin-top: 0.75rem;">inkl. 20€ Bonus</div>
                     </td>
                     <td class="highlight-col" style="padding: 1.5rem 1rem; text-align: center; vertical-align: middle; background-color: var(--primary-blue-light);">
-                      <div class="combo-price" style="font-size: 2.25rem; font-weight: 800; color: var(--brand);">240€<sup style="font-size: 0.6em; vertical-align: super;">*</sup></div>
-                      <div class="combo-bonus" style="background: var(--brand); color: var(--surface); padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; display: inline-block; margin-top: 0.75rem;">+20€ Bonus inklusive</div>
+                      <div class="combo-price" style="font-size: 2.25rem; font-weight: 800; color: var(--brand);">240€<sup style="font-size: 0.6em; vertical-align: super;"></sup></div>
+                      <div class="combo-bonus" style="background: var(--brand); color: var(--surface); padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; display: inline-block; margin-top: 0.75rem;">inkl. 20€ Bonus</div>
                     </td>
                   </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td style="text-align: right; padding: 0.5rem 1rem;">
-                      <div class="price-note" style="color: var(--muted); font-size: 0.8rem; font-style: italic;">* Basierend auf PKW (M1)</div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+                                     <tr>
+                     <td></td>
+                     <td></td>
+                     <td style="text-align: right; padding: 0.5rem 1rem;">
+                       <div class="price-note" style="color: var(--muted); font-size: 0.8rem; font-style: italic;">Basierend auf PKW (M1)</div>
+                     </td>
+                   </tr>
+                 </tbody>
+               </table>
+             </div>
+             
+             </div>
+           </div>
          </div>
-       </div>
-     </section>
+         
+         <!-- CTA Button Section - Outside the table card -->
+         <div class="table-cta" style="text-align: center; padding: 2rem 1rem 1rem 1rem;">
+           <button class="cta-button-table" style="background: var(--brand); color: var(--surface); border: none; padding: 1rem 2.5rem; border-radius: 12px; font-weight: 600; font-size: 1.125rem; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 16px rgba(59, 130, 246, 0.25);">
+             Jetzt Tarif auswählen & Prämie sichern
+           </button>
+           <p style="color: var(--muted); font-size: 0.9rem; margin-top: 1rem; margin-bottom: 0;">Kostenlos und unverbindlich - in nur 2 Minuten</p>
+         </div>
+         
+         <!-- Mobile-Optimized Table Version -->
+         <div class="mobile-table-container" style="display: none; margin-top: 2rem;">
+           <div class="container" style="max-width: 1200px; margin: 0 auto;">
+             <div class="section-header" style="text-align: center; margin-bottom: 2rem;">
+               <h3 style="font-size: 1.5rem; font-weight: 600; color: var(--text); margin-bottom: 0.5rem;">Mobile Ansicht - Tarife im Vergleich</h3>
+               <p style="font-size: 1rem; color: var(--muted);">Optimiert für mobile Geräte</p>
+             </div>
+             
+             <!-- Express Plan Card -->
+             <div class="mobile-plan-card" style="background: var(--surface); border-radius: 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); border: 1px solid var(--border); margin-bottom: 1.5rem; overflow: hidden;">
+               <div class="plan-header" style="background: var(--brand); color: var(--surface); padding: 1.5rem; text-align: center;">
+                 <h4 style="margin: 0 0 0.5rem 0; font-size: 1.5rem; font-weight: 700;">Express</h4>
+                 <p style="margin: 0; opacity: 0.9; font-size: 0.9rem;">Schnelle Auszahlung</p>
+               </div>
+               <div class="plan-content" style="padding: 1.5rem;">
+                 <div class="price-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding: 0.75rem 0; border-bottom: 1px solid var(--border);">
+                   <span style="font-weight: 600; color: var(--text);">THG-Prämie 2025:</span>
+                   <span style="font-size: 1.25rem; font-weight: 700; color: var(--text);">80€<sup style="font-size: 0.6em; vertical-align: super;"></sup></span>
+                 </div>
+                 <div class="price-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding: 0.75rem 0; border-bottom: 1px solid var(--border);">
+                   <span style="font-weight: 600; color: var(--text);">THG-Prämie 2026:</span>
+                   <span style="font-size: 1.25rem; font-weight: 700; color: var(--text);">100€<sup style="font-size: 0.6em; vertical-align: super;"></sup></span>
+                 </div>
+                 <div class="payout-info" style="margin-bottom: 1rem; padding: 0.75rem 0;">
+                   <div style="font-weight: 600; color: var(--text); margin-bottom: 0.5rem;">Auszahlungzeitpunkt:</div>
+                   <div style="font-size: 0.9rem; color: var(--muted); line-height: 1.4;">
+                     2025: 100% innerhalb einer Woche<br>
+                     2026: 50% innerhalb einer Woche; 50% nach UBA-Zertifizierung
+                   </div>
+                 </div>
+                 <div class="combo-section" style="background: var(--primary-blue-light); padding: 1rem; border-radius: 12px; text-align: center; margin-top: 1rem;">
+                   <div style="font-weight: 600; color: var(--text); margin-bottom: 0.5rem;">Kombinationsangebot</div>
+                   <div style="font-size: 1.5rem; font-weight: 800; color: var(--brand); margin-bottom: 0.5rem;">200€<sup style="font-size: 0.6em; vertical-align: super;"></sup></div>
+                   <div style="background: var(--brand); color: var(--surface); padding: 0.3rem 0.8rem; border-radius: 16px; font-size: 0.8rem; font-weight: 600; display: inline-block;">inkl. 20€ Bonus</div>
+                 </div>
+               </div>
+             </div>
+             
+             <!-- Klassik Plan Card -->
+             <div class="mobile-plan-card" style="background: var(--surface); border-radius: 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); border: 1px solid var(--border); margin-bottom: 1.5rem; overflow: hidden;">
+              <div class="plan-header" style="background: var(--brand); color: var(--surface); padding: 1.5rem; text-align: center; position: relative;">
+                <h4 style="margin: 0 0 0.5rem 0; font-size: 1.5rem; font-weight: 700;">Klassik</h4>
+                <p style="margin: 0; opacity: 0.9; font-size: 0.9rem;">Maximale Auszahlung</p>
+              </div>
+               <div class="plan-content" style="padding: 1.5rem;">
+                 <div class="price-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding: 0.75rem 0; border-bottom: 1px solid var(--border);">
+                   <span style="font-weight: 600; color: var(--text);">Prämie 2025:</span>
+                   <span style="font-size: 1.25rem; font-weight: 700; color: var(--text);">100€<sup style="font-size: 0.6em; vertical-align: super;"></sup></span>
+                 </div>
+                 <div class="price-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding: 0.75rem 0; border-bottom: 1px solid var(--border);">
+                   <span style="font-weight: 600; color: var(--text);">Prämie 2026:</span>
+                   <span style="font-size: 1.25rem; font-weight: 700; color: var(--text);">120€<sup style="font-size: 0.6em; vertical-align: super;"></sup></span>
+                 </div>
+                 <div class="payout-info" style="margin-bottom: 1rem; padding: 0.75rem 0;">
+                   <div style="font-weight: 600; color: var(--text); margin-bottom: 0.5rem;">Auszahlungszeitpunkt:</div>
+                   <div style="font-size: 0.9rem; color: var(--muted); line-height: 1.4;">
+                     2025 & 2026: direkt nach UBA-Zertifizierung
+                   </div>
+                 </div>
+                 <div class="combo-section" style="background: var(--primary-blue-light); padding: 1rem; border-radius: 12px; text-align: center; margin-top: 1rem;">
+                   <div style="font-weight: 600; color: var(--text); margin-bottom: 0.5rem;">Kombinationsangebot</div>
+                   <div style="font-size: 1.5rem; font-weight: 800; color: var(--brand); margin-bottom: 0.5rem;">240€<sup style="font-size: 0.6em; vertical-align: super;"></sup></div>
+                   <div style="background: var(--brand); color: var(--surface); padding: 0.3rem 0.8rem; border-radius: 16px; font-size: 0.8rem; font-weight: 600; display: inline-block;">inkl. 20€ Bonus</div>
+                 </div>
+               </div>
+             </div>
+             
+             <!-- Price Note -->
+             <div style="text-align: center; padding: 1rem; color: var(--muted); font-size: 0.8rem; font-style: italic;">
+               Basierend auf PKW (M1)
+             </div>
+           </div>
+         </div>
+       </section>
 
-     <main
+           <main
        class="container"
        id="views"
        style="padding-top: 2rem;"
@@ -1898,6 +2089,29 @@
       bonusToggle.addEventListener('click', () => {
         bonusEnabled = !bonusEnabled;
         bonusToggle.classList.toggle('active', bonusEnabled);
+      });
+      
+      // Table view toggle functionality
+      const desktopViewBtn = document.getElementById('desktopViewBtn');
+      const mobileViewBtn = document.getElementById('mobileViewBtn');
+      const mainContainer = document.querySelector('.main-container');
+      const mobileTableContainer = document.querySelector('.mobile-table-container');
+      
+      if (desktopViewBtn && mobileViewBtn) {
+        desktopViewBtn.addEventListener('click', () => {
+          desktopViewBtn.classList.add('active');
+          mobileViewBtn.classList.remove('active');
+          if (mainContainer) mainContainer.style.display = 'block';
+          if (mobileTableContainer) mobileTableContainer.style.display = 'none';
+        });
+        
+        mobileViewBtn.addEventListener('click', () => {
+          mobileViewBtn.classList.add('active');
+          desktopViewBtn.classList.remove('active');
+          if (mainContainer) mainContainer.style.display = 'none';
+          if (mobileTableContainer) mobileTableContainer.style.display = 'block';
+        });
+      }
 
         // Send message to all iframes
         const iframes = document.querySelectorAll('iframe');
@@ -1942,8 +2156,6 @@
           }
         });
       });
-
-      
 
       // Listen for messages from iframes
       window.addEventListener('message', (event) => {
@@ -2196,9 +2408,6 @@
         // Info box functionality disabled - will be replaced with image later
         console.log('Info box positioning disabled - will be replaced with image later');
         return;
-        
-        // All info box functionality commented out - will be replaced with image later
-        */
       }
 
       // Inject styles when iframes load

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carbonify Product Table - MUI Style Preview</title>
+    
+    <!-- MUI CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/@mui/material@latest/dist/material.min.css">
+    
+    <!-- Google Fonts for MUI -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        .preview-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .preview-header {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .preview-header h1 {
+            margin: 0 0 0.5rem 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        
+        .preview-header p {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .mui-table-container {
+            padding: 2rem;
+        }
+        
+        .bestseller-badge {
+            background: #3b82f6;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 16px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+        
+        .combo-section {
+            background: rgba(59, 130, 246, 0.08) !important;
+        }
+        
+        .price-display {
+            font-size: 1.75rem !important;
+            font-weight: 700 !important;
+            color: #1f2937 !important;
+        }
+        
+        .combo-price {
+            font-size: 2.25rem !important;
+            font-weight: 800 !important;
+            color: #3b82f6 !important;
+        }
+        
+        .combo-bonus {
+            background: #3b82f6;
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 0.75rem;
+        }
+        
+        .cta-section {
+            text-align: center;
+            padding: 2rem;
+            background: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .cta-button {
+            background: #3b82f6 !important;
+            color: white !important;
+            padding: 1rem 2.5rem !important;
+            border-radius: 12px !important;
+            font-weight: 600 !important;
+            font-size: 1.125rem !important;
+            text-transform: none !important;
+            box-shadow: 0 4px 16px rgba(59, 130, 246, 0.25) !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .cta-button:hover {
+            background: #2563eb !important;
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.35) !important;
+            transform: translateY(-2px) !important;
+        }
+        
+        .price-note {
+            color: #6b7280;
+            font-size: 0.8rem;
+            font-style: italic;
+            text-align: right;
+        }
+        
+        .feature-label {
+            font-weight: 600;
+            color: #1f2937;
+        }
+        
+        .payout-info {
+            line-height: 1.5;
+        }
+        
+        .payout-primary {
+            font-weight: 600;
+            color: #1f2937;
+        }
+        
+        .payout-secondary {
+            font-size: 0.9rem;
+            color: #6b7280;
+        }
+        
+        .product-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #3b82f6;
+        }
+        
+        .product-subtext {
+            font-size: 0.9rem;
+            color: #6b7280;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="preview-container">
+        <div class="preview-header">
+            <h1>Carbonify Product Table - MUI Style Preview</h1>
+            <p>This is a preview of how the table would look with Material-UI styling</p>
+        </div>
+        
+        <div class="mui-table-container">
+            <!-- MUI Table Structure -->
+            <div class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1" style="border-radius: 16px; overflow: hidden;">
+                <div class="MuiTableContainer-root">
+                    <table class="MuiTable-root" style="min-width: 650px;">
+                        <thead class="MuiTableHead-root">
+                            <tr class="MuiTableRow-root MuiTableRow-head">
+                                <th class="MuiTableCell-root MuiTableCell-head" style="width: 30%; padding: 1.5rem 1rem; border-bottom: 1px solid #e5e7eb;">
+                                    <div class="MuiTypography-root MuiTypography-h5" style="font-weight: 700; color: #1f2937;">
+                                        Leistungen
+                                    </div>
+                                </th>
+                                <th class="MuiTableCell-root MuiTableCell-head" style="padding: 1.5rem 1rem; border-bottom: 1px solid #e5e7eb; text-align: center;">
+                                    <div class="product-name">Express</div>
+                                    <div class="product-subtext">Schnelle Teilauszahlung</div>
+                                </th>
+                                <th class="MuiTableCell-root MuiTableCell-head" style="padding: 1.5rem 1rem; border-bottom: 1px solid #e5e7eb; text-align: center; position: relative;">
+                                    <div class="bestseller-badge">Bestseller</div>
+                                    <div class="product-name">Klassik</div>
+                                    <div class="product-subtext">Maximale Auszahlung</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="MuiTableBody-root">
+                            <tr class="MuiTableRow-root">
+                                <td class="MuiTableCell-root feature-label" style="padding: 1.5rem 1rem; border-bottom: 1px solid #e5e7eb;">
+                                    Prämie für 2025
+                                </td>
+                                <td class="MuiTableCell-root" style="padding: 1.5rem 1rem; text-align: center; border-bottom: 1px solid #e5e7eb;">
+                                    <div class="price-display">100€<sup style="font-size: 0.6em; vertical-align: super;">*</sup></div>
+                                </td>
+                                <td class="MuiTableCell-root" style="padding: 1.5rem 1rem; text-align: center; border-bottom: 1px solid #e5e7eb;">
+                                    <div class="price-display">120€<sup style="font-size: 0.6em; vertical-align: super;">*</sup></div>
+                                </td>
+                            </tr>
+                            <tr class="MuiTableRow-root">
+                                <td class="MuiTableCell-root feature-label" style="padding: 1.5rem 1rem; border-bottom: 1px solid #e5e7eb;">
+                                    Prämie für 2026
+                                </td>
+                                <td class="MuiTableCell-root" style="padding: 1.5rem 1rem; text-align: center; border-bottom: 1px solid #e5e7eb;">
+                                    <div class="price-display">100€<sup style="font-size: 0.6em; vertical-align: super;">*</sup></div>
+                                </td>
+                                <td class="MuiTableCell-root" style="padding: 1.5rem 1rem; text-align: center; border-bottom: 1px solid #e5e7eb;">
+                                    <div class="price-display">120€<sup style="font-size: 0.6em; vertical-align: super;">*</sup></div>
+                                </td>
+                            </tr>
+                            <tr class="MuiTableRow-root">
+                                <td class="MuiTableCell-root feature-label" style="padding: 1.5rem 1rem; border-bottom: 1px solid #e5e7eb;">
+                                    Auszahlungszeitpunkt
+                                </td>
+                                <td class="MuiTableCell-root" style="padding: 1.5rem 1rem; text-align: center; border-bottom: 1px solid #e5e7eb;">
+                                    <div class="payout-info">
+                                        <div class="payout-primary">2025: 100% innerhalb einer Woche</div>
+                                        <div class="payout-secondary">2026: 50% innerhalb einer Woche + 50% nach Zertifizierung</div>
+                                    </div>
+                                </td>
+                                <td class="MuiTableCell-root" style="padding: 1.5rem 1rem; text-align: center; border-bottom: 1px solid #e5e7eb;">
+                                    <div class="payout-info">
+                                        <div class="payout-primary">Jedes Jahr direkt nach Zertifizierung</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="MuiTableRow-root combo-section">
+                                <td class="MuiTableCell-root feature-label" style="padding: 1.5rem 1rem; background: transparent;">
+                                    <strong>Kombinationsangebot</strong>
+                                    <div class="product-subtext">Beide Jahre zusammen sichern</div>
+                                </td>
+                                <td class="MuiTableCell-root" style="padding: 1.5rem 1rem; text-align: center;">
+                                    <div class="combo-price">220€<sup style="font-size: 0.6em; vertical-align: super;">*</sup></div>
+                                    <div class="combo-bonus">+20€ Bonus inklusive</div>
+                                </td>
+                                <td class="MuiTableCell-root" style="padding: 1.5rem 1rem; text-align: center;">
+                                    <div class="combo-price">260€<sup style="font-size: 0.6em; vertical-align: super;">*</sup></div>
+                                    <div class="combo-bonus">+20€ Bonus inklusive</div>
+                                </td>
+                            </tr>
+                            <tr class="MuiTableRow-root">
+                                <td class="MuiTableCell-root"></td>
+                                <td class="MuiTableCell-root"></td>
+                                <td class="MuiTableCell-root" style="text-align: right; padding: 0.5rem 1rem;">
+                                    <div class="price-note">* Basierend auf PKW (M1)</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- CTA Section -->
+            <div class="cta-section">
+                <button class="MuiButton-root MuiButton-contained MuiButton-containedPrimary cta-button">
+                    Jetzt Tarif auswählen & Prämie sichern
+                </button>
+                <p style="color: #6b7280; font-size: 0.9rem; margin-top: 1rem; margin-bottom: 0;">
+                    Kostenlos und unverbindlich - in nur 2 Minuten
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- MUI JavaScript (optional, for enhanced interactions) -->
+    <script src="https://unpkg.com/@mui/material@latest/dist/material.min.js"></script>
+</body>
+</html>
