@@ -1413,6 +1413,24 @@
         }
       }
       
+      /* Table Font Styles - Ensure Inter font across all table elements */
+      .product-options-section,
+      .product-options-section *,
+      .main-container,
+      .main-container *,
+      .mobile-table-container,
+      .mobile-table-container *,
+      .product-table,
+      .product-table *,
+      .table-container,
+      .table-container *,
+      .section-header,
+      .section-header *,
+      .table-cta,
+      .table-cta * {
+        font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
+      }
+
       /* Mobile Table Styles */
       @media (max-width: 768px) {
         .main-container {
@@ -1731,7 +1749,7 @@
              <table class="product-table" style="width: 100%; border-collapse: collapse; font-size: 1rem; background: var(--surface);">
                <thead>
                  <tr>
-                   <th class="feature-header" style="text-align: left; font-size: 1.5rem; font-weight: 700; color: var(--text); width: 30%; border-bottom: 1px solid var(--border); padding: 1.5rem 1rem;">THG-Prämienangebot</th>
+                   <th class="feature-header" style="text-align: left; font-size: 1.5rem; font-weight: 700; color: var(--text); width: 30%; border-bottom: 1px solid var(--border); padding: 1.5rem 1rem;"></th>
                    <th class="plan-header" style="position: relative; border-bottom: 1px solid var(--border); padding: 1.5rem 1rem;">
                      <div class="product-name" style="font-size: 1.5rem; font-weight: 700; color: var(--brand); display: flex; align-items: center; justify-content: center; gap: 0.5rem;">Express</div>
                      <div class="product-subtext" style="font-size: 0.9rem; color: var(--muted); margin-top: 0.5rem;">Schnelle Auszahlung</div>
@@ -1744,7 +1762,7 @@
                </thead>
                <tbody>
                  <tr style="border-bottom: 1px solid var(--border); transition: background-color 0.2s ease;">
-                   <td class="row-label" style="text-align: left; font-weight: 600; color: var(--text); background: var(--surface); padding: 1.5rem 1rem;">THG-Prämie für 2025</td>
+                   <td class="row-label" style="text-align: left; font-weight: 600; color: var(--text); background: var(--surface); padding: 1.5rem 1rem;">THG-Prämie 2025</td>
                    <td style="padding: 1.5rem 1rem; text-align: center; vertical-align: middle;">
                      <div class="price-display" style="font-size: 1.75rem; font-weight: 700; color: var(--text);">80€<sup style="font-size: 0.6em; vertical-align: super;"></sup></div>
                    </td>
@@ -1753,7 +1771,7 @@
                    </td>
                  </tr>
                  <tr style="border-bottom: 1px solid var(--border); transition: background-color 0.2s ease;">
-                   <td class="row-label" style="text-align: left; font-weight: 600; color: var(--text); background: var(--surface); padding: 1.5rem 1rem;">THG-Prämie für 2026</td>
+                   <td class="row-label" style="text-align: left; font-weight: 600; color: var(--text); background: var(--surface); padding: 1.5rem 1rem;">THG-Prämie 2026</td>
                    <td style="padding: 1.5rem 1rem; text-align: center; vertical-align: middle;">
                      <div class="price-display" style="font-size: 1.75rem; font-weight: 700; color: var(--text);">100€<sup style="font-size: 0.6em; vertical-align: super;"></sup></div>
                    </td>
@@ -1761,42 +1779,46 @@
                      <div class="price-display" style="font-size: 1.75rem; font-weight: 700; color: var(--text);">120€<sup style="font-size: 0.6em; vertical-align: super;"></sup></div>
                    </td>
                  </tr>
+                 <tr class="combo-section" style="background-color: var(--primary-blue-light); padding-top: 2rem; padding-bottom: 2rem; border-bottom: none;">
+                  <td class="row-label" style="background: transparent; padding: 1.5rem 1rem; text-align: left; font-weight: 600; color: var(--text);">
+                    <strong>THG-Kombiprämie 2025 & 2026</strong>
+                    <div class="product-subtext" style="font-size: 0.9rem; color: var(--muted); margin-top: 0.5rem;">Sichere dir die THG-Prämie für 2025 und 2026 im Paket und erhalte einen Bonus
+                    </div>
+                  </td>
+                  <td style="padding: 1.5rem 1rem; text-align: center; vertical-align: middle;">
+                    <div class="combo-price" style="font-size: 2.25rem; font-weight: 800; color: var(--brand);">200€<sup style="font-size: 0.6em; vertical-align: super;"></sup></div>
+                    <div class="combo-bonus" style="background: var(--brand); color: var(--surface); padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; display: inline-block; margin-top: 0.75rem;">inkl. 20€ Kombivorteil</div>
+                  </td>
+                  <td class="highlight-col" style="padding: 1.5rem 1rem; text-align: center; vertical-align: middle; background-color: var(--primary-blue-light);">
+                    <div class="combo-price" style="font-size: 2.25rem; font-weight: 800; color: var(--brand);">240€<sup style="font-size: 0.6em; vertical-align: super;"></sup></div>
+                    <div class="combo-bonus" style="background: var(--brand); color: var(--surface); padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; display: inline-block; margin-top: 0.75rem;">inkl. 20€ Kombivorteil</div>
+                  </td>
+                </tr>
+                     
                  <tr style="border-bottom: 1px solid var(--border); transition: background-color 0.2s ease;">
-                   <td class="row-label" style="text-align: left; font-weight: 600; color: var(--text); background: var(--surface); padding: 1.5rem 1rem;">Auszahlungszeitpunkt</td>
+                   <td class="row-label" style="text-align: left; font-weight: 600; color: var(--text); background: var(--surface); padding: 1.5rem 1rem;">Auszahlungszeiträume</td>
                    <td style="padding: 1.5rem 1rem; text-align: center; vertical-align: middle;">
                      <div class="payout-info" style="line-height: 1.5;">
                        <div class="payout-primary" style="font-weight: 600; color: var(--text);">2025: innerhalb einer Woche</div>
-                       <div class="payout-primary" style="font-weight: 600; color: var(--text);">2026: 50% innerhalb einer Woche; 50% nach UBA-Zertifizierung</div>
+                       <div class="payout-primary" style="font-weight: 600; color: var(--text);">2026: 50% innerhalb einer Woche 
+                        <div class="payout-primary" style="font-weight: 600; color: var(--text);">50% Frühjahr 2026</div>
+                       </div>
                      </div>
                    </td>
                    <td class="highlight-col" style="padding: 1.5rem 1rem; text-align: center; vertical-align: middle; background-color: var(--surface);">
                      <div class="payout-info" style="line-height: 1.5;">
-                       <div class="payout-primary" style="font-weight: 600; color: var(--text);">2025 & 2026: direkt nach UBA-Zertifizierung</div>
+                       <div class="payout-primary" style="font-weight: 600; color: var(--text);">2025: Herbst 2025 (14 Tage nach UBA-Bestätigung)</div>
+                       <div class="payout-primary" style="font-weight: 600; color: var(--text);">2026: Frühjahr 2026 (14 Tage nach UBA-Bestätigung)</div>
                      </div>
                    </td>
                  </tr>
-                                   <tr class="combo-section" style="background-color: var(--primary-blue-light); padding-top: 2rem; padding-bottom: 2rem; border-bottom: none;">
-                    <td class="row-label" style="background: transparent; padding: 1.5rem 1rem; text-align: left; font-weight: 600; color: var(--text);">
-                      <strong>Kombinationsangebot</strong>
-                      <div class="product-subtext" style="font-size: 0.9rem; color: var(--muted); margin-top: 0.5rem;">Sichere dir die THG-Prämie für 2025 und 2026 im Paket und erhalte einen Bonus
-                      </div>
-                    </td>
-                    <td style="padding: 1.5rem 1rem; text-align: center; vertical-align: middle;">
-                      <div class="combo-price" style="font-size: 2.25rem; font-weight: 800; color: var(--brand);">200€<sup style="font-size: 0.6em; vertical-align: super;"></sup></div>
-                      <div class="combo-bonus" style="background: var(--brand); color: var(--surface); padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; display: inline-block; margin-top: 0.75rem;">inkl. 20€ Bonus</div>
-                    </td>
-                    <td class="highlight-col" style="padding: 1.5rem 1rem; text-align: center; vertical-align: middle; background-color: var(--primary-blue-light);">
-                      <div class="combo-price" style="font-size: 2.25rem; font-weight: 800; color: var(--brand);">240€<sup style="font-size: 0.6em; vertical-align: super;"></sup></div>
-                      <div class="combo-bonus" style="background: var(--brand); color: var(--surface); padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; display: inline-block; margin-top: 0.75rem;">inkl. 20€ Bonus</div>
-                    </td>
-                  </tr>
-                                     <tr>
-                     <td></td>
-                     <td></td>
-                     <td style="text-align: right; padding: 0.5rem 1rem;">
-                       <div class="price-note" style="color: var(--muted); font-size: 0.8rem; font-style: italic;">Basierend auf PKW (M1)</div>
-                     </td>
-                   </tr>
+                 <tr>
+                  <td></td>
+                  <td></td>
+                  <td style="text-align: right; padding: 0.5rem 1rem;">
+                    <div class="price-note" style="color: var(--muted); font-size: 0.8rem; font-style: italic;">Basierend auf PKW (M1)</div>
+                  </td>
+                </tr>
                  </tbody>
                </table>
              </div>
@@ -1836,18 +1858,20 @@
                    <span style="font-weight: 600; color: var(--text);">THG-Prämie 2026:</span>
                    <span style="font-size: 1.25rem; font-weight: 700; color: var(--text);">100€<sup style="font-size: 0.6em; vertical-align: super;"></sup></span>
                  </div>
+                 <div class="combo-section" style="background: var(--primary-blue-light); padding: 1rem; border-radius: 12px; text-align: center; margin-top: 1rem;">
+                  <div style="font-weight: 600; color: var(--text); margin-bottom: 0.5rem;">THG-Kombiprämie 2025 & 2026</div>
+                  <div style="font-size: 1.5rem; font-weight: 800; color: var(--brand); margin-bottom: 0.5rem;">200€<sup style="font-size: 0.6em; vertical-align: super;"></sup></div>
+                  <div style="background: var(--brand); color: var(--surface); padding: 0.3rem 0.8rem; border-radius: 16px; font-size: 0.8rem; font-weight: 600; display: inline-block;">inkl. 20€ Kombivorteil</div>
+                </div>
                  <div class="payout-info" style="margin-bottom: 1rem; padding: 0.75rem 0;">
-                   <div style="font-weight: 600; color: var(--text); margin-bottom: 0.5rem;">Auszahlungzeitpunkt:</div>
+                   <div style="font-weight: 600; color: var(--text); margin-bottom: 0.5rem;">Auszahlungszeiträume:</div>
                    <div style="font-size: 0.9rem; color: var(--muted); line-height: 1.4;">
                      2025: 100% innerhalb einer Woche<br>
-                     2026: 50% innerhalb einer Woche; 50% nach UBA-Zertifizierung
+                     2026: 50% innerhalb einer Woche<br>
+                     50% Frühjahr 2026
                    </div>
                  </div>
-                 <div class="combo-section" style="background: var(--primary-blue-light); padding: 1rem; border-radius: 12px; text-align: center; margin-top: 1rem;">
-                   <div style="font-weight: 600; color: var(--text); margin-bottom: 0.5rem;">Kombinationsangebot</div>
-                   <div style="font-size: 1.5rem; font-weight: 800; color: var(--brand); margin-bottom: 0.5rem;">200€<sup style="font-size: 0.6em; vertical-align: super;"></sup></div>
-                   <div style="background: var(--brand); color: var(--surface); padding: 0.3rem 0.8rem; border-radius: 16px; font-size: 0.8rem; font-weight: 600; display: inline-block;">inkl. 20€ Bonus</div>
-                 </div>
+                
                </div>
              </div>
              
@@ -1866,18 +1890,19 @@
                    <span style="font-weight: 600; color: var(--text);">Prämie 2026:</span>
                    <span style="font-size: 1.25rem; font-weight: 700; color: var(--text);">120€<sup style="font-size: 0.6em; vertical-align: super;"></sup></span>
                  </div>
+                 <div class="combo-section" style="background: var(--primary-blue-light); padding: 1rem; border-radius: 12px; text-align: center; margin-top: 1rem;">
+                  <div style="font-weight: 600; color: var(--text); margin-bottom: 0.5rem;">THG-Kombiprämie 2025 & 2026</div>
+                  <div style="font-size: 1.5rem; font-weight: 800; color: var(--brand); margin-bottom: 0.5rem;">240€<sup style="font-size: 0.6em; vertical-align: super;"></sup></div>
+                  <div style="background: var(--brand); color: var(--surface); padding: 0.3rem 0.8rem; border-radius: 16px; font-size: 0.8rem; font-weight: 600; display: inline-block;">inkl. 20€ Kombivorteil</div>
+                </div>
                  <div class="payout-info" style="margin-bottom: 1rem; padding: 0.75rem 0;">
-                   <div style="font-weight: 600; color: var(--text); margin-bottom: 0.5rem;">Auszahlungszeitpunkt:</div>
+                   <div style="font-weight: 600; color: var(--text); margin-bottom: 0.5rem;">Auszahlungszeiträume:</div>
                    <div style="font-size: 0.9rem; color: var(--muted); line-height: 1.4;">
-                     2025 & 2026: direkt nach UBA-Zertifizierung
+                     2025: Herbst 2025 (14 Tage nach UBA-Bestätigung) <br>
+                     2026: Frühjahr 2026 (14 Tage nach UBA-Bestätigung)
                    </div>
                  </div>
-                 <div class="combo-section" style="background: var(--primary-blue-light); padding: 1rem; border-radius: 12px; text-align: center; margin-top: 1rem;">
-                   <div style="font-weight: 600; color: var(--text); margin-bottom: 0.5rem;">Kombinationsangebot</div>
-                   <div style="font-size: 1.5rem; font-weight: 800; color: var(--brand); margin-bottom: 0.5rem;">240€<sup style="font-size: 0.6em; vertical-align: super;"></sup></div>
-                   <div style="background: var(--brand); color: var(--surface); padding: 0.3rem 0.8rem; border-radius: 16px; font-size: 0.8rem; font-weight: 600; display: inline-block;">inkl. 20€ Bonus</div>
-                 </div>
-               </div>
+                </div>
              </div>
              
              <!-- Price Note -->
